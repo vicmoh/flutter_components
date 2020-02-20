@@ -1,14 +1,17 @@
-# flutter_components
+# About
 
-A new Flutter package project.
+A library containing multiple flutter components to build
+Flutter project.
 
-## Getting Started
+# Installation
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+To install this library, go to `pubspec.yml` in
+the root folder.
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+```
+dependencies:
+  flutter_components:
+    git:
+      url: git://github.com/vicmoh/flutter_components.git
+```
+
