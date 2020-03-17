@@ -20,6 +20,7 @@ class CustomDialog extends StatefulWidget {
   final double width;
   final double height;
   final bool isDoubleTapToCancel;
+  final BoxConstraints constraints;
   final _DialogType _type;
 
   /// Custom Dialog, must be wrap with [showDialog] function.
@@ -37,6 +38,7 @@ class CustomDialog extends StatefulWidget {
     this.height,
     this.width,
     this.footerChild,
+    this.constraints,
   })  : this._type = _DialogType.simple,
         this.isDoubleTapToCancel = false,
         this.bodyChild = null;
@@ -55,6 +57,7 @@ class CustomDialog extends StatefulWidget {
     this.borderRadius = 10,
     this.height,
     this.width,
+    this.constraints,
   })  : this._type = _DialogType.simple,
         this.isCenterTitle = false,
         this.isCenterBodyText = false,
@@ -65,6 +68,7 @@ class CustomDialog extends StatefulWidget {
   CustomDialog.loading({
     this.backgroundColor = Colors.white,
     this.isDoubleTapToCancel = true,
+    this.constraints,
   })  : this._type = _DialogType.loader,
         this.title = '',
         this.buttonHorizontalAlignment = MainAxisAlignment.center,
@@ -107,6 +111,7 @@ class _CustomDialogState extends State<CustomDialog> {
         child: Container(
             height: widget.height,
             width: widget.width,
+            constraints: this.widget.constraints,
             child: _innerContent()));
   }
 
