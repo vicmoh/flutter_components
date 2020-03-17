@@ -24,6 +24,7 @@ class CustomField extends StatefulWidget {
   final bool obscureText;
   final int maxLines;
   final int minLines;
+  final int maxLength;
   final FocusNode focusNode;
   final InputBorder border;
   final _Type type;
@@ -66,6 +67,7 @@ class CustomField extends StatefulWidget {
     this.suffixForObscureText,
     this.maxLines,
     this.minLines,
+    this.maxLength,
     this.isBoldText = false,
     this.focusNode,
     this.border,
@@ -108,6 +110,7 @@ class CustomField extends StatefulWidget {
     this.suffixForObscureText,
     this.maxLines,
     this.minLines,
+    this.maxLength,
     this.isBoldText = false,
     this.focusNode,
     this.border,
@@ -151,7 +154,8 @@ class CustomField extends StatefulWidget {
         this.suffix = null,
         this.suffixForObscureText = null,
         this.expands = false,
-        focusNode = null;
+        this.focusNode = null,
+        this.maxLength = null;
 
   /// Build field
   @override
@@ -234,6 +238,7 @@ class _CustomField extends State<CustomField> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 TextField(
+                    maxLength: this.widget.maxLength,
                     expands: this.widget.expands,
                     scrollPhysics: AlwaysScrollableScrollPhysics(
                         parent: BouncingScrollPhysics()),
@@ -292,6 +297,7 @@ class _CustomField extends State<CustomField> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 TextField(
+                    maxLength: this.widget.maxLength,
                     expands: this.widget.expands,
                     scrollPhysics: AlwaysScrollableScrollPhysics(
                         parent: BouncingScrollPhysics()),
