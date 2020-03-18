@@ -7,6 +7,7 @@ class PhoneNumberField extends StatefulWidget {
   final String countryCodeString;
   final void Function() onCountryCodeTap;
   final void Function(String) onFieldChanged;
+  final bool isCountryCodeLoading;
 
   /// A simple phone number input field containing the country code
   /// button and the field choice. [onFieldChanged] callbacks a string
@@ -18,6 +19,7 @@ class PhoneNumberField extends StatefulWidget {
       BorderRadius borderRadius,
       Color backgroundColor,
       TextStyle textStyle,
+      this.isCountryCodeLoading = false,
       this.countryCodeString = 'CD +1'})
       : this.borderRadius = borderRadius ?? BorderRadius.circular(10),
         this.backgroundColor = backgroundColor ?? Colors.black12,
@@ -60,14 +62,17 @@ class _PhoneNumberFieldState extends State<PhoneNumberField> {
   Material _countryCodeDropDownBtn() => Material(
       color: this.widget.backgroundColor,
       borderRadius: this.widget.borderRadius,
-      child: InkWell(
-          focusColor: Theme.of(context).primaryColor,
-          onTap: this.widget.onCountryCodeTap,
-          child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Row(children: <Widget>[
-                Text(this.widget.countryCodeString,
-                    style: this.widget.textStyle),
-                Container(child: Icon(Icons.arrow_drop_down)),
-              ]))));
+      child: this.widget.isCountryCodeLoading
+          ? CircularProgressIndicator(
+              backgroundColor: Theme.of(context).primaryColor)
+          : InkWell(
+              focusColor: Theme.of(context).primaryColor,
+              onTap: this.widget.onCountryCodeTap,
+              child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Row(children: <Widget>[
+                    Text(this.widget.countryCodeString,
+                        style: this.widget.textStyle),
+                    Container(child: Icon(Icons.arrow_drop_down)),
+                  ]))));
 }
