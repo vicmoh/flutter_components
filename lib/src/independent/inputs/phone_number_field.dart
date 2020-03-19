@@ -49,9 +49,7 @@ class _PhoneNumberFieldState extends State<PhoneNumberField> {
       borderRadius: this.widget.borderRadius,
       color: this.widget.backgroundColor,
       child: TextField(
-          onChanged: (phone) => this
-              .widget
-              .onFieldChanged('${this.widget.countryCodeString} $phone'),
+          onChanged: this.widget.onFieldChanged,
           keyboardType: TextInputType.phone,
           style: this.widget.textStyle,
           maxLines: 1,
