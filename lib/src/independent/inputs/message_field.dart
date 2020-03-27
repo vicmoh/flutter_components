@@ -25,7 +25,7 @@ class MessageField extends StatefulWidget {
     this.fieldController,
     this.innerVerticalPadding = 5,
     this.onSendLoadingWidget,
-    this.isLoading,
+    this.isLoading = false,
     this.hintText = 'Enter a message...',
     this.hintTextFontScale = 1.2,
   }) : super(key: key);
