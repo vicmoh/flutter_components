@@ -14,6 +14,7 @@ class CustomField extends StatefulWidget {
   final Color cursorColor;
   final Color backgroundColor;
   // other
+  final double elevation;
   final TextInputType keyboardType;
   final TextEditingController controller;
   final void Function(String) onChanged;
@@ -72,6 +73,7 @@ class CustomField extends StatefulWidget {
     this.focusNode,
     this.border,
     this.expands = false,
+    this.elevation = 0,
   })  : this.type = _Type.round,
         // Outline
         this.outlineColor = Colors.transparent,
@@ -115,7 +117,8 @@ class CustomField extends StatefulWidget {
     this.focusNode,
     this.border,
     this.expands = false,
-  }) : this.type = _Type.outline;
+  })  : this.type = _Type.outline,
+        this.elevation = 0;
 
   /// A field widget that contains 4 fields in a row.
   /// Each field takes one character. Usually used
@@ -155,7 +158,8 @@ class CustomField extends StatefulWidget {
         this.suffixForObscureText = null,
         this.expands = false,
         this.focusNode = null,
-        this.maxLength = null;
+        this.maxLength = null,
+        this.elevation = 0;
 
   /// Build field
   @override
@@ -226,6 +230,7 @@ class _CustomField extends State<CustomField> {
   /// Round text field context
   _roundField(BuildContext context) {
     return Material(
+        elevation: this.widget.elevation,
         color: widget.backgroundColor,
         borderRadius: BorderRadius.circular(widget.borderRadiusValue),
         child: Container(

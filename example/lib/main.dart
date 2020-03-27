@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'screen/phone_field_example.dart';
+import 'package:flutter_components/flutter_components.dart';
 
 void main() => runApp(MyApp());
 
@@ -30,6 +31,16 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(title: Text("Widget")),
       body: Center(
         child: ListView(children: <Widget>[
+          /// testing elevation for custom field
+          Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CustomField.round(
+                  elevation: 10,
+                  prefixIcon: Icon(Icons.search, color: Colors.purple),
+                  backgroundColor: Colors.white,
+                  onChanged: (val) {})),
+
+          /// button test for phone field example
           _btn('Phone field example', PhoneFieldExample()),
         ]),
       ));
