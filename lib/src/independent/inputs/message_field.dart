@@ -8,6 +8,10 @@ class MessageField extends StatefulWidget {
   final double innerVerticalPadding;
   final Function() onSend;
   final Function(String) onFieldChanged;
+  final Widget onSendLoadingWidget;
+  final bool isLoading;
+  final String hintText;
+  final double hintTextFontScale;
 
   /// Class for sending and entering a message.
   /// Used in [ChatPage] and [LiveFeedPage]
@@ -20,6 +24,10 @@ class MessageField extends StatefulWidget {
     this.dividerColor = Colors.black,
     this.fieldController,
     this.innerVerticalPadding = 5,
+    this.onSendLoadingWidget,
+    this.isLoading,
+    this.hintText = 'Enter a message...',
+    this.hintTextFontScale = 1.2,
   }) : super(key: key);
 
   _MessageFieldState createState() => _MessageFieldState();
@@ -38,43 +46,61 @@ class _MessageFieldState extends State<MessageField> {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              // Divider
+              /// Divider
               Container(height: 1, color: widget.dividerColor),
-              // The Field and send button
+
+              /// The Field and send button
               SizedBox(height: widget.innerVerticalPadding),
               Row(children: <Widget>[
-                // Text field for messaging
+                /// Text field for messaging
                 Expanded(
                     child: Container(
                         padding: EdgeInsets.only(left: 10),
-                        child: TextField(
-                            controller: widget.fieldController,
-                            autocorrect: true,
-                            cursorColor: widget.textColor,
-                            maxLines: 5,
-                            minLines: 1,
-                            onChanged: widget.onFieldChanged,
-                            style: TextStyle(
-                                color: widget.textColor, fontSize: 14 * 1.2),
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'Enter a message...',
-                                fillColor: widget.backgroundColor,
-                                hintStyle: TextStyle(
-                                    color: widget.textColor.withAlpha(200)))))),
-                // Send button
-                GestureDetector(
-                    onTap: widget.onSend,
-                    behavior: HitTestBehavior.opaque,
-                    child: Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                        child: Icon(Icons.send, color: widget.textColor))),
+                        child: _textField())),
+
+                /// Send button
+                _sendButton(),
               ]),
-              // Bottom padding for iPhone users
+
+              /// Bottom padding for iPhone users
               Container(
                   padding:
                       EdgeInsets.only(bottom: widget.innerVerticalPadding)),
             ]));
+  }
+
+  TextField _textField() {
+    return TextField(
+        controller: widget.fieldController,
+        autocorrect: true,
+        cursorColor: widget.textColor,
+        maxLines: 5,
+        minLines: 1,
+        onChanged: widget.onFieldChanged,
+        style: TextStyle(
+            color: widget.textColor,
+            fontSize: 14 * this.widget.hintTextFontScale),
+        decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: this.widget.hintText,
+            fillColor: widget.backgroundColor,
+            hintStyle: TextStyle(
+                color: widget.textColor.withAlpha(200),
+                fontSize: 14 * this.widget.hintTextFontScale)));
+  }
+
+  _sendButton() {
+    Widget icon = Icon(Icons.send, color: widget.textColor);
+    if (this.widget.isLoading)
+      icon = this.widget.onSendLoadingWidget ??
+          CircularProgressIndicator(
+              backgroundColor: Theme.of(context).primaryColor,
+              valueColor: AlwaysStoppedAnimation(Colors.white));
+    return GestureDetector(
+        onTap: widget.onSend,
+        behavior: HitTestBehavior.opaque,
+        child: Container(
+            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            child: icon));
   }
 }

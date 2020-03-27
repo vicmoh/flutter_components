@@ -1,3 +1,4 @@
+import 'package:example/screen/message_field_example.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -36,12 +37,16 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.all(8.0),
               child: CustomField.round(
                   elevation: 10,
-                  prefixIcon: Icon(Icons.search, color: Colors.purple),
+                  prefixIcon:
+                      Icon(Icons.search, color: Theme.of(context).primaryColor),
                   backgroundColor: Colors.white,
                   onChanged: (val) {})),
 
           /// button test for phone field example
           _btn('Phone field example', PhoneFieldExample()),
+
+          /// Example for the message field.
+          _btn('Message field example', MessageFieldExample())
         ]),
       ));
 }
