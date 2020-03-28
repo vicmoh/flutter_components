@@ -29,7 +29,7 @@ class ChatBubble extends StatelessWidget {
   /// [backgroundColor] of the bubble.
   ChatBubble({
     @required this.message,
-    @required this.bubbleMaxWidth,
+    this.bubbleMaxWidth,
     this.showAvatar = true,
     this.nameTextScaleSize = 1,
     this.messageTextScaleSize = 1.2,
@@ -92,7 +92,7 @@ class ChatBubble extends StatelessWidget {
             // Content
             children: [
               // Avatar
-              Container(child: _avatar(context)),
+              this.avatarUrl == null ? Container() : _avatar(context),
               // The message bubble
               Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,7 +148,7 @@ class ChatBubble extends StatelessWidget {
 
     // Create bubble
     return LimitedBox(
-        maxWidth: bubbleMaxWidth,
+        maxWidth: bubbleMaxWidth ?? MediaQuery.of(context).size.width * 0.7,
         child: Container(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             // Message bubble color

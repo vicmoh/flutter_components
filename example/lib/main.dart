@@ -1,3 +1,4 @@
+import 'package:example/screen/chat_bubble_example.dart';
 import 'package:example/screen/message_field_example.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,10 @@ class _MyHomePageState extends State<MyHomePage> {
           _btn('Phone field example', PhoneFieldExample()),
 
           /// Example for the message field.
-          _btn('Message field example', MessageFieldExample())
+          _btn('Message field example', MessageFieldExample()),
+
+          /// Chat bubble example.
+          _btn('Chat bubble example', ChatBubbleExample()),
         ]),
       ));
 }
