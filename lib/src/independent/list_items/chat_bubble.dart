@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class ChatBubble extends StatelessWidget {
+class ChatBubble<T> extends StatelessWidget {
   final String name;
   final String message;
   final String time;
-  final double nameTextScaleSize;
+  final double headerTextScaleSize;
   final double messageTextScaleSize;
   final String avatarUrl;
   final String avatarPlaceholderPath;
@@ -14,13 +14,19 @@ class ChatBubble extends StatelessWidget {
   final double avatarSize;
   final bool showSpacingWithHiddenAvatar;
   final bool isOnTheLeftSide;
-  final bool showNameOnTop;
+  final bool displayNameInHeader;
   final double borderRadius;
   final bool showAvatar;
+  final Color headerColor;
+  final Widget headerWidget;
+  final Widget footerWidget;
+  final int maxMessageLines;
+  final FontWeight headerFontWeight;
+  final FontWeight fontWeight;
   final CrossAxisAlignment avatarAlignment;
   final List<BoxShadow> bubbleShadows;
   final List<dynamic> replies;
-  final Widget Function(dynamic) replyBuilder;
+  final Widget Function(T) replyBuilder;
 
   /// Chat bubble mostly used for messaging.
   /// [message] where the chat bubble contains and wrap around.
@@ -31,14 +37,14 @@ class ChatBubble extends StatelessWidget {
     @required this.message,
     this.bubbleMaxWidth,
     this.showAvatar = true,
-    this.nameTextScaleSize = 1,
+    this.headerTextScaleSize = 1,
     this.messageTextScaleSize = 1.2,
     this.name,
     this.time,
     this.avatarPlaceholderPath,
     this.avatarUrl,
     this.isOnTheLeftSide = false,
-    this.showNameOnTop = true,
+    this.displayNameInHeader = true,
     this.textColor = Colors.white,
     this.backgroundColor = Colors.blue,
     this.bubbleShadows,
@@ -46,17 +52,23 @@ class ChatBubble extends StatelessWidget {
     this.avatarAlignment = CrossAxisAlignment.start,
     this.borderRadius = 10,
     this.avatarSize = 33,
+    this.headerColor,
+    this.headerWidget,
+    this.maxMessageLines,
+    this.headerFontWeight = FontWeight.normal,
+    this.fontWeight,
+    this.footerWidget,
     // For the reply section
-    List<dynamic> replies,
+    List<T> replies,
     this.replyBuilder,
   }) : this.replies = replies ?? [];
 
   /// Circle avatar for profile image
   Widget _avatar(BuildContext context) {
-    // Create the image avatar widget
+    /// Create the image avatar widget
     Widget image = Container();
 
-    // Edge case of the avatar widget
+    /// Edge case of the avatar widget
     if (!this.showAvatar) return image;
     if (this.avatarPlaceholderPath == null)
       image = Image.network(this.avatarUrl,
@@ -72,7 +84,7 @@ class ChatBubble extends StatelessWidget {
           height: this.avatarSize,
           fit: BoxFit.cover);
 
-    // Create the avatar widget
+    /// Create the avatar widget
     return Opacity(
         opacity: (this.showSpacingWithHiddenAvatar) ? 0 : 1,
         child: Container(
@@ -89,11 +101,11 @@ class ChatBubble extends StatelessWidget {
             mainAxisAlignment: (isOnTheLeftSide == false)
                 ? MainAxisAlignment.end
                 : MainAxisAlignment.start,
-            // Content
             children: [
-              // Avatar
+              /// Avatar
               this.avatarUrl == null ? Container() : _avatar(context),
-              // The message bubble
+
+              /// The message bubble
               Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -103,10 +115,11 @@ class ChatBubble extends StatelessWidget {
             ]));
   }
 
-  // The reply box content
+  /// The reply box content
   Widget _replyBox(BuildContext context) {
     if (this.replies == null || this.replies.length == 0) return Container();
-    // Get the replies data
+
+    /// Get the replies data
     List<Widget> list = [];
     int num = 0;
     for (var each in this.replies) {
@@ -115,7 +128,7 @@ class ChatBubble extends StatelessWidget {
       if (num >= 3) break;
     }
 
-    // Return the content
+    /// Return the content
     return Container(
         padding: EdgeInsets.all(5),
         child: Column(
@@ -125,28 +138,43 @@ class ChatBubble extends StatelessWidget {
   /// The message in the bubble and padding
   LimitedBox _bubbleContent(BuildContext context) {
     List<Widget> innerText = [];
-    // The name on top}
-    if (this.name != null)
+
+    /// The name on top
+    if (this.name != null && this.displayNameInHeader)
       innerText.add(Container(
           padding: EdgeInsets.only(bottom: 5),
           child: _smallText(
-              this.name + (this.time != null ? ' - ${this.time}' : ''))));
-    // The message
+              this.name + (this.time != null ? ' - ${this.time}' : ''),
+              color: this.headerColor)));
+
+    /// Header widget
+    if (this.headerWidget != null) innerText.add(this.headerWidget);
+
+    /// The message
     innerText.add(RichText(
-        overflow: TextOverflow.ellipsis,
+        overflow: this.maxMessageLines == null
+            ? TextOverflow.visible
+            : TextOverflow.ellipsis,
         textScaleFactor: this.messageTextScaleSize,
-        maxLines: 7,
+        maxLines: this.maxMessageLines,
         text: TextSpan(
-            style: TextStyle(color: this.textColor.withAlpha(200)),
-            text: (this.name == null || this.showNameOnTop) ? '' : '$name: ',
+            style: TextStyle(
+                fontWeight: this.headerFontWeight,
+                color: this.headerColor ?? this.textColor.withAlpha(200)),
+            text: (this.name != null && !this.displayNameInHeader)
+                ? '$name: '
+                : '',
             children: [
               TextSpan(
                   text: '$message',
                   style: TextStyle(
-                      fontWeight: FontWeight.normal, color: this.textColor)),
+                      fontWeight: this.fontWeight, color: this.textColor)),
             ])));
 
-    // Create bubble
+    /// The footer of the bubble
+    if (footerWidget != null) innerText.add(this.footerWidget);
+
+    /// Create bubble
     return LimitedBox(
         maxWidth: bubbleMaxWidth ?? MediaQuery.of(context).size.width * 0.7,
         child: Container(
@@ -163,12 +191,13 @@ class ChatBubble extends StatelessWidget {
   }
 
   /// The text in the bubble
-  Widget _smallText(String text) {
+  Widget _smallText(String text, {Color color}) {
     return Text(text,
-        overflow: TextOverflow.ellipsis,
-        textScaleFactor: this.nameTextScaleSize,
-        textAlign: TextAlign.right,
-        style: TextStyle(color: textColor.withAlpha(200)));
+        overflow: this.maxMessageLines == null
+            ? TextOverflow.visible
+            : TextOverflow.ellipsis,
+        textScaleFactor: this.headerTextScaleSize,
+        style: TextStyle(color: color ?? textColor.withAlpha(200)));
   }
 
   /// Build the widget

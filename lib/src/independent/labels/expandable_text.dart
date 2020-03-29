@@ -9,13 +9,13 @@ class ExpandableText extends StatefulWidget {
   /// An expandable text where it limits the
   /// text unless you click [seeMoreButton] for example.
   /// If [seeMoreButton] is null, by default clickable
-  /// text will be shown. By default the [maxLines] is 4
+  /// text will be shown. By default the [maxLines] is 5
   /// before you see the see button
   ExpandableText({
     Key key,
     @required this.text,
     this.style,
-    this.maxLines = 4,
+    this.maxLines = 5,
     this.seeMoreButton,
   }) : super(key: key);
 
@@ -44,15 +44,14 @@ class _ExpandableTextState extends State<ExpandableText> {
             _text(maxLine: this.widget.maxLines),
             this.widget.seeMoreButton ??
                 Container(
-                  padding: EdgeInsets.only(top: 5),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Expanded(
-                            child: Text('See more',
-                                style: TextStyle(color: Colors.grey))),
-                      ]),
-                ),
+                    padding: EdgeInsets.only(top: 5),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Expanded(
+                              child: Text('See more',
+                                  style: TextStyle(color: Colors.grey))),
+                        ])),
           ]),
         );
       else
