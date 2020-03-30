@@ -12,11 +12,12 @@ class _ChatBubbleExampleState extends State<ChatBubbleExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(), body: ListView(children: <Widget>[_chat()]));
+        appBar: AppBar(),
+        body: ListView(children: <Widget>[_chat(), _chat(), _chat(), _chat()]));
   }
 
-  Widget _chat() => Padding(
-      padding: const EdgeInsets.all(8.0),
+  Widget _chat() => Container(
+    padding: EdgeInsets.symmetric(horizontal: 10),
       child: ChatBubble(
         fontWeight: FontWeight.w500,
         headerFontWeight: FontWeight.bold,

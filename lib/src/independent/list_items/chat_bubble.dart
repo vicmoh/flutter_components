@@ -21,6 +21,7 @@ class ChatBubble<T> extends StatelessWidget {
   final Widget headerWidget;
   final Widget footerWidget;
   final int maxMessageLines;
+  final EdgeInsets padding;
   final FontWeight headerFontWeight;
   final FontWeight fontWeight;
   final CrossAxisAlignment avatarAlignment;
@@ -60,6 +61,7 @@ class ChatBubble<T> extends StatelessWidget {
     this.headerFontWeight = FontWeight.normal,
     this.fontWeight,
     this.footerWidget,
+    this.padding = const EdgeInsets.symmetric(vertical: 3),
     // For the reply section
     List<T> replies,
     this.replyBuilder,
@@ -98,7 +100,7 @@ class ChatBubble<T> extends StatelessWidget {
   /// A single box chat tile
   Widget _chatBox(BuildContext context) {
     return Container(
-        padding: EdgeInsets.symmetric(vertical: 5),
+        padding: this.padding,
         child: Row(
             crossAxisAlignment: this.avatarAlignment,
             mainAxisAlignment: (isOnTheLeftSide == false)
