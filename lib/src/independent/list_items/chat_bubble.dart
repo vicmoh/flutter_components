@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ChatBubble<T> extends StatelessWidget {
-  final String name;
+  final String headerText;
+  final Widget bodyWidget;
   final String message;
-  final String time;
   final double headerTextScaleSize;
   final double messageTextScaleSize;
   final String avatarUrl;
@@ -29,18 +29,20 @@ class ChatBubble<T> extends StatelessWidget {
   final Widget Function(T) replyBuilder;
 
   /// Chat bubble mostly used for messaging.
+  /// One of the parameter
+  /// [message] or [bodyText] must exist.
   /// [message] where the chat bubble contains and wrap around.
   /// [isOnTheLeftSide] oh the list view, if its true bubble will be on the left side.
   /// [textColor] of the text on bubble.
   /// [backgroundColor] of the bubble.
   ChatBubble({
-    @required this.message,
+    this.bodyWidget,
+    this.message,
     this.bubbleMaxWidth,
     this.showAvatar = true,
     this.headerTextScaleSize = 1,
     this.messageTextScaleSize = 1.2,
-    this.name,
-    this.time,
+    this.headerText,
     this.avatarPlaceholderPath,
     this.avatarUrl,
     this.isOnTheLeftSide = false,
@@ -61,7 +63,8 @@ class ChatBubble<T> extends StatelessWidget {
     // For the reply section
     List<T> replies,
     this.replyBuilder,
-  }) : this.replies = replies ?? [];
+  })  : assert(!(bodyWidget == null && message == null)),
+        this.replies = replies ?? [];
 
   /// Circle avatar for profile image
   Widget _avatar(BuildContext context) {
@@ -140,36 +143,36 @@ class ChatBubble<T> extends StatelessWidget {
     List<Widget> innerText = [];
 
     /// The name on top
-    if (this.name != null && this.displayNameInHeader)
+    if (this.headerText != null && this.displayNameInHeader)
       innerText.add(Container(
           padding: EdgeInsets.only(bottom: 5),
-          child: _smallText(
-              this.name + (this.time != null ? ' - ${this.time}' : ''),
-              color: this.headerColor)));
+          child: _smallText(this.headerText),
+          color: this.headerColor));
 
     /// Header widget
     if (this.headerWidget != null) innerText.add(this.headerWidget);
 
     /// The message
-    innerText.add(RichText(
-        overflow: this.maxMessageLines == null
-            ? TextOverflow.visible
-            : TextOverflow.ellipsis,
-        textScaleFactor: this.messageTextScaleSize,
-        maxLines: this.maxMessageLines,
-        text: TextSpan(
-            style: TextStyle(
-                fontWeight: this.headerFontWeight,
-                color: this.headerColor ?? this.textColor.withAlpha(200)),
-            text: (this.name != null && !this.displayNameInHeader)
-                ? '$name: '
-                : '',
-            children: [
-              TextSpan(
-                  text: '$message',
-                  style: TextStyle(
-                      fontWeight: this.fontWeight, color: this.textColor)),
-            ])));
+    innerText.add(this.bodyWidget ??
+        RichText(
+            overflow: this.maxMessageLines == null
+                ? TextOverflow.visible
+                : TextOverflow.ellipsis,
+            textScaleFactor: this.messageTextScaleSize,
+            maxLines: this.maxMessageLines,
+            text: TextSpan(
+                style: TextStyle(
+                    fontWeight: this.headerFontWeight,
+                    color: this.headerColor ?? this.textColor.withAlpha(200)),
+                text: (this.headerText != null && !this.displayNameInHeader)
+                    ? '$headerText: '
+                    : '',
+                children: [
+                  TextSpan(
+                      text: '$message',
+                      style: TextStyle(
+                          fontWeight: this.fontWeight, color: this.textColor)),
+                ])));
 
     /// The footer of the bubble
     if (footerWidget != null) innerText.add(this.footerWidget);

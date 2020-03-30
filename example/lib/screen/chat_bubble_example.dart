@@ -34,8 +34,7 @@ class _ChatBubbleExampleState extends State<ChatBubbleExample> {
         borderRadius: 15,
         messageTextScaleSize: 1.2,
         displayNameInHeader: false,
-        name: 'Pinicle Pickle',
-        time: '6h ago',
+        headerText: 'Pinicle Pickle - 6h',
         headerColor: Colors.pink,
         textColor: Colors.black87,
       ));
