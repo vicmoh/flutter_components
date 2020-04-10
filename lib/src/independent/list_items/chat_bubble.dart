@@ -2,30 +2,40 @@ import 'package:flutter/material.dart';
 
 class ChatBubble<T> extends StatelessWidget {
   final String headerText;
-  final Widget bodyWidget;
   final String message;
-  final double headerTextScaleSize;
-  final double messageTextScaleSize;
+
   final String avatarUrl;
   final String avatarPlaceholderPath;
-  final Color backgroundColor;
-  final Color textColor;
-  final double bubbleMaxWidth;
   final double avatarSize;
+
   final bool showSpacingWithHiddenAvatar;
   final bool isOnTheLeftSide;
   final bool displayNameInHeader;
-  final double borderRadius;
   final bool showAvatar;
+
+  final double bubbleMaxWidth;
+  final double borderRadius;
+  final double headerTextScaleSize;
+  final double messageTextScaleSize;
+
   final Color headerColor;
+  final Color textColor;
+  final Color backgroundColor;
+
   final Widget headerWidget;
+  final Widget bodyWidget;
   final Widget footerWidget;
+  final Widget prefixWidget;
+
   final int maxMessageLines;
+  final double bubbleElevation;
   final EdgeInsets padding;
   final FontWeight headerFontWeight;
   final FontWeight fontWeight;
+
   final CrossAxisAlignment avatarAlignment;
   final List<BoxShadow> bubbleShadows;
+
   final List<dynamic> replies;
   final Widget Function(T) replyBuilder;
 
@@ -61,7 +71,9 @@ class ChatBubble<T> extends StatelessWidget {
     this.headerFontWeight = FontWeight.normal,
     this.fontWeight,
     this.footerWidget,
+    this.prefixWidget,
     this.padding = const EdgeInsets.symmetric(vertical: 3),
+    this.bubbleElevation = 0,
     // For the reply section
     List<T> replies,
     this.replyBuilder,
@@ -108,7 +120,9 @@ class ChatBubble<T> extends StatelessWidget {
                 : MainAxisAlignment.start,
             children: [
               /// Avatar
-              this.avatarUrl == null ? Container() : _avatar(context),
+              this.prefixWidget != null
+                  ? this.prefixWidget
+                  : this.avatarUrl == null ? Container() : _avatar(context),
 
               /// The message bubble
               Column(
@@ -182,17 +196,22 @@ class ChatBubble<T> extends StatelessWidget {
     /// Create bubble
     return LimitedBox(
         maxWidth: bubbleMaxWidth ?? MediaQuery.of(context).size.width * 0.7,
-        child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            // Message bubble color
-            decoration: BoxDecoration(
-                color: this.backgroundColor,
-                borderRadius: BorderRadius.circular(this.borderRadius),
-                boxShadow: this.bubbleShadows),
-            // Inner text, the message
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: innerText)));
+        child: Material(
+          color: this.bubbleElevation == 0 ? Colors.transparent : null,
+          elevation: this.bubbleElevation,
+          borderRadius: BorderRadius.circular(this.borderRadius),
+          child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              // Message bubble color
+              decoration: BoxDecoration(
+                  color: this.backgroundColor,
+                  borderRadius: BorderRadius.circular(this.borderRadius),
+                  boxShadow: this.bubbleShadows),
+              // Inner text, the message
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: innerText)),
+        ));
   }
 
   /// The text in the bubble

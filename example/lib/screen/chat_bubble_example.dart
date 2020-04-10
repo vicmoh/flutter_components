@@ -17,11 +17,14 @@ class _ChatBubbleExampleState extends State<ChatBubbleExample> {
   }
 
   Widget _chat() => Container(
-    padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.symmetric(horizontal: 10),
       child: ChatBubble(
         fontWeight: FontWeight.w500,
         headerFontWeight: FontWeight.bold,
         isOnTheLeftSide: true,
+        avatarUrl:
+            'https://vignette.wikia.nocookie.net/blinks/images/d/d3/Lisa_Infobox.PNG',
+        showAvatar: true,
         message: "Text messaging, or texting," +
             "is the act of composing and " +
             "sending electronic messages, typically consisting of " +
