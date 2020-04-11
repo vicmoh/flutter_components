@@ -41,7 +41,7 @@ class StackAvatars extends StatelessWidget {
             padding: EdgeInsets.all(this.outlineWeight),
             decoration: BoxDecoration(
                 color: outlineColor ?? this.outlineColor,
-                borderRadius: BorderRadius.circular(90)),
+                shape: BoxShape.circle),
             // The avatar image
             child: ClipOval(
                 child: (this.imagePlaceholderPath != null)
