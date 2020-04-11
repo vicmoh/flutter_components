@@ -38,6 +38,7 @@ class CustomField extends StatefulWidget {
   final Widget prefix;
   final Widget suffix;
   final bool expands;
+  final bool enabled;
   final Widget Function(bool isPassShown) suffixForObscureText;
 
   /// A round field widget. Usually used on top of a list view on
@@ -74,6 +75,7 @@ class CustomField extends StatefulWidget {
     this.border,
     this.expands = false,
     this.elevation = 0,
+    this.enabled,
   })  : this.type = _Type.round,
         // Outline
         this.outlineColor = Colors.transparent,
@@ -116,6 +118,7 @@ class CustomField extends StatefulWidget {
     this.isBoldText = false,
     this.focusNode,
     this.border,
+    this.enabled,
     this.expands = false,
   })  : this.type = _Type.outline,
         this.elevation = 0;
@@ -151,6 +154,7 @@ class CustomField extends StatefulWidget {
     this.isBoldText = false,
   })  : this.type = _Type.fourFieldsInRow,
         this.border = null,
+        this.enabled = null,
         this.hintText = null,
         this.prefixIcon = null,
         this.prefix = null,
@@ -243,6 +247,7 @@ class _CustomField extends State<CustomField> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 TextField(
+                    enabled: this.widget.enabled,
                     maxLength: this.widget.maxLength,
                     expands: this.widget.expands,
                     scrollPhysics: AlwaysScrollableScrollPhysics(
@@ -302,6 +307,7 @@ class _CustomField extends State<CustomField> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 TextField(
+                    enabled: this.widget.enabled,
                     maxLength: this.widget.maxLength,
                     expands: this.widget.expands,
                     scrollPhysics: AlwaysScrollableScrollPhysics(
