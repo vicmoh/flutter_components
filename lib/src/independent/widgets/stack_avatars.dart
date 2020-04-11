@@ -86,8 +86,7 @@ class StackAvatars extends StatelessWidget {
           height: this.imageSize,
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-              color: Colors.grey.withAlpha(100),
-              borderRadius: BorderRadius.circular(90)),
+              color: Colors.grey.withAlpha(100), shape: BoxShape.circle),
           child: Container(
               child: Icon(Icons.person,
                   color: Colors.white,
