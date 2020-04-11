@@ -1,3 +1,4 @@
+import 'package:example/screen/button_examples.dart';
 import 'package:example/screen/chat_bubble_example.dart';
 import 'package:example/screen/message_field_example.dart';
 import 'package:flutter/cupertino.dart';
@@ -51,6 +52,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
           /// Chat bubble example.
           _btn('Chat bubble example', ChatBubbleExample()),
+
+          /// Testing buttons
+          _btn('buttons example', ButtonExamples()),
         ]),
       ));
 }

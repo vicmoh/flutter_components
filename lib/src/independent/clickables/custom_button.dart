@@ -17,6 +17,7 @@ class CustomButton extends StatelessWidget {
   // Padding and sizing
   final double verticalInnerPadding;
   final double horizontalInnerPadding;
+  final double height;
   final double width;
   final double elevation;
   final BorderRadius borderRadius;
@@ -43,7 +44,6 @@ class CustomButton extends StatelessWidget {
     this.elevation = 5,
     this.outlineColor,
     this.outlineWeight = 0,
-    this.width,
     this.isCheckMarkShown = false,
     BorderRadius borderRadius,
     this.isMaterial = true,
@@ -51,6 +51,8 @@ class CustomButton extends StatelessWidget {
   })  : this.type = _ButtonType.other,
         this.child = null,
         this.onChanged = null,
+        this.width = null,
+        this.height = null,
         this.borderRadius = borderRadius ?? BorderRadius.circular(30);
 
   /// Custom round button.
@@ -64,7 +66,6 @@ class CustomButton extends StatelessWidget {
     this.elevation = 5,
     this.outlineColor,
     this.outlineWeight = 0,
-    this.width,
     BorderRadius borderRadius,
     this.isMaterial = true,
     this.backgroundGradient,
@@ -74,6 +75,8 @@ class CustomButton extends StatelessWidget {
         this.buttonLabel = '',
         this.isCheckMarkShown = false,
         this.onChanged = null,
+        this.width = null,
+        this.height = null,
         this.borderRadius = borderRadius ?? BorderRadius.circular(30),
         this.isBoldLabel = false;
 
@@ -81,7 +84,6 @@ class CustomButton extends StatelessWidget {
   /// [onPressed] is a call back function when the button is pressed.
   CustomButton.dropDown({
     @required this.onChanged,
-    @required this.child,
     @required this.buttonLabel,
     this.textColor = Colors.black,
     this.backgroundColor = Colors.white,
@@ -91,9 +93,12 @@ class CustomButton extends StatelessWidget {
     this.outlineColor,
     this.outlineWeight = 0,
     this.width,
+    this.height,
     BorderRadius borderRadius,
     this.isMaterial = true,
-  })  : this.type = _ButtonType.dropDown,
+  })  : assert(!(buttonLabel == null)),
+        this.child = null,
+        this.type = _ButtonType.dropDown,
         this.buttonLabelScaleSize = 0,
         this.isCheckMarkShown = false,
         this.onPressed = null,
@@ -110,17 +115,19 @@ class CustomButton extends StatelessWidget {
     this.outlineWeight = 0,
     this.outlineColor,
     this.backgroundColor = Colors.white,
-    this.verticalInnerPadding = 47,
-    this.horizontalInnerPadding = 47,
     this.isMaterial = true,
-  })  : this.textColor = Colors.white,
+    double size = 50,
+  })  : this.width = size,
+        this.verticalInnerPadding = null,
+        this.horizontalInnerPadding = null,
+        this.height = null,
+        this.textColor = Colors.white,
         this.buttonLabel = '',
         this.isCheckMarkShown = false,
         this.borderRadius = null,
         this.buttonLabelScaleSize = 0,
         this.elevation = 5,
         this.onChanged = null,
-        this.width = null,
         this.type = _ButtonType.circle,
         this.isBoldLabel = false,
         this.backgroundGradient = null;
@@ -144,12 +151,13 @@ class CustomButton extends StatelessWidget {
   /// Circle check mark that is only shown if set
   @deprecated
   Widget _circleCheckMarked(BuildContext context) {
-    // The outline
+    /// The outline
     return Container(
         padding: EdgeInsets.all(1),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(90), color: this.textColor),
-        // The content
+
+        /// The content
         child: Container(
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
@@ -163,11 +171,13 @@ class CustomButton extends StatelessWidget {
     Widget button = Container(
         decoration: BoxDecoration(
             borderRadius: this.borderRadius, gradient: this.backgroundGradient),
-        // Button inner padding
+
+        /// Button inner padding
         padding: EdgeInsets.symmetric(
             vertical: this.verticalInnerPadding,
             horizontal: this.horizontalInnerPadding),
-        // Inner text container
+
+        /// Inner text container
         child: Container(
             padding: EdgeInsets.symmetric(horizontal: 5),
             child: (this.child != null)
@@ -188,9 +198,10 @@ class CustomButton extends StatelessWidget {
                             : Container(),
                       ])));
 
-    // Return with outline
+    //? Return with outline
     return Container(
-        // Determine if it is material button
+
+        /// Determine if it is material button
         child: (this.isMaterial)
             ? Material(
                 elevation: this.elevation,
@@ -201,15 +212,12 @@ class CustomButton extends StatelessWidget {
                     borderRadius: this.borderRadius,
                     child: button))
             : Container(
-                child: GestureDetector(
-                  child: button,
-                  onTap: this.onPressed,
-                ),
+                child: GestureDetector(child: button, onTap: this.onPressed),
                 decoration: BoxDecoration(
-                  borderRadius: this.borderRadius,
-                  color: this.backgroundColor,
-                )),
-        // Outline
+                    borderRadius: this.borderRadius,
+                    color: this.backgroundColor)),
+
+        /// Outline
         padding: EdgeInsets.all(this.outlineWeight),
         decoration: BoxDecoration(
             borderRadius: this.borderRadius, color: this.outlineColor));
@@ -217,29 +225,36 @@ class CustomButton extends StatelessWidget {
 
   // Drop down button
   Widget _dropDownButton(BuildContext context) {
-    // The menu item widget
+    /// The menu item widget
     var itemWidget = (label) => DropdownMenuItem(value: 0, child: Text(label));
-    // List of items
+
+    /// List of items
     List<DropdownMenuItem> menuItems = [];
     menuItems.add(itemWidget(this.buttonLabel));
-    // Build items
+
+    /// Build items
     return Container(
-        // outline
+
+        /// outline
         padding: EdgeInsets.all(this.outlineWeight),
         decoration: BoxDecoration(
             borderRadius: this.borderRadius, color: this.outlineColor),
-        // The button
+
+        /// The button
         child: Container(
             width: this.width,
-            // // Inner padding
+            height: this.height,
+
+            /// Inner padding
             padding: EdgeInsets.symmetric(
-              vertical: this.verticalInnerPadding,
-              horizontal: this.horizontalInnerPadding,
-            ),
-            // Radius and color
+                vertical: this.verticalInnerPadding,
+                horizontal: this.horizontalInnerPadding),
+
+            /// Radius and color
             decoration: BoxDecoration(
                 borderRadius: this.borderRadius, color: this.backgroundColor),
-            // Drop down button
+
+            /// Drop down button
             child: ButtonTheme(
                 alignedDropdown: true,
                 child: DropdownButton(
@@ -247,7 +262,6 @@ class CustomButton extends StatelessWidget {
                     isExpanded: true,
                     underline: Container(),
                     onChanged: this.onChanged,
-                    // style: TextStyle(color: this.textColor),
                     hint: Container(
                         child: Text(this.buttonLabel,
                             style: TextStyle(color: this.textColor))),
@@ -257,23 +271,23 @@ class CustomButton extends StatelessWidget {
   }
 
   /// Circle button
-  Widget _circleButton(BuildContext context) {
-    return Container(
-        // Outline color and weight
-        padding: EdgeInsets.all(this.outlineWeight),
-        decoration: BoxDecoration(
-            color: this.outlineColor, borderRadius: BorderRadius.circular(360)),
-        // The button
-        child: Container(
-            width: this.horizontalInnerPadding,
-            height: this.verticalInnerPadding,
-            child: new RawMaterialButton(
-                fillColor: this.backgroundColor,
-                onPressed: this.onPressed,
-                shape: new CircleBorder(),
-                elevation: this.elevation,
-                child: this.child)));
-  }
+  Widget _circleButton(BuildContext context) => Container(
+
+      /// Outline color and weight
+      padding: EdgeInsets.all(this.outlineWeight),
+      decoration:
+          BoxDecoration(color: this.outlineColor, shape: BoxShape.circle),
+
+      /// The button
+      child: Container(
+          width: this.width,
+          height: this.width,
+          child: new RawMaterialButton(
+              fillColor: this.backgroundColor,
+              onPressed: this.onPressed,
+              shape: new CircleBorder(),
+              elevation: this.elevation,
+              child: this.child)));
 
   /// Build the widget
   @override
