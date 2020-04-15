@@ -19,7 +19,7 @@ class TransparentBackground extends StatefulWidget {
   /// is wrap with transparent scaffold widget.
   static Future<void> show(
     context, {
-    Widget child,
+    @required Widget child,
     Function() onBackgroundTap,
     Color backgroundColor = Colors.black54,
   }) async {
