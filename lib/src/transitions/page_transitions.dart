@@ -4,15 +4,20 @@ import 'package:flutter/material.dart';
 /// for page transitions and animations.
 class PageTransitions {
   /// Route page with fade transitions.
-  static PageRouteBuilder fade(Widget page) {
+  /// 
+  /// Example usage:
+  /// ```dart
+  /// Navigator.push(context, PageTransitions.fade(SomePage()));
+  /// ```
+  static PageRouteBuilder fade(Widget page, {Curve curve, Duration duration}) {
     return PageRouteBuilder(
+        transitionDuration: duration ?? Duration(milliseconds: 300),
         pageBuilder: (context, animation, secondaryAnimation) => page,
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           var begin = 0.0;
           var end = 1.0;
-          var curve = Curves.easeIn;
-          var tween =
-              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          var tween = Tween(begin: begin, end: end)
+              .chain(CurveTween(curve: curve ?? Curves.easeIn));
           return FadeTransition(opacity: animation.drive(tween), child: child);
         });
   }

@@ -27,4 +27,5 @@ export './src/independent/inputs/custom_field.dart';
 export './src/independent/inputs/message_field.dart';
 export './src/independent/inputs/phone_number_field.dart';
 export './src/transitions/page_transitions.dart';
+export './src/transitions/transparent_background.dart';
 export './src/transitions/transparent_page_route.dart';
