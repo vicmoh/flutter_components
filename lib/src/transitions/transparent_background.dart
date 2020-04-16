@@ -41,7 +41,12 @@ class TransparentBackground extends StatefulWidget {
 class _TransparentBackgroundState extends State<TransparentBackground> {
   GestureDetector _background(BuildContext context) {
     return GestureDetector(
-        onTap: () => this.widget.onBackgroundTap ?? Navigator.pop(context),
+        onTap: () {
+          if (this.widget.onBackgroundTap != null)
+            this.widget.onBackgroundTap();
+          else
+            Navigator.pop(context);
+        },
         child: Column(children: <Widget>[
           Expanded(
             child: Row(children: <Widget>[
