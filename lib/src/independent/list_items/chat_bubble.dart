@@ -30,6 +30,7 @@ class ChatBubble<T> extends StatelessWidget {
   final int maxMessageLines;
   final double bubbleElevation;
   final EdgeInsets padding;
+  final EdgeInsets innerPadding;
   final FontWeight headerFontWeight;
   final FontWeight fontWeight;
 
@@ -73,6 +74,8 @@ class ChatBubble<T> extends StatelessWidget {
     this.footerWidget,
     this.prefixWidget,
     this.padding = const EdgeInsets.symmetric(vertical: 3),
+    this.innerPadding =
+        const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
     this.bubbleElevation = 0,
     // For the reply section
     List<T> replies,
@@ -201,7 +204,7 @@ class ChatBubble<T> extends StatelessWidget {
           elevation: this.bubbleElevation,
           borderRadius: BorderRadius.circular(this.borderRadius),
           child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              padding: this.innerPadding,
               // Message bubble color
               decoration: BoxDecoration(
                   color: this.backgroundColor,
