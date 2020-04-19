@@ -10,6 +10,7 @@ class FullScreenPopupView extends StatefulWidget {
   final Duration animationDuration;
   final Color backgroundColor;
   final Widget Function(BuildContext context) builder;
+  final bool disableSwipeToExit;
 
   /// A custom fullscreen popup view
   /// That can be dismiss by swiping horizontally.
@@ -24,6 +25,7 @@ class FullScreenPopupView extends StatefulWidget {
     EdgeInsetsGeometry padding,
     Color backgroundColor,
     BoxConstraints constraints,
+    this.disableSwipeToExit = false,
   })  : this.borderRadius = borderRadius ?? BorderRadius.circular(30),
         this.margin = margin ?? EdgeInsets.all(20),
         this.padding = padding ?? EdgeInsets.all(20),
@@ -43,12 +45,14 @@ class FullScreenPopupView extends StatefulWidget {
     EdgeInsetsGeometry padding,
     Color backgroundColor,
     BoxConstraints constraints,
+    bool disableSwipeToExit = false,
   }) =>
       Navigator.push(
           context,
           TransparentPageRoute(
               builder: (_) => FullScreenPopupView(
                   builder: builder,
+                  disableSwipeToExit: disableSwipeToExit,
                   animationCurve: animationCurve,
                   animationDuration: animationDuration,
                   borderRadius: borderRadius,
@@ -113,18 +117,26 @@ class _FullScreenPopupViewState extends State<FullScreenPopupView> {
             child: PageView(
               controller: _pageController,
               scrollDirection: Axis.horizontal,
+              physics: this.widget.disableSwipeToExit
+                  ? NeverScrollableScrollPhysics(
+                      parent: BouncingScrollPhysics())
+                  : AlwaysScrollableScrollPhysics(
+                      parent: BouncingScrollPhysics()),
               children: <Widget>[
                 Container(),
-                Container(
-                    constraints: this.widget.constraints,
-                    decoration: BoxDecoration(
-                        borderRadius: this.widget.borderRadius,
-                        color: Colors.white),
-                    margin: this.widget.margin,
-                    padding: this.widget.padding,
-                    child: child),
+                _card(child),
                 Container(),
               ],
             )));
+  }
+
+  Container _card(Widget child) {
+    return Container(
+        constraints: this.widget.constraints,
+        decoration: BoxDecoration(
+            borderRadius: this.widget.borderRadius, color: Colors.white),
+        margin: this.widget.margin,
+        padding: this.widget.padding,
+        child: child);
   }
 }

@@ -24,10 +24,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  _btn(text, screen) => RaisedButton(
+  _btnNav(text, screen) => RaisedButton(
       child: Text(text),
       onPressed: () =>
           Navigator.push(context, CupertinoPageRoute(builder: (_) => screen)));
+
+  _btn(text, onPressed) =>
+      RaisedButton(child: Text(text), onPressed: onPressed);
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -45,16 +48,23 @@ class _MyHomePageState extends State<MyHomePage> {
                   onChanged: (val) {})),
 
           /// button test for phone field example
-          _btn('Phone field example', PhoneFieldExample()),
+          _btnNav('Phone field example', PhoneFieldExample()),
 
           /// Example for the message field.
-          _btn('Message field example', MessageFieldExample()),
+          _btnNav('Message field example', MessageFieldExample()),
 
           /// Chat bubble example.
-          _btn('Chat bubble example', ChatBubbleExample()),
+          _btnNav('Chat bubble example', ChatBubbleExample()),
 
           /// Testing buttons
-          _btn('buttons example', ButtonExamples()),
+          _btnNav('Buttons example', ButtonExamples()),
+
+          /// Testing full screen popup
+          _btn(
+              'Fullscreen popup',
+              () => FullScreenPopupView.show(context,
+                  disableSwipeToExit: false,
+                  builder: (_) => Center(child: Text('Test')))),
         ]),
       ));
 }
