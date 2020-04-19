@@ -26,6 +26,7 @@ class CustomField extends StatefulWidget {
   final int maxLines;
   final int minLines;
   final int maxLength;
+  final String counterText;
   final FocusNode focusNode;
   final InputBorder border;
   final _Type type;
@@ -69,13 +70,14 @@ class CustomField extends StatefulWidget {
     this.suffixForObscureText,
     this.maxLines,
     this.minLines,
-    this.maxLength,
+    this.maxLength = 128,
     this.isBoldText = false,
     this.focusNode,
     this.border,
     this.expands = false,
     this.elevation = 0,
     this.enabled,
+    this.counterText = '',
   })  : this.type = _Type.round,
         // Outline
         this.outlineColor = Colors.transparent,
@@ -114,12 +116,13 @@ class CustomField extends StatefulWidget {
     this.suffixForObscureText,
     this.maxLines,
     this.minLines,
-    this.maxLength,
+    this.maxLength = 128,
     this.isBoldText = false,
     this.focusNode,
     this.border,
     this.enabled,
     this.expands = false,
+    this.counterText = '',
   })  : this.type = _Type.outline,
         this.elevation = 0;
 
@@ -163,7 +166,8 @@ class CustomField extends StatefulWidget {
         this.expands = false,
         this.focusNode = null,
         this.maxLength = null,
-        this.elevation = 0;
+        this.elevation = 0,
+        this.counterText = '';
 
   /// Build field
   @override
@@ -235,12 +239,12 @@ class _CustomField extends State<CustomField> {
   _roundField(BuildContext context) {
     return Material(
         elevation: this.widget.elevation,
-        color: widget.backgroundColor,
-        borderRadius: BorderRadius.circular(widget.borderRadiusValue),
+        color: this.widget.backgroundColor,
+        borderRadius: BorderRadius.circular(this.widget.borderRadiusValue),
         child: Container(
             // Width and height
-            width: widget.width,
-            height: widget.height,
+            width: this.widget.width,
+            height: this.widget.height,
             // Text field
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -252,42 +256,43 @@ class _CustomField extends State<CustomField> {
                     expands: this.widget.expands,
                     scrollPhysics: AlwaysScrollableScrollPhysics(
                         parent: BouncingScrollPhysics()),
-                    focusNode: widget.focusNode,
-                    obscureText: (widget.obscureText == false)
-                        ? widget.obscureText
+                    focusNode: this.widget.focusNode,
+                    obscureText: (this.widget.obscureText == false)
+                        ? this.widget.obscureText
                         : !_isPasswordShown,
-                    onChanged: widget.onChanged,
-                    cursorColor: widget.cursorColor,
-                    controller: widget.controller,
-                    keyboardType: widget.keyboardType,
-                    autofocus: widget.autofocus,
-                    maxLines: widget.maxLines,
-                    minLines: widget.minLines,
+                    onChanged: this.widget.onChanged,
+                    cursorColor: this.widget.cursorColor,
+                    controller: this.widget.controller,
+                    keyboardType: this.widget.keyboardType,
+                    autofocus: this.widget.autofocus,
+                    maxLines: this.widget.maxLines,
+                    minLines: this.widget.minLines,
                     style: TextStyle(
-                        color: widget.textColor,
-                        fontSize: 14 * widget.textScaleFactor,
-                        fontWeight: (widget.isBoldText)
+                        color: this.widget.textColor,
+                        fontSize: 14 * this.widget.textScaleFactor,
+                        fontWeight: (this.widget.isBoldText)
                             ? FontWeight.w500
                             : FontWeight.normal),
                     // Text decoration
                     decoration: InputDecoration(
-                        contentPadding: widget.innerPadding,
-                        hintText: widget.hintText,
-                        // Prefix and suffix widget
-                        prefixIcon: widget.prefixIcon,
-                        prefix: widget.prefix,
+                        counterText: this.widget.counterText,
+                        contentPadding: this.widget.innerPadding,
+                        hintText: this.widget.hintText,
+                        // Prefix and suffix this.widget
+                        prefixIcon: this.widget.prefixIcon,
+                        prefix: this.widget.prefix,
                         suffix: _suffixWidget(),
                         // Hint style
                         hintStyle: TextStyle(
-                            color: widget.hintColor,
-                            fontWeight: (widget.isBoldText)
+                            color: this.widget.hintColor,
+                            fontWeight: (this.widget.isBoldText)
                                 ? FontWeight.w500
                                 : FontWeight.normal),
                         // Outline input border
-                        border: widget.border ??
+                        border: this.widget.border ??
                             OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(
-                                    widget.borderRadiusValue),
+                                    this.widget.borderRadiusValue),
                                 borderSide: BorderSide(
                                     style: BorderStyle.none, width: 0)))),
               ],
@@ -300,8 +305,8 @@ class _CustomField extends State<CustomField> {
         color: Colors.transparent,
         child: Container(
             // Radius and Color
-            width: widget.width,
-            height: widget.height,
+            width: this.widget.width,
+            height: this.widget.height,
             // Text field
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -312,51 +317,51 @@ class _CustomField extends State<CustomField> {
                     expands: this.widget.expands,
                     scrollPhysics: AlwaysScrollableScrollPhysics(
                         parent: BouncingScrollPhysics()),
-                    focusNode: widget.focusNode,
-                    obscureText: (widget.obscureText == false)
-                        ? widget.obscureText
+                    focusNode: this.widget.focusNode,
+                    obscureText: (this.widget.obscureText == false)
+                        ? this.widget.obscureText
                         : !_isPasswordShown,
-                    onChanged: widget.onChanged,
-                    cursorColor: widget.cursorColor,
-                    controller: widget.controller,
-                    keyboardType: widget.keyboardType,
-                    autofocus: widget.autofocus,
-                    maxLines: widget.maxLines,
-                    minLines: widget.minLines,
+                    onChanged: this.widget.onChanged,
+                    cursorColor: this.widget.cursorColor,
+                    controller: this.widget.controller,
+                    keyboardType: this.widget.keyboardType,
+                    autofocus: this.widget.autofocus,
+                    maxLines: this.widget.maxLines,
+                    minLines: this.widget.minLines,
                     style: TextStyle(
-                        color: widget.textColor,
-                        fontSize: 14 * widget.textScaleFactor),
+                        color: this.widget.textColor,
+                        fontSize: 14 * this.widget.textScaleFactor),
                     // Text decoration
                     decoration: InputDecoration(
-                        labelText: widget.hintText,
+                        labelText: this.widget.hintText,
                         labelStyle: TextStyle(
-                            color: widget.hintColor,
-                            fontWeight: (widget.isBoldText)
+                            color: this.widget.hintColor,
+                            fontWeight: (this.widget.isBoldText)
                                 ? FontWeight.w500
                                 : FontWeight.normal),
                         // Padding and color
-                        contentPadding: widget.innerPadding,
+                        contentPadding: this.widget.innerPadding,
                         filled: false,
-                        fillColor: widget.backgroundColor,
-                        // Prefix and suffix widget
-                        prefixIcon: widget.prefixIcon,
-                        prefix: widget.prefix,
+                        fillColor: this.widget.backgroundColor,
+                        // Prefix and suffix this.widget
+                        prefixIcon: this.widget.prefixIcon,
+                        prefix: this.widget.prefix,
                         suffix: _suffixWidget(),
                         // Outline border by default
                         enabledBorder: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.circular(widget.borderRadiusValue),
-                            borderSide: widget.border ??
+                            borderRadius: BorderRadius.circular(
+                                this.widget.borderRadiusValue),
+                            borderSide: this.widget.border ??
                                 BorderSide(
-                                    width: widget.outlineWeight,
-                                    color: widget.outlineColor)),
+                                    width: this.widget.outlineWeight,
+                                    color: this.widget.outlineColor)),
                         // Outline border on focus
                         focusedBorder: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.circular(widget.borderRadiusValue),
+                            borderRadius: BorderRadius.circular(
+                                this.widget.borderRadiusValue),
                             borderSide: BorderSide(
-                                width: widget.outlineWeight,
-                                color: widget.focusOutlineColor)))),
+                                width: this.widget.outlineWeight,
+                                color: this.widget.focusOutlineColor)))),
               ],
             )));
   }
