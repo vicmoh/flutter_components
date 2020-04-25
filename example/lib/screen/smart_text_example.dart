@@ -9,6 +9,8 @@ class SmartTextExample extends StatefulWidget {
 }
 
 class _SmartTextExampleState extends State<SmartTextExample> {
+  bool _isExpanded = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,13 +46,7 @@ class _SmartTextExampleState extends State<SmartTextExample> {
           Padding(
               padding: const EdgeInsets.all(8.0),
               child: ExpandableText(
-                  'Hello world this is #tag and url google.com' +
-                      ' with some long text and stuff' +
-                      ' blah blah blah you know ' +
-                      '#some-tag and things and stuff and bro' +
-                      ' it is so sick and awesome' +
-                      ' and #things and #yo no #sure what ' +
-                      'to say, got to youtube.com',
+                  'Hello world this is #tag and url google.com.',
                   onClickableText: (val, clickType) =>
                       print('val = $val, clickType = $clickType'),
                   overflow: TextOverflow.ellipsis,
@@ -62,11 +58,23 @@ class _SmartTextExampleState extends State<SmartTextExample> {
           Padding(
               padding: const EdgeInsets.all(8.0),
               child: ExpandableText(
-                  'Hello world this is #tag and url google.com.',
+                  'Hello world this is #tag and url google.com' +
+                      ' with some long text and stuff' +
+                      ' blah blah blah you know ' +
+                      '#some-tag and things and stuff and bro' +
+                      ' it is so sick and awesome' +
+                      ' and #things and #yo no #sure what ' +
+                      'to say, got to youtube.com',
                   onClickableText: (val, clickType) =>
                       print('val = $val, clickType = $clickType'),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 3,
+                  overflow:
+                      _isExpanded ? TextOverflow.clip : TextOverflow.ellipsis,
+                  seeMorePressed: () {
+                    print('see more is pressed.');
+                    setState(() =>
+                        _isExpanded ? _isExpanded = false : _isExpanded = true);
+                  },
+                  maxLines: _isExpanded ? null : 3,
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 14 * 1.5,

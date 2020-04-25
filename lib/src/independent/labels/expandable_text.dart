@@ -87,5 +87,5 @@ class _ExpandableTextState extends State<ExpandableText> {
       textAlign: this.widget.textAlign,
       style: this.widget.style,
       maxLines: this.widget.maxLines,
-      overflow: TextOverflow.ellipsis);
+      overflow: this.widget.overflow);
 }
