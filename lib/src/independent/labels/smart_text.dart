@@ -38,13 +38,13 @@ class SmartText extends StatefulWidget {
   SmartText(
     this.text, {
     Key key,
+    this.onPressed,
+    this.maxLines,
     this.style = const TextStyle(color: Colors.black),
     this.hashtagStyle = const TextStyle(color: Colors.lightBlue),
     this.hyperlinkStyle = const TextStyle(
         color: Colors.lightBlue, decoration: TextDecoration.underline),
-    @required this.onPressed,
     this.overflow = TextOverflow.clip,
-    this.maxLines,
     this.textAlign = TextAlign.left,
   }) : super(key: key);
 
@@ -89,15 +89,19 @@ class _SmartTextState extends State<SmartText> {
             text: word,
             style: this.widget.hashtagStyle,
             recognizer: _tapGestures[gestCount++]
-              ..onTap = () =>
-                  this.widget.onPressed(word, ClickableTextTypes.hashtag)));
+              ..onTap = () {
+                if (this.widget?.onPressed != null)
+                  this.widget.onPressed(word, ClickableTextTypes.hashtag);
+              }));
       else if (RegExp(SmartText.URL_REGEX).hasMatch(word))
         textWidgets.add(TextSpan(
             text: word,
             style: this.widget.hyperlinkStyle,
             recognizer: _tapGestures[gestCount++]
-              ..onTap = () =>
-                  this.widget.onPressed(word, ClickableTextTypes.hyperlink)));
+              ..onTap = () {
+                if (this.widget?.onPressed != null)
+                  this.widget.onPressed(word, ClickableTextTypes.hyperlink);
+              }));
       else
         textWidgets.add(TextSpan(text: word, style: this.widget.style));
     });
