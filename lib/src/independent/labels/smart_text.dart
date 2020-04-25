@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+/// Clickable text types for the text that
+/// are clickable. Used in [SmartText].
 enum ClickableTextTypes { hyperlink, hashtag }
 
 /// Smart text containing clickable hash tags
@@ -18,6 +20,15 @@ class SmartText extends StatefulWidget {
   /// The hyper url link style.
   final TextStyle hyperlinkStyle;
 
+  /// Text overflow type.
+  final TextOverflow overflow;
+
+  /// Number of lines the text will hold.
+  final int maxLines;
+
+  /// Text alignment.
+  final TextAlign textAlign;
+
   /// Callback function when a clickable text is
   /// on pressed.
   final Function(String, ClickableTextTypes) onPressed;
@@ -32,6 +43,9 @@ class SmartText extends StatefulWidget {
     this.hyperlinkStyle = const TextStyle(
         color: Colors.lightBlue, decoration: TextDecoration.underline),
     @required this.onPressed,
+    this.overflow = TextOverflow.clip,
+    this.maxLines,
+    this.textAlign = TextAlign.left,
   }) : super(key: key);
 
   @override
@@ -92,6 +106,9 @@ class _SmartTextState extends State<SmartText> {
 
   @override
   Widget build(BuildContext context) => RichText(
+      textAlign: this.widget.textAlign,
+      maxLines: this.widget.maxLines,
+      overflow: this.widget.overflow,
       text: TextSpan(
           style: this.widget.style, children: _texts(this.widget.text)));
 }
