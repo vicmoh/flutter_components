@@ -9,6 +9,7 @@ export './src/independent/clickables/custom_button.dart';
 export './src/independent/labels/expandable_text.dart';
 export './src/independent/labels/marquee_widget.dart';
 export './src/independent/labels/icon_text.dart';
+export './src/independent/labels/smart_text.dart';
 export './src/independent/labels/marquee_text.dart';
 export './src/independent/gesture/hide_keyboard_gesture.dart';
 export './src/independent/gesture/scroll_detector.dart';

@@ -3,6 +3,7 @@ import 'package:example/screen/chat_bubble_example.dart';
 import 'package:example/screen/message_field_example.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:example/screen/smart_text_example.dart';
 
 import 'screen/phone_field_example.dart';
 import 'package:flutter_components/flutter_components.dart';
@@ -58,6 +59,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
           /// Testing buttons
           _btnNav('Buttons example', ButtonExamples()),
+
+          /// Smart text example
+          _btnNav('Smart text', SmartTextExample()),
 
           /// Testing full screen popup
           _btn(
