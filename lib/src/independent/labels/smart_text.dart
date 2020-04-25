@@ -48,26 +48,26 @@ class SmartText extends StatefulWidget {
     this.textAlign = TextAlign.left,
   }) : super(key: key);
 
+  static const HTTP_REGEX =
+      r"https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)";
+  static const URL_REGEX =
+      r"[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)";
+  static const HASH_TAG_REGEX = r"(?:\s|^)#[A-Za-z0-9\-\.\_]+(?:\s|$)";
+
   @override
   _SmartTextState createState() => _SmartTextState();
 }
 
 class _SmartTextState extends State<SmartText> {
-  static const _httpRegex =
-      r"https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)";
-  static const _urlRegex =
-      r"[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)";
-  static const _hashTagRegex = r"(?:\s|^)#[A-Za-z0-9\-\.\_]+(?:\s|$)";
-
   List<TapGestureRecognizer> _tapGestures = [];
 
   @override
   void initState() {
     super.initState();
     this.widget.text?.split(' ')?.forEach((word) {
-      if (RegExp(_hashTagRegex).hasMatch(word))
+      if (RegExp(SmartText.HASH_TAG_REGEX).hasMatch(word))
         _tapGestures.add(TapGestureRecognizer());
-      else if (RegExp(_urlRegex).hasMatch(word))
+      else if (RegExp(SmartText.URL_REGEX).hasMatch(word))
         _tapGestures.add(TapGestureRecognizer());
     });
   }
@@ -84,14 +84,14 @@ class _SmartTextState extends State<SmartText> {
     int gestCount = 0;
     text.split(' ')?.forEach((word) {
       word += ' ';
-      if (RegExp(_hashTagRegex).hasMatch(word))
+      if (RegExp(SmartText.HASH_TAG_REGEX).hasMatch(word))
         textWidgets.add(TextSpan(
             text: word,
             style: this.widget.hashtagStyle,
             recognizer: _tapGestures[gestCount++]
               ..onTap = () =>
                   this.widget.onPressed(word, ClickableTextTypes.hashtag)));
-      else if (RegExp(_urlRegex).hasMatch(word))
+      else if (RegExp(SmartText.URL_REGEX).hasMatch(word))
         textWidgets.add(TextSpan(
             text: word,
             style: this.widget.hyperlinkStyle,
