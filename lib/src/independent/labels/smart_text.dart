@@ -82,7 +82,7 @@ class _SmartTextState extends State<SmartText> {
     assert(text != null);
     List<TextSpan> textWidgets = [];
     int gestCount = 0;
-    text.split(' ')?.forEach((word) {
+    text?.split(' ')?.forEach((word) {
       word += ' ';
       if (RegExp(SmartText.HASH_TAG_REGEX).hasMatch(word))
         textWidgets.add(TextSpan(
