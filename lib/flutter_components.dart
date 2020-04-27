@@ -25,7 +25,6 @@ export './src/independent/widgets/stack_avatars.dart';
 export './src/independent/widgets/frosted_glass.dart';
 export './src/independent/widgets/icon_shadow.dart';
 export './src/independent/inputs/custom_field.dart';
-export './src/independent/inputs/smart_text_field.dart';
 export './src/independent/inputs/message_field.dart';
 export './src/independent/inputs/phone_number_field.dart';
 export './src/transitions/page_transitions.dart';

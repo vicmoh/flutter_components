@@ -72,15 +72,6 @@ class _SmartTextState extends State<SmartText> {
     });
   }
 
-  _catchErr(Function() toBeCatch) {
-	const func = 'SmartText._catchErr(): ';
-	try {
-		if (toBeCatch != null) toBeCatch();	
-	} catch (err) {
-		print('$func catch.');
-	}
-  }
-
   @override
   void dispose() {
     _tapGestures?.forEach((gest) => gest?.dispose());
@@ -93,25 +84,33 @@ class _SmartTextState extends State<SmartText> {
     int gestCount = 0;
     text?.split(' ')?.forEach((word) {
       word += ' ';
-      if (RegExp(SmartText.HASH_TAG_REGEX).hasMatch(word))
-        _catchErr(() => textWidgets.add(TextSpan(
-            text: word,
-            style: this.widget.hashtagStyle,
-            recognizer: _tapGestures[gestCount++]
-              ..onTap = () {
-                if (this.widget?.onPressed != null)
-                  this.widget.onPressed(word, ClickableTextTypes.hashtag);
-              })));
-      else if (RegExp(SmartText.URL_REGEX).hasMatch(word))
-        _catchErr(() => textWidgets.add(TextSpan(
-            text: word,
-            style: this.widget.hyperlinkStyle,
-            recognizer: _tapGestures[gestCount++]
-              ..onTap = () {
-                if (this.widget?.onPressed != null)
-                  this.widget.onPressed(word, ClickableTextTypes.hyperlink);
-              })));
-      else
+      if (RegExp(SmartText.HASH_TAG_REGEX).hasMatch(word)) {
+        try {
+          textWidgets.add(TextSpan(
+              text: word,
+              style: this.widget.hashtagStyle,
+              recognizer: _tapGestures[gestCount++]
+                ..onTap = () {
+                  if (this.widget?.onPressed != null)
+                    this.widget.onPressed(word, ClickableTextTypes.hashtag);
+                }));
+        } catch (err) {
+          textWidgets.add(TextSpan(text: word, style: this.widget.style));
+        }
+      } else if (RegExp(SmartText.URL_REGEX).hasMatch(word)) {
+        try {
+          textWidgets.add(TextSpan(
+              text: word,
+              style: this.widget.hyperlinkStyle,
+              recognizer: _tapGestures[gestCount++]
+                ..onTap = () {
+                  if (this.widget?.onPressed != null)
+                    this.widget.onPressed(word, ClickableTextTypes.hyperlink);
+                }));
+        } catch (err) {
+          textWidgets.add(TextSpan(text: word, style: this.widget.style));
+        }
+      } else
         textWidgets.add(TextSpan(text: word, style: this.widget.style));
     });
     return textWidgets;
