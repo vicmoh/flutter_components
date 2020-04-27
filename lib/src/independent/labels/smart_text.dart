@@ -72,6 +72,15 @@ class _SmartTextState extends State<SmartText> {
     });
   }
 
+  _catchErr(Function() toBeCatch) {
+	const func = 'SmartText._catchErr(): ';
+	try {
+		if (toBeCatch != null) toBeCatch();	
+	} catch (err) {
+		print('$func catch.');
+	}
+  }
+
   @override
   void dispose() {
     _tapGestures?.forEach((gest) => gest?.dispose());
@@ -85,23 +94,23 @@ class _SmartTextState extends State<SmartText> {
     text?.split(' ')?.forEach((word) {
       word += ' ';
       if (RegExp(SmartText.HASH_TAG_REGEX).hasMatch(word))
-        textWidgets.add(TextSpan(
+        _catchErr(() => textWidgets.add(TextSpan(
             text: word,
             style: this.widget.hashtagStyle,
             recognizer: _tapGestures[gestCount++]
               ..onTap = () {
                 if (this.widget?.onPressed != null)
                   this.widget.onPressed(word, ClickableTextTypes.hashtag);
-              }));
+              })));
       else if (RegExp(SmartText.URL_REGEX).hasMatch(word))
-        textWidgets.add(TextSpan(
+        _catchErr(() => textWidgets.add(TextSpan(
             text: word,
             style: this.widget.hyperlinkStyle,
             recognizer: _tapGestures[gestCount++]
               ..onTap = () {
                 if (this.widget?.onPressed != null)
                   this.widget.onPressed(word, ClickableTextTypes.hyperlink);
-              }));
+              })));
       else
         textWidgets.add(TextSpan(text: word, style: this.widget.style));
     });
