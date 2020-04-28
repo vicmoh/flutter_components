@@ -24,14 +24,16 @@ class StackAvatars extends StatelessWidget {
   /// is shift to the right. [imageUrls] is a list of the avatar urls
   /// to show. The [imagePlaceholderPath] is the loading image,
   /// if it is null it will not show any loading.
+  /// [imageOffsetSpacing] is the image spacing between each images
+  /// when more than 1 images is tracked.
   StackAvatars({
     @required this.imageUrls,
     this.imagePlaceholderPath,
     this.padding,
     this.imageSize = 23,
     this.maxAvatarToShow = 3,
-    this.outlineWeight = 1,
-    this.outlineColor = Colors.grey,
+    this.outlineWeight = 0,
+    this.outlineColor = Colors.transparent,
     this.imageOffsetSpacing = 15,
   });
 
@@ -92,7 +94,7 @@ class StackAvatars extends StatelessWidget {
 
     /// Return the main Content
     if ((images.length == 0 || this.imageUrls == null) &&
-        this.imagePlaceholderPath == null)
+        this.imagePlaceholderPath == null) {
       return Container(
           width: this.imageSize,
           height: this.imageSize,
@@ -103,7 +105,7 @@ class StackAvatars extends StatelessWidget {
               child: Icon(Icons.person,
                   color: Colors.white,
                   size: (this.imageSize - 20 < 1) ? 1 : this.imageSize - 20)));
-    else
+    } else
       return Container(child: Stack(children: images));
   }
 

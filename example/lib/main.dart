@@ -1,6 +1,7 @@
 import 'package:example/screen/button_examples.dart';
 import 'package:example/screen/chat_bubble_example.dart';
 import 'package:example/screen/message_field_example.dart';
+import 'package:example/screen/stack_avatars_example.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:example/screen/smart_text_example.dart';
@@ -47,6 +48,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       Icon(Icons.search, color: Theme.of(context).primaryColor),
                   backgroundColor: Colors.white,
                   onChanged: (val) {})),
+
+          /// Button for testing stack avatars
+          _btnNav('Stack avatar example', StackAvatarsExample()),
 
           /// button test for phone field example
           _btnNav('Phone field example', PhoneFieldExample()),
