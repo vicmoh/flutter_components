@@ -79,7 +79,6 @@ class _SmartTextExampleState extends State<SmartTextExample> {
                       color: Colors.black,
                       fontSize: 14 * 1.5,
                       fontWeight: FontWeight.bold))),
-          Padding(padding: const EdgeInsets.all(8.0), child: SmartTextField()),
         ]));
   }
 }
