@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+/// A stack up avatars that is on top of one and another.
+/// It is used in the user post card and the event card modal.
+/// The avatar stacks of on top each other where you can see a part of other
+/// avatar on the side. The first avatar is shown on top, and the avatar below
+/// is shift to the right. [imageUrls] is a list of the avatar urls
+/// to show. The [imagePlaceholderPath] is the loading image,
+/// if it is null it will not show any loading.
 class StackAvatars extends StatelessWidget {
   final String imagePlaceholderPath;
   final List<String> imageUrls;
@@ -37,15 +44,18 @@ class StackAvatars extends StatelessWidget {
     return Container(
         padding: EdgeInsets.only(left: offset),
         child: Container(
-            // The circle avatar line
+
+            /// The circle avatar line
             padding: EdgeInsets.all(this.outlineWeight),
             decoration: BoxDecoration(
                 color: outlineColor ?? this.outlineColor,
                 shape: BoxShape.circle),
-            // The avatar image
+
+            /// The avatar image
             child: ClipOval(
                 child: (this.imagePlaceholderPath != null)
-                    // TODO: For some reason asset network causes to have continuous state at the start.
+
+                    /// TODO: For some reason asset network causes to have continuous state at the start.
                     ? (profileImageUrl == null)
                         ? Image.asset(this.imagePlaceholderPath,
                             width: imageSize,
@@ -79,8 +89,10 @@ class StackAvatars extends StatelessWidget {
       count++;
       if (this.maxAvatarToShow == count) break;
     }
-    // Return the main Content
-    if (images.length == 0 || this.imageUrls == null)
+
+    /// Return the main Content
+    if ((images.length == 0 || this.imageUrls == null) &&
+        this.imagePlaceholderPath == null)
       return Container(
           width: this.imageSize,
           height: this.imageSize,
@@ -95,7 +107,6 @@ class StackAvatars extends StatelessWidget {
       return Container(child: Stack(children: images));
   }
 
-  /// Build the stack avatars
   @override
   Widget build(BuildContext context) {
     return Container(padding: this.padding, child: this._mainContent(context));
