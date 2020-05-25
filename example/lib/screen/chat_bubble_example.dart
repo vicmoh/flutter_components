@@ -14,16 +14,16 @@ class _ChatBubbleExampleState extends State<ChatBubbleExample> {
     return Scaffold(
         appBar: AppBar(),
         body: ListView(
-				padding: EdgeInsets.symmetric(horizontal: 10),
-				children: <Widget>[_chat(), _chat(), _chat(), _chat()]));
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            children: <Widget>[_chat(), _chat(), _chat(), _chat()]));
   }
 
   Widget _chat() => Container(
-      child: ChatBubble(
+          child: ChatBubble(
         fontWeight: FontWeight.w500,
         headerFontWeight: FontWeight.bold,
         isOnTheLeftSide: true,
-		avatarAlignment: CrossAxisAlignment.end,
+        avatarAlignment: CrossAxisAlignment.end,
         avatarUrl:
             'https://vignette.wikia.nocookie.net/blinks/images/d/d3/Lisa_Infobox.PNG',
         showAvatar: true,
@@ -37,7 +37,11 @@ class _ChatBubbleExampleState extends State<ChatBubbleExample> {
             "may also be sent via an Internet connection."
                 .replaceAll(RegExp('\n\t'), ''),
         backgroundColor: Color.fromRGBO(230, 230, 240, 1),
-        borderRadius: 15,
+        borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(10),
+            topLeft: Radius.circular(10),
+            bottomRight: Radius.circular(30),
+            topRight: Radius.circular(30)),
         messageTextScaleSize: 1.2,
         displayNameInHeader: false,
         headerText: 'Pinicle Pickle - 6h',

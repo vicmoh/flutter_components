@@ -15,7 +15,7 @@ class ChatBubble<T> extends StatelessWidget {
   final bool showAvatar;
 
   final double bubbleMaxWidth;
-  final double borderRadius;
+  final BorderRadius borderRadius;
   final double headerTextScaleSize;
   final double messageTextScaleSize;
 
@@ -66,7 +66,7 @@ class ChatBubble<T> extends StatelessWidget {
     this.bubbleShadows,
     this.showSpacingWithHiddenAvatar = false,
     this.avatarAlignment = CrossAxisAlignment.start,
-    this.borderRadius = 10,
+    BorderRadius borderRadius,
     this.avatarSize = 33,
     this.headerColor,
     this.headerWidget,
@@ -83,6 +83,7 @@ class ChatBubble<T> extends StatelessWidget {
     List<T> replies,
     this.replyBuilder,
   })  : assert(!(bodyWidget == null && message == null)),
+        this.borderRadius = borderRadius,
         this.replies = replies ?? [];
 
   /// Circle avatar for profile image
@@ -207,13 +208,13 @@ class ChatBubble<T> extends StatelessWidget {
         child: Material(
           color: this.bubbleElevation == 0 ? Colors.transparent : null,
           elevation: this.bubbleElevation,
-          borderRadius: BorderRadius.circular(this.borderRadius),
+          borderRadius: this.borderRadius,
           child: Container(
               padding: this.innerPadding,
               // Message bubble color
               decoration: BoxDecoration(
                   color: this.backgroundColor,
-                  borderRadius: BorderRadius.circular(this.borderRadius),
+                  borderRadius: this.borderRadius,
                   boxShadow: this.bubbleShadows),
               // Inner text, the message
               child: Column(
