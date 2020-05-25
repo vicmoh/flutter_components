@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 /// for page transitions and animations.
 class PageTransitions {
   /// Route page with fade transitions.
-  /// 
+  ///
   /// Example usage:
   /// ```dart
   /// Navigator.push(context, PageTransitions.fade(SomePage()));

@@ -13,15 +13,17 @@ class _ChatBubbleExampleState extends State<ChatBubbleExample> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(),
-        body: ListView(children: <Widget>[_chat(), _chat(), _chat(), _chat()]));
+        body: ListView(
+				padding: EdgeInsets.symmetric(horizontal: 10),
+				children: <Widget>[_chat(), _chat(), _chat(), _chat()]));
   }
 
   Widget _chat() => Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
       child: ChatBubble(
         fontWeight: FontWeight.w500,
         headerFontWeight: FontWeight.bold,
         isOnTheLeftSide: true,
+		avatarAlignment: CrossAxisAlignment.end,
         avatarUrl:
             'https://vignette.wikia.nocookie.net/blinks/images/d/d3/Lisa_Infobox.PNG',
         showAvatar: true,

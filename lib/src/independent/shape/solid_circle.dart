@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class SolidCircle extends StatelessWidget {
-
   /// A solid color circle. Sometimes used in notifications
   /// to show that there is unread content.
   const SolidCircle({

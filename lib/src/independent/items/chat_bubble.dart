@@ -4,6 +4,7 @@ class ChatBubble<T> extends StatelessWidget {
   final String headerText;
   final String message;
 
+  final EdgeInsetsGeometry avatarPadding;
   final String avatarUrl;
   final String avatarPlaceholderPath;
   final double avatarSize;
@@ -55,6 +56,7 @@ class ChatBubble<T> extends StatelessWidget {
     this.headerTextScaleSize = 1,
     this.messageTextScaleSize = 1.2,
     this.headerText,
+    this.avatarPadding = const EdgeInsets.only(),
     this.avatarPlaceholderPath,
     this.avatarUrl,
     this.isOnTheLeftSide = false,
@@ -125,7 +127,10 @@ class ChatBubble<T> extends StatelessWidget {
               /// Avatar
               this.prefixWidget != null
                   ? this.prefixWidget
-                  : this.avatarUrl == null ? Container() : _avatar(context),
+                  : this.avatarUrl == null
+                      ? Container()
+                      : Padding(
+                          padding: this.avatarPadding, child: _avatar(context)),
 
               /// The message bubble
               Column(

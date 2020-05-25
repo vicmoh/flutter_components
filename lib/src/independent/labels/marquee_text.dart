@@ -9,10 +9,10 @@ class MarqueeText extends StatefulWidget {
   final double ratioOfBlankToScreen;
 
   /// A moving text label that moves horizontally
-  /// to show all content of the string, 
+  /// to show all content of the string,
   /// similar to music apps like Spotify
   /// where it shows the whole string in one line
-  /// by moving the text horizontally to the left. 
+  /// by moving the text horizontally to the left.
   MarqueeText({
     @required this.text,
     this.textStyle,
