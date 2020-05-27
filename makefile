@@ -1,9 +1,5 @@
 EXPORT_FILE=flutter_components
 
-# ---------------------------------------------------------------------------- #
-#                          Below are all the commands                          #
-# ---------------------------------------------------------------------------- #
-
 # Export and test the program.
 all: export sure clean
 
