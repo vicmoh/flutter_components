@@ -12,6 +12,7 @@ class MessageField extends StatefulWidget {
   final bool isLoading;
   final String hintText;
   final double hintTextFontScale;
+  final FocusNode focusNode;
 
   /// Class for sending and entering a message.
   /// Used in [ChatPage] and [LiveFeedPage]
@@ -28,6 +29,7 @@ class MessageField extends StatefulWidget {
     this.isLoading = false,
     this.hintText = 'Enter a message...',
     this.hintTextFontScale = 1.2,
+    this.focusNode,
   }) : super(key: key);
 
   _MessageFieldState createState() => _MessageFieldState();
@@ -71,6 +73,7 @@ class _MessageFieldState extends State<MessageField> {
 
   TextField _textField() {
     return TextField(
+        focusNode: widget.focusNode,
         controller: widget.fieldController,
         autocorrect: true,
         cursorColor: widget.textColor,
