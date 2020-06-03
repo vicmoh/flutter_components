@@ -68,6 +68,11 @@ class _AnimateState extends State<Animate> with TickerProviderStateMixin {
   }
 
   @override
+  void setState(fn) {
+    if (this.mounted) super.setState(fn);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
         child: widget.child,

@@ -17,27 +17,11 @@ class HideKeyboardGesture extends StatefulWidget {
 }
 
 class _HideKeyboardGestureState extends State<HideKeyboardGesture> {
-  FocusNode _focusNode;
-
-  @override
-  void initState() {
-    super.initState();
-    _focusNode = FocusNode();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _focusNode.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         child: widget.child,
-        onVerticalDragCancel: () =>
-            FocusScope.of(context).requestFocus(_focusNode),
-        onVerticalDragStart: (_) =>
-            FocusScope.of(context).requestFocus(_focusNode));
+        onVerticalDragCancel: () => FocusScope.of(context).unfocus(),
+        onVerticalDragStart: (_) => FocusScope.of(context).unfocus());
   }
 }
