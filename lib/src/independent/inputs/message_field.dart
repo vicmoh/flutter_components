@@ -13,6 +13,9 @@ class MessageField extends StatefulWidget {
   final String hintText;
   final double hintTextFontScale;
   final FocusNode focusNode;
+  final int maxLength;
+  final String counterText;
+  final Widget sendWidget;
 
   /// Class for sending and entering a message.
   /// Used in [ChatPage] and [LiveFeedPage]
@@ -30,6 +33,9 @@ class MessageField extends StatefulWidget {
     this.hintText = 'Enter a message...',
     this.hintTextFontScale = 1.2,
     this.focusNode,
+    this.maxLength,
+    this.counterText = "",
+    this.sendWidget,
   }) : super(key: key);
 
   _MessageFieldState createState() => _MessageFieldState();
@@ -45,15 +51,15 @@ class _MessageFieldState extends State<MessageField> {
   Widget _messageField(BuildContext context) {
     return Container(
         color: widget.backgroundColor,
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              /// Divider
-              Container(height: 1, color: widget.dividerColor),
+        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: <
+            Widget>[
+          /// Divider
+          Container(height: 1, color: widget.dividerColor),
 
-              /// The Field and send button
-              SizedBox(height: widget.innerVerticalPadding),
-              Row(children: <Widget>[
+          /// The Field and send button
+          Padding(
+              padding: EdgeInsets.only(top: this.widget.innerVerticalPadding),
+              child: Row(children: <Widget>[
                 /// Text field for messaging
                 Expanded(
                     child: Container(
@@ -62,17 +68,17 @@ class _MessageFieldState extends State<MessageField> {
 
                 /// Send button
                 _sendButton(),
-              ]),
+              ])),
 
-              /// Bottom padding for iPhone users
-              Container(
-                  padding:
-                      EdgeInsets.only(bottom: widget.innerVerticalPadding)),
-            ]));
+          /// Bottom padding for iPhone users
+          Container(
+              padding: EdgeInsets.only(bottom: widget.innerVerticalPadding)),
+        ]));
   }
 
   TextField _textField() {
     return TextField(
+        maxLength: widget.maxLength,
         focusNode: widget.focusNode,
         controller: widget.fieldController,
         autocorrect: true,
@@ -84,6 +90,7 @@ class _MessageFieldState extends State<MessageField> {
             color: widget.textColor,
             fontSize: 14 * this.widget.hintTextFontScale),
         decoration: InputDecoration(
+            counterText: widget.counterText,
             border: InputBorder.none,
             hintText: this.widget.hintText,
             fillColor: widget.backgroundColor,
@@ -93,7 +100,8 @@ class _MessageFieldState extends State<MessageField> {
   }
 
   _sendButton() {
-    Widget icon = Icon(Icons.send, color: widget.textColor);
+    Widget icon =
+        widget.sendWidget ?? Icon(Icons.send, color: widget.textColor);
     if (this.widget.isLoading)
       icon = this.widget.onSendLoadingWidget ??
           CircularProgressIndicator(

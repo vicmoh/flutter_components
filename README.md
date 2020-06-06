@@ -5,14 +5,13 @@ Flutter project.
 
 # Installation
 
-To install this library, go to `pubspec.yml` in
-the root folder.
+Go to `pubspec.yml` in the root folder, insert dependency below.
 
 ```
 dependencies:
   flutter_components:
     git:
       url: git://github.com/vicmoh/flutter_components.git
-      ref: v0.0.21
+      ref: v0.0.22
 ```
 
