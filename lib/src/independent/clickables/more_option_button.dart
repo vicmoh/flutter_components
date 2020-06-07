@@ -12,8 +12,6 @@ class MoreOptionButton extends StatelessWidget {
   final RoundedRectangleBorder shape;
   final Widget child;
   final List<MoreOptionItem> items;
-  final double itemHeight;
-  final TextStyle itemTextStyle;
 
   /// A more option button that will popup
   /// a list of more options.
@@ -22,8 +20,6 @@ class MoreOptionButton extends StatelessWidget {
     @required this.child,
     @required this.items,
     this.shape,
-    this.itemHeight,
-    this.itemTextStyle,
   })  : assert(child != null, 'child cannot be null'),
         assert(items != null, 'items cannot be null'),
         super(key: key);
@@ -32,11 +28,7 @@ class MoreOptionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     List<PopupMenuItem> tiles = [];
     for (var x = 0; x < this.items.length; x++)
-      tiles.add(PopupMenuItem(
-          textStyle: this.itemTextStyle,
-          height: this.itemHeight,
-          child: this.items[x].tile,
-          value: x));
+      tiles.add(PopupMenuItem(child: this.items[x].tile, value: x));
 
     return PopupMenuButton(
         child: this.child,
