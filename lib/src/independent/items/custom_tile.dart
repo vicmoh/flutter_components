@@ -110,11 +110,11 @@ class CustomTile extends StatelessWidget {
     this.headMaxLines = 1,
     this.isHeadingUnderline = false,
     this.isSubHeadingUnderline = false,
+    this.child,
   })  : this.type = _TileType.message,
         this.widgetBackgroundColor = Colors.transparent,
         this.subImageUrls = null,
         this.icon = null,
-        this.child = null,
         this.headAndSubHeadingPadding = null,
         this.monthForDisplayDate = null,
         this.dayForDisplayDate = null,
@@ -302,6 +302,7 @@ class CustomTile extends StatelessWidget {
 
   /// Leading content
   Widget _leading(BuildContext context) {
+    if (this.child != null) return this.child;
     return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[this._avatar(context)]);
