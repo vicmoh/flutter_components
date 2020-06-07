@@ -86,8 +86,7 @@ class StackAvatars extends StatelessWidget {
     double offset = 0;
     List<Widget> images = [];
     int count = 0;
-    for (var each
-        in reverseOffsetSpacing ? this.imageUrls : this.imageUrls.reversed) {
+    for (var each in this.imageUrls) {
       Color color = each != null ? this.outlineColor : Colors.transparent;
       images.add(this._avatar(each, offset: offset, outlineColor: color));
       offset += this.imageOffsetSpacing;
@@ -109,7 +108,10 @@ class StackAvatars extends StatelessWidget {
                   color: Colors.white,
                   size: (this.imageSize - 20 < 1) ? 1 : this.imageSize - 20)));
     } else
-      return Container(child: Stack(children: images));
+      return Container(
+          child: Stack(
+              children:
+                  reverseOffsetSpacing ? images : images.reversed.toList()));
   }
 
   @override
