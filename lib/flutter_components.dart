@@ -2,6 +2,7 @@ library flutter_components;
 
 export './src/independent/shape/solid_circle.dart';
 export './src/independent/shape/solid_circle.dart.dart';
+export './src/independent/clickables/more_option_button.dart';
 export './src/independent/clickables/custom_button.dart';
 export './src/independent/labels/expandable_text.dart';
 export './src/independent/labels/marquee_widget.dart';

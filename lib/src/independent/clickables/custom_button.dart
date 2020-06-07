@@ -132,9 +132,9 @@ class CustomButton extends StatelessWidget {
         this.isBoldLabel = false,
         this.backgroundGradient = null;
 
-  //----------------------------------------------------------------------------------
+  //------------------------------------------
   // Functions to create the widgets are below
-  //----------------------------------------------------------------------------------
+  //------------------------------------------
 
   // Default text label
   Widget _textLabel(BuildContext context) {
@@ -146,24 +146,6 @@ class CustomButton extends StatelessWidget {
                 color: this.textColor,
                 fontWeight:
                     (this.isBoldLabel) ? FontWeight.bold : FontWeight.normal)));
-  }
-
-  /// Circle check mark that is only shown if set
-  @deprecated
-  Widget _circleCheckMarked(BuildContext context) {
-    /// The outline
-    return Container(
-        padding: EdgeInsets.all(1),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(90), color: this.textColor),
-
-        /// The content
-        child: Container(
-            padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(90),
-                color: Color.fromRGBO(17, 23, 63, 1)),
-            child: Icon(Icons.check, color: this.textColor)));
   }
 
   /// Round button
@@ -191,11 +173,6 @@ class CustomButton extends StatelessWidget {
                         (this.child == null)
                             ? this._textLabel(context)
                             : this.child,
-                        // The check mark button
-                        // TODO: _circleCheckedMarked is deprecated
-                        (this.isCheckMarkShown)
-                            ? this._circleCheckMarked(context)
-                            : Container(),
                       ])));
 
     //? Return with outline
