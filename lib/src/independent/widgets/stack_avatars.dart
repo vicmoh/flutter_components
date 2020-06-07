@@ -16,6 +16,7 @@ class StackAvatars extends StatelessWidget {
   final Color outlineColor;
   final double outlineWeight;
   final double imageOffsetSpacing;
+  final bool reverseOffsetSpacing;
 
   /// A stack up avatars that is on top of one and another.
   /// It is used in the user post card and the event card modal.
@@ -35,6 +36,7 @@ class StackAvatars extends StatelessWidget {
     this.outlineWeight = 0,
     this.outlineColor = Colors.transparent,
     this.imageOffsetSpacing = 15,
+    this.reverseOffsetSpacing = false,
   });
 
   /// Circle avatar for profile image
@@ -44,7 +46,9 @@ class StackAvatars extends StatelessWidget {
     Color outlineColor,
   }) {
     return Container(
-        padding: EdgeInsets.only(left: offset),
+        padding: this.reverseOffsetSpacing
+            ? EdgeInsets.only(left: offset)
+            : EdgeInsets.only(right: offset),
         child: Container(
 
             /// The circle avatar line
