@@ -46,9 +46,7 @@ class StackAvatars extends StatelessWidget {
     Color outlineColor,
   }) {
     return Container(
-        padding: this.reverseOffsetSpacing
-            ? EdgeInsets.only(left: offset)
-            : EdgeInsets.only(right: offset),
+        padding: EdgeInsets.only(left: offset),
         child: Container(
 
             /// The circle avatar line
@@ -88,7 +86,8 @@ class StackAvatars extends StatelessWidget {
     double offset = 0;
     List<Widget> images = [];
     int count = 0;
-    for (var each in this.imageUrls) {
+    for (var each
+        in reverseOffsetSpacing ? this.imageUrls : this.imageUrls.reversed) {
       Color color = each != null ? this.outlineColor : Colors.transparent;
       images.add(this._avatar(each, offset: offset, outlineColor: color));
       offset += this.imageOffsetSpacing;
