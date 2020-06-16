@@ -14,7 +14,6 @@ class Animate extends StatefulWidget {
   final Function(Animation<double>) builder;
   final Widget child;
   final Function(BuildContext, Widget, Animation<double>) render;
-  final Function(AnimationController) onDispose;
 
   /// Animate a widget. If the [control] is null
   /// it will animate at the beginning of a state which will
@@ -31,7 +30,6 @@ class Animate extends StatefulWidget {
     this.control,
     this.duration = const Duration(milliseconds: 300),
     this.curve = Curves.easeIn,
-    this.onDispose,
   })  : assert(begin != null, 'begin must not be null.'),
         assert(end != null, 'end must not be null.'),
         assert(builder != null, 'builder must not be null.'),
@@ -54,7 +52,6 @@ class Animate extends StatefulWidget {
     this.control,
     this.duration = const Duration(milliseconds: 300),
     this.curve = Curves.easeIn,
-    this.onDispose,
   })  : assert(begin != null, 'begin must not be null.'),
         assert(end != null, 'end must not be null.'),
         assert(child != null, 'child must not be null.'),
@@ -91,8 +88,7 @@ class _AnimateState extends State<Animate> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    if (widget?.control == null) _animationControl?.dispose();
-    if (widget?.onDispose != null) widget.onDispose(_animationControl);
+     _animationControl?.dispose();
     super.dispose();
   }
 
