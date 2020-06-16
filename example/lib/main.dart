@@ -5,6 +5,7 @@ import 'package:example/screen/stack_avatars_example.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:example/screen/smart_text_example.dart';
+import 'package:example/screen/animate_example.dart';
 
 import 'screen/phone_field_example.dart';
 import 'package:flutter_components/flutter_components.dart';
@@ -66,6 +67,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
           /// Smart text example
           _btnNav('Smart text', SmartTextExample()),
+
+          /// Animate example
+          _btnNav('Animate example', AnimateExample()),
 
           /// Testing full screen popup
           _btn(
