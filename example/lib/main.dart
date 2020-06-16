@@ -35,6 +35,11 @@ class _MyHomePageState extends State<MyHomePage> {
   _btn(text, onPressed) =>
       RaisedButton(child: Text(text), onPressed: onPressed);
 
+  _showPopup() => showDialog(
+      context: context,
+      builder: (cxt) =>
+          CustomDialog(title: 'Hello World!', bodyText: 'Some body text.'));
+
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: Text("Widget")),
@@ -70,6 +75,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
           /// Animate example
           _btnNav('Animate example', AnimateExample()),
+
+          /// Show simple popup example
+          _btn('Show simple popup', () => _showPopup()),
 
           /// Testing full screen popup
           _btn(

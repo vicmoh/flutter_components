@@ -13,8 +13,8 @@ class CustomDialog extends StatefulWidget {
   final Widget footerChild;
   final MainAxisAlignment buttonHorizontalAlignment;
   final List<Widget> buttons;
-  final Color titleTextColor;
-  final Color bodyTextColor;
+  final TextStyle titleStyle;
+  final TextStyle bodyTextStyle;
   final Color backgroundColor;
   final double borderRadius;
   final double width;
@@ -23,6 +23,9 @@ class CustomDialog extends StatefulWidget {
   final BoxConstraints constraints;
   final _DialogType _type;
 
+  static _defaultTitleStyle() => TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 14 * 1.3);
+  static _defaultBodyTextStyle() => TextStyle(color: Colors.grey, fontWeight: FontWeight.w500, fontSize: 14 * 1.1);
+
   /// Custom Dialog, must be wrap with [showDialog] function.
   CustomDialog({
     @required this.title,
@@ -30,18 +33,20 @@ class CustomDialog extends StatefulWidget {
     this.isCenterTitle = false,
     this.isCenterBodyText = false,
     this.buttonHorizontalAlignment = MainAxisAlignment.end,
-    this.buttons,
-    this.titleTextColor = Colors.black,
-    this.bodyTextColor = Colors.grey,
     this.backgroundColor = Colors.white,
     this.borderRadius = 10,
     this.height,
     this.width,
     this.footerChild,
     this.constraints,
+    TextStyle titleStyle,
+    TextStyle bodyTextStyle,
+    this.buttons,
   })  : this._type = _DialogType.simple,
         this.isDoubleTapToCancel = false,
-        this.bodyChild = null;
+        this.bodyChild = null,
+        this.titleStyle = titleStyle ?? _defaultTitleStyle(),
+        this.bodyTextStyle = bodyTextStyle ?? _defaultBodyTextStyle();
 
   /// Custom Dialog, must be wrap with [showDialog] function.
   /// This uses [bodyChild] of a widget instead of [bodyText].
@@ -50,19 +55,21 @@ class CustomDialog extends StatefulWidget {
     this.footerChild,
     this.title,
     this.buttonHorizontalAlignment = MainAxisAlignment.end,
-    this.buttons,
-    this.titleTextColor = Colors.black,
-    this.bodyTextColor = Colors.grey,
     this.backgroundColor = Colors.white,
     this.borderRadius = 10,
     this.height,
     this.width,
     this.constraints,
+    this.buttons,
+    TextStyle titleStyle,
+    TextStyle bodyTextStyle,
   })  : this._type = _DialogType.simple,
         this.isCenterTitle = false,
         this.isCenterBodyText = false,
         this.isDoubleTapToCancel = false,
-        this.bodyText = null;
+        this.bodyText = null,
+        this.titleStyle = titleStyle ?? _defaultTitleStyle(),
+        this.bodyTextStyle = bodyTextStyle ?? _defaultBodyTextStyle();
 
   /// A circular progress indicator used for loading.
   CustomDialog.loading({
@@ -77,12 +84,12 @@ class CustomDialog extends StatefulWidget {
         this.bodyText = null,
         this.height = 150,
         this.width = 100,
-        this.titleTextColor = Colors.black,
-        this.bodyTextColor = Colors.grey,
         this.borderRadius = 10,
         this.footerChild = null,
         this.isCenterTitle = true,
-        this.isCenterBodyText = false;
+        this.isCenterBodyText = false,
+        this.titleStyle = _defaultTitleStyle(),
+        this.bodyTextStyle = _defaultBodyTextStyle();
 
   @override
   State<StatefulWidget> createState() => _CustomDialogState();
@@ -134,10 +141,7 @@ class _CustomDialogState extends State<CustomDialog> {
                                 textAlign: this.widget.isCenterTitle
                                     ? TextAlign.center
                                     : TextAlign.start,
-                                style: TextStyle(
-                                    color: widget.titleTextColor,
-                                    fontWeight: FontWeight.bold),
-                                textScaleFactor: 1.3)),
+                                style: widget.titleStyle)),
                       ])),
 
               // The body
@@ -148,11 +152,10 @@ class _CustomDialogState extends State<CustomDialog> {
                       child: Row(children: <Widget>[
                         Expanded(
                             child: Text(widget.bodyText,
-                                textScaleFactor: 1.1,
                                 textAlign: this.widget.isCenterBodyText
                                     ? TextAlign.center
                                     : TextAlign.start,
-                                style: TextStyle(color: widget.bodyTextColor))),
+                                style: widget.bodyTextStyle)),
                       ])),
 
               /// Children
