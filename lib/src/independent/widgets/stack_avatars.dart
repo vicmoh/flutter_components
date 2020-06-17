@@ -59,7 +59,8 @@ class StackAvatars extends StatelessWidget {
             child: ClipOval(
                 child: (this.imagePlaceholderPath != null)
 
-                    /// TODO: For some reason asset network causes to have continuous state at the start.
+                    /// TODO: For some reason asset network 
+                    /// causes to have continuous state at the start.
                     ? (profileImageUrl == null)
                         ? Image.asset(this.imagePlaceholderPath,
                             width: imageSize,

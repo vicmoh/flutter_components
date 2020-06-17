@@ -11,6 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  extended_text_field: ^1.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

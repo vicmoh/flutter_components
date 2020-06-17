@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:example/screen/smart_text_example.dart';
 import 'package:example/screen/animate_example.dart';
+import 'package:example/screen/extended_text_span_example.dart';
 
 import 'screen/phone_field_example.dart';
 import 'package:flutter_components/flutter_components.dart';
@@ -75,6 +76,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
           /// Animate example
           _btnNav('Animate example', AnimateExample()),
+
+          _btnNav('Extended text field example', ExtendedTextSpanExample()),
 
           /// Show simple popup example
           _btn('Show simple popup', () => _showPopup()),
