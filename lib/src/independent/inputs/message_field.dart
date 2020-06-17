@@ -16,6 +16,7 @@ class MessageField extends StatefulWidget {
   final int maxLength;
   final String counterText;
   final Widget sendWidget;
+  final Widget inputWidget;
 
   /// Class for sending and entering a message.
   /// Used in [ChatPage] and [LiveFeedPage]
@@ -36,6 +37,7 @@ class MessageField extends StatefulWidget {
     this.maxLength,
     this.counterText = "",
     this.sendWidget,
+    this.inputWidget,
   }) : super(key: key);
 
   _MessageFieldState createState() => _MessageFieldState();
@@ -76,8 +78,8 @@ class _MessageFieldState extends State<MessageField> {
         ]));
   }
 
-  TextField _textField() {
-    return TextField(
+  TextField _textField() =>
+     widget.inputWidget ?? TextField(
         maxLength: widget.maxLength,
         focusNode: widget.focusNode,
         controller: widget.fieldController,
@@ -97,7 +99,6 @@ class _MessageFieldState extends State<MessageField> {
             hintStyle: TextStyle(
                 color: widget.textColor.withAlpha(200),
                 fontSize: 14 * this.widget.hintTextFontScale)));
-  }
 
   _sendButton() {
     Widget icon =
