@@ -89,9 +89,8 @@ class _SmartTextState extends State<SmartText> {
     int gestCount = 0;
     text?.split(' ')?.forEach((word) {
       word += ' ';
-      if (widget.hashtagStyle != null 
-          && RegExp(SmartText.HASH_TAG_REGEX).hasMatch(word)
-      ) {
+      if (widget.hashtagStyle != null &&
+          RegExp(SmartText.HASH_TAG_REGEX).hasMatch(word)) {
         try {
           textWidgets.add(TextSpan(
               text: word,
@@ -104,10 +103,8 @@ class _SmartTextState extends State<SmartText> {
         } catch (err) {
           textWidgets.add(TextSpan(text: word, style: this.widget.style));
         }
-      } else if (
-          widget.hyperlinkStyle != null 
-          && RegExp(SmartText.URL_REGEX).hasMatch(word)
-      ) {
+      } else if (widget.hyperlinkStyle != null &&
+          RegExp(SmartText.URL_REGEX).hasMatch(word)) {
         try {
           textWidgets.add(TextSpan(
               text: word,
@@ -120,8 +117,8 @@ class _SmartTextState extends State<SmartText> {
         } catch (err) {
           textWidgets.add(TextSpan(text: word, style: this.widget.style));
         }
-      } if (widget.atTextStyle != null
-          && RegExp(SmartText.AT_TAG_REGEX).hasMatch(word)) {
+      } else if (widget.atTextStyle != null &&
+          RegExp(SmartText.AT_TAG_REGEX).hasMatch(word)) {
         try {
           textWidgets.add(TextSpan(
               text: word,

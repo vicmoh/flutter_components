@@ -23,8 +23,10 @@ class CustomDialog extends StatefulWidget {
   final BoxConstraints constraints;
   final _DialogType _type;
 
-  static _defaultTitleStyle() => TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 14 * 1.3);
-  static _defaultBodyTextStyle() => TextStyle(color: Colors.grey, fontWeight: FontWeight.w500, fontSize: 14 * 1.1);
+  static _defaultTitleStyle() => TextStyle(
+      color: Colors.black, fontWeight: FontWeight.bold, fontSize: 14 * 1.3);
+  static _defaultBodyTextStyle() => TextStyle(
+      color: Colors.grey, fontWeight: FontWeight.w500, fontSize: 14 * 1.1);
 
   /// Custom Dialog, must be wrap with [showDialog] function.
   CustomDialog({

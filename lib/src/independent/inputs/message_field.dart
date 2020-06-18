@@ -79,26 +79,27 @@ class _MessageFieldState extends State<MessageField> {
   }
 
   _textField() =>
-     widget.inputWidget ?? TextField(
-        maxLength: widget.maxLength,
-        focusNode: widget.focusNode,
-        controller: widget.fieldController,
-        autocorrect: true,
-        cursorColor: widget.textColor,
-        maxLines: 5,
-        minLines: 1,
-        onChanged: widget.onFieldChanged,
-        style: TextStyle(
-            color: widget.textColor,
-            fontSize: 14 * this.widget.hintTextFontScale),
-        decoration: InputDecoration(
-            counterText: widget.counterText,
-            border: InputBorder.none,
-            hintText: this.widget.hintText,
-            fillColor: widget.backgroundColor,
-            hintStyle: TextStyle(
-                color: widget.textColor.withAlpha(200),
-                fontSize: 14 * this.widget.hintTextFontScale)));
+      widget.inputWidget ??
+      TextField(
+          maxLength: widget.maxLength,
+          focusNode: widget.focusNode,
+          controller: widget.fieldController,
+          autocorrect: true,
+          cursorColor: widget.textColor,
+          maxLines: 5,
+          minLines: 1,
+          onChanged: widget.onFieldChanged,
+          style: TextStyle(
+              color: widget.textColor,
+              fontSize: 14 * this.widget.hintTextFontScale),
+          decoration: InputDecoration(
+              counterText: widget.counterText,
+              border: InputBorder.none,
+              hintText: this.widget.hintText,
+              fillColor: widget.backgroundColor,
+              hintStyle: TextStyle(
+                  color: widget.textColor.withAlpha(200),
+                  fontSize: 14 * this.widget.hintTextFontScale)));
 
   _sendButton() {
     Widget icon =

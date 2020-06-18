@@ -180,26 +180,28 @@ class ChatBubble<T> extends StatelessWidget {
     /// The message
     innerText.add(this.bodyWidget ??
         Material(
-          color: Colors.transparent,
-          child: RichText(
-            overflow: this.maxMessageLines == null
-                ? TextOverflow.visible
-                : TextOverflow.ellipsis,
-            textScaleFactor: this.messageTextScaleSize,
-            maxLines: this.maxMessageLines,
-            text: TextSpan(
-                style: TextStyle(
-                    fontWeight: this.headerFontWeight,
-                    color: this.headerColor ?? this.textColor.withAlpha(200)),
-                text: (this.headerText != null && !this.displayNameInHeader)
-                    ? '$headerText: '
-                    : '',
-                children: [
-                  TextSpan(
-                      text: '$message',
-                      style: TextStyle(
-                          fontWeight: this.fontWeight, color: this.textColor)),
-                ]))));
+            color: Colors.transparent,
+            child: RichText(
+                overflow: this.maxMessageLines == null
+                    ? TextOverflow.visible
+                    : TextOverflow.ellipsis,
+                textScaleFactor: this.messageTextScaleSize,
+                maxLines: this.maxMessageLines,
+                text: TextSpan(
+                    style: TextStyle(
+                        fontWeight: this.headerFontWeight,
+                        color:
+                            this.headerColor ?? this.textColor.withAlpha(200)),
+                    text: (this.headerText != null && !this.displayNameInHeader)
+                        ? '$headerText: '
+                        : '',
+                    children: [
+                      TextSpan(
+                          text: '$message',
+                          style: TextStyle(
+                              fontWeight: this.fontWeight,
+                              color: this.textColor)),
+                    ]))));
 
     /// The footer of the bubble
     if (footerWidget != null) innerText.add(this.footerWidget);
@@ -227,14 +229,14 @@ class ChatBubble<T> extends StatelessWidget {
 
   /// The text in the bubble, used for display name.
   Widget _smallText(String text, {Color color}) {
-    return  Material(
+    return Material(
         color: Colors.transparent,
         child: Text(text,
-          overflow: this.maxMessageLines == null
-              ? TextOverflow.visible
-              : TextOverflow.ellipsis,
-          textScaleFactor: this.headerTextScaleSize,
-          style: TextStyle(color: color ?? textColor.withAlpha(200))));
+            overflow: this.maxMessageLines == null
+                ? TextOverflow.visible
+                : TextOverflow.ellipsis,
+            textScaleFactor: this.headerTextScaleSize,
+            style: TextStyle(color: color ?? textColor.withAlpha(200))));
   }
 
   /// Build the widget
