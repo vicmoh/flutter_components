@@ -78,7 +78,7 @@ class _MessageFieldState extends State<MessageField> {
         ]));
   }
 
-  TextField _textField() =>
+  _textField() =>
      widget.inputWidget ?? TextField(
         maxLength: widget.maxLength,
         focusNode: widget.focusNode,
