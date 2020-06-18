@@ -129,7 +129,7 @@ class _SmartTextState extends State<SmartText> {
               recognizer: _tapGestures[gestCount++]
                 ..onTap = () {
                   if (this.widget?.onPressed != null)
-                    this.widget.onPressed(word, ClickableTextTypes.atTextStyle);
+                    this.widget.onPressed(word, ClickableTextTypes.atTag);
                 }));
         } catch (err) {
           textWidgets.add(TextSpan(text: word, style: this.widget.style));
