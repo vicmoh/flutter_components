@@ -105,7 +105,7 @@ class _SmartTextState extends State<SmartText> {
           textWidgets.add(TextSpan(text: word, style: this.widget.style));
         }
       } else if (
-          widget.hashtagStyle != null 
+          widget.hyperlinkStyle != null 
           && RegExp(SmartText.URL_REGEX).hasMatch(word)
       ) {
         try {
