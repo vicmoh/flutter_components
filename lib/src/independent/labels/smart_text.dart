@@ -99,12 +99,19 @@ class _SmartTextState extends State<SmartText> {
   
   _spaceText(textWidgets) => textWidgets.add(TextSpan(text: ' ', style: this.widget.style));
 
+  _addGesture(Function() onTap){
+    _tapGestures.add(TapGestureRecognizer());
+    _tapGestures.last..onTap = onTap;
+    return _tapGestures.last;
+  }
+
   List<TextSpan> _texts(String text) {
     assert(text != null);
     List<TextSpan> textWidgets = [];
     int gestCount = 0;
     text?.split(' ')?.forEach((word) {
       word = word.trim();
+      _showDebug('word: $word');
 
       /// For hashtag
       if (widget.hashtagStyle != null &&
@@ -113,11 +120,10 @@ class _SmartTextState extends State<SmartText> {
           textWidgets.add(TextSpan(
               text: word,
               style: this.widget.hashtagStyle,
-              recognizer: _tapGestures[gestCount++]
-                ..onTap = () {
+              recognizer: _addGesture(() {
                   if (this.widget?.onPressed != null)
                     this.widget.onPressed(word, ClickableTextTypes.hashtag);
-                }));
+                })));
           _spaceText(textWidgets);
         } catch (err) {
           _showDebug(err);
@@ -131,11 +137,10 @@ class _SmartTextState extends State<SmartText> {
           textWidgets.add(TextSpan(
               text: word,
               style: this.widget.hyperlinkStyle,
-              recognizer: _tapGestures[gestCount++]
-                ..onTap = () {
+              recognizer: _addGesture(() {
                   if (this.widget?.onPressed != null)
                     this.widget.onPressed(word, ClickableTextTypes.hyperlink);
-                }));
+                })));
           _spaceText(textWidgets);
         } catch (err) {
           _showDebug(err);
@@ -149,11 +154,10 @@ class _SmartTextState extends State<SmartText> {
           textWidgets.add(TextSpan(
               text: word,
               style: this.widget.atTextStyle,
-              recognizer: _tapGestures[gestCount++]
-                ..onTap = () {
+              recognizer: _addGesture(() {
                   if (this.widget?.onPressed != null)
                     this.widget.onPressed(word, ClickableTextTypes.atTag);
-                }));
+                })));
           _spaceText(textWidgets);
         } catch (err) {
           _showDebug(err);

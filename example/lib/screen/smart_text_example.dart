@@ -69,6 +69,20 @@ class _SmartTextExampleState extends State<SmartTextExample> {
                       fontWeight: FontWeight.bold))),
           Padding(
               padding: const EdgeInsets.all(8.0),
+              child: SmartText(
+                  'https://google.com @megh #hundo #test @megh @vic #test',
+                  showDebug: true,
+                  hashtagStyle: TextStyle(color: Colors.lightBlueAccent),
+                  atTextStyle: TextStyle(color: Colors.red),
+                  hyperlinkStyle: TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 3,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 14 * 1.5,
+                      fontWeight: FontWeight.bold))),
+          Padding(
+              padding: const EdgeInsets.all(8.0),
               child: ExpandableText(
                   'Hello world this is #tag and url google.com' +
                       ' with some long text and stuff' +
