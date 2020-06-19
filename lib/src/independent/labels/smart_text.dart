@@ -32,6 +32,9 @@ class SmartText extends StatefulWidget {
   /// Text alignment.
   final TextAlign textAlign;
 
+  /// Determine whether to show print debug.
+  final bool showDebug;
+
   /// Callback function when a clickable text is
   /// on pressed.
   final Function(String, ClickableTextTypes) onPressed;
@@ -49,6 +52,7 @@ class SmartText extends StatefulWidget {
     this.atTextStyle,
     this.overflow = TextOverflow.clip,
     this.textAlign = TextAlign.left,
+    this.showDebug = false,
   }) : super(key: key);
 
   static const HTTP_REGEX =
@@ -83,12 +87,26 @@ class _SmartTextState extends State<SmartText> {
     super.dispose();
   }
 
+  _showDebug(val) {
+    if (widget.showDebug)
+      print(val);
+  } 
+
+  _addNormText(List<TextSpan> textWidgets, String word) {
+    textWidgets.add(TextSpan(text: word, style: this.widget.style));
+    textWidgets.add(TextSpan(text: ' ', style: this.widget.style));
+  }
+  
+  _spaceText(textWidgets) => textWidgets.add(TextSpan(text: ' ', style: this.widget.style));
+
   List<TextSpan> _texts(String text) {
     assert(text != null);
     List<TextSpan> textWidgets = [];
     int gestCount = 0;
     text?.split(' ')?.forEach((word) {
-      word += ' ';
+      word = word.trim();
+
+      /// For hashtag
       if (widget.hashtagStyle != null &&
           RegExp(SmartText.HASH_TAG_REGEX).hasMatch(word)) {
         try {
@@ -100,9 +118,13 @@ class _SmartTextState extends State<SmartText> {
                   if (this.widget?.onPressed != null)
                     this.widget.onPressed(word, ClickableTextTypes.hashtag);
                 }));
+          _spaceText(textWidgets);
         } catch (err) {
-          textWidgets.add(TextSpan(text: word, style: this.widget.style));
+          _showDebug(err);
+          _addNormText(textWidgets, word);
         }
+
+      /// For hyper links
       } else if (widget.hyperlinkStyle != null &&
           RegExp(SmartText.URL_REGEX).hasMatch(word)) {
         try {
@@ -114,9 +136,13 @@ class _SmartTextState extends State<SmartText> {
                   if (this.widget?.onPressed != null)
                     this.widget.onPressed(word, ClickableTextTypes.hyperlink);
                 }));
+          _spaceText(textWidgets);
         } catch (err) {
-          textWidgets.add(TextSpan(text: word, style: this.widget.style));
+          _showDebug(err);
+          _addNormText(textWidgets, word);
         }
+
+      /// For at symbol text 
       } else if (widget.atTextStyle != null &&
           RegExp(SmartText.AT_TAG_REGEX).hasMatch(word)) {
         try {
@@ -128,12 +154,17 @@ class _SmartTextState extends State<SmartText> {
                   if (this.widget?.onPressed != null)
                     this.widget.onPressed(word, ClickableTextTypes.atTag);
                 }));
+          _spaceText(textWidgets);
         } catch (err) {
-          textWidgets.add(TextSpan(text: word, style: this.widget.style));
+          _showDebug(err);
+          _addNormText(textWidgets, word);
         }
+
+      /// Default text 
       } else
-        textWidgets.add(TextSpan(text: word, style: this.widget.style));
+        _addNormText(textWidgets, word);
     });
+    textWidgets.removeLast();
     return textWidgets;
   }
 
