@@ -72,13 +72,6 @@ class _SmartTextState extends State<SmartText> {
   @override
   void initState() {
     super.initState();
-    this.widget.text?.split(' ')?.forEach((word) {
-      word += ' ';
-      if (RegExp(SmartText.HASH_TAG_REGEX).hasMatch(word))
-        _tapGestures.add(TapGestureRecognizer());
-      else if (RegExp(SmartText.URL_REGEX).hasMatch(word))
-        _tapGestures.add(TapGestureRecognizer());
-    });
   }
 
   @override
