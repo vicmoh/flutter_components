@@ -22,8 +22,8 @@ class MessageField extends StatefulWidget {
   /// Used in [ChatPage] and [LiveFeedPage]
   MessageField({
     Key key,
-    @required this.onFieldChanged,
     @required this.onSend,
+    this.onFieldChanged,
     this.backgroundColor = Colors.grey,
     this.textColor = Colors.white,
     this.dividerColor = Colors.black,
@@ -88,7 +88,7 @@ class _MessageFieldState extends State<MessageField> {
           cursorColor: widget.textColor,
           maxLines: 5,
           minLines: 1,
-          onChanged: widget.onFieldChanged,
+          onChanged: widget.onFieldChanged ?? () {},
           style: TextStyle(
               color: widget.textColor,
               fontSize: 14 * this.widget.hintTextFontScale),
