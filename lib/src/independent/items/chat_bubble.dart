@@ -171,8 +171,7 @@ class ChatBubble<T> extends StatelessWidget {
     if (this.headerText != null && this.displayNameInHeader)
       innerText.add(Container(
           padding: EdgeInsets.only(bottom: 5),
-          child: _smallText(this.headerText),
-          color: this.headerColor));
+          child: _smallText(this.headerText, color: this.headerColor)));
 
     /// Header widget
     if (this.headerWidget != null) innerText.add(this.headerWidget);
