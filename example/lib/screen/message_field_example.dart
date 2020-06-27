@@ -17,7 +17,7 @@ class _MessageFieldExampleState extends State<MessageFieldExample> {
         children: <Widget>[
           Expanded(child: Container()),
           MessageField(
-            maxLength: 20,
+            maxLength: 512,
             onFieldChanged: (val) {},
             onSend: () {},
             backgroundColor: Theme.of(context).primaryColor,

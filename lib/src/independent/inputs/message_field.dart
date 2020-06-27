@@ -16,6 +16,7 @@ class MessageField extends StatefulWidget {
   final int maxLength;
   final String counterText;
   final Widget sendWidget;
+  final CrossAxisAlignment sendCrossAxisAlignment;
   final Widget inputWidget;
 
   /// Class for sending and entering a message.
@@ -38,6 +39,7 @@ class MessageField extends StatefulWidget {
     this.counterText = "",
     this.sendWidget,
     this.inputWidget,
+    this.sendCrossAxisAlignment = CrossAxisAlignment.end,
   }) : super(key: key);
 
   _MessageFieldState createState() => _MessageFieldState();
@@ -53,29 +55,34 @@ class _MessageFieldState extends State<MessageField> {
   Widget _messageField(BuildContext context) {
     return Container(
         color: widget.backgroundColor,
-        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: <
-            Widget>[
-          /// Divider
-          Container(height: 1, color: widget.dividerColor),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              /// Divider
+              Container(height: 1, color: widget.dividerColor),
 
-          /// The Field and send button
-          Padding(
-              padding: EdgeInsets.only(top: this.widget.innerVerticalPadding),
-              child: Row(children: <Widget>[
-                /// Text field for messaging
-                Expanded(
-                    child: Container(
-                        padding: EdgeInsets.only(left: 10),
-                        child: _textField())),
+              /// The Field and send button
+              Padding(
+                  padding:
+                      EdgeInsets.only(top: this.widget.innerVerticalPadding),
+                  child: Row(
+                      crossAxisAlignment: widget.sendCrossAxisAlignment,
+                      children: <Widget>[
+                        /// Text field for messaging
+                        Expanded(
+                            child: Container(
+                                padding: EdgeInsets.only(left: 10),
+                                child: _textField())),
 
-                /// Send button
-                _sendButton(),
-              ])),
+                        /// Send button
+                        _sendButton(),
+                      ])),
 
-          /// Bottom padding for iPhone users
-          Container(
-              padding: EdgeInsets.only(bottom: widget.innerVerticalPadding)),
-        ]));
+              /// Bottom padding for iPhone users
+              Container(
+                  padding:
+                      EdgeInsets.only(bottom: widget.innerVerticalPadding)),
+            ]));
   }
 
   _textField() =>
