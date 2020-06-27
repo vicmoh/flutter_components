@@ -62,7 +62,7 @@ class Animate extends StatefulWidget {
   _AnimateState createState() => _AnimateState();
 }
 
-class _AnimateState extends State<Animate> with TickerProviderStateMixin {
+class _AnimateState extends State<Animate> with SingleTickerProviderStateMixin {
   Animation<double> _animation;
   AnimationController _animationControl;
 
