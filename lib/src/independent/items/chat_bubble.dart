@@ -40,6 +40,8 @@ class ChatBubble<T> extends StatelessWidget {
 
   final List<dynamic> replies;
   final Widget Function(T) replyBuilder;
+  final void Function() onTap;
+  final void Function() onLongPress;
 
   /// Chat bubble mostly used for messaging.
   /// One of the parameter
@@ -82,6 +84,8 @@ class ChatBubble<T> extends StatelessWidget {
     // For the reply section
     List<T> replies,
     this.replyBuilder,
+    this.onTap,
+    this.onLongPress,
   })  : assert(!(bodyWidget == null && message == null)),
         this.borderRadius = borderRadius,
         this.replies = replies ?? [];
@@ -209,21 +213,23 @@ class ChatBubble<T> extends StatelessWidget {
     return LimitedBox(
         maxWidth: bubbleMaxWidth ?? MediaQuery.of(context).size.width * 0.7,
         child: Material(
-          color: this.bubbleElevation == 0 ? Colors.transparent : null,
-          elevation: this.bubbleElevation,
-          borderRadius: this.borderRadius,
-          child: Container(
-              padding: this.innerPadding,
-              // Message bubble color
-              decoration: BoxDecoration(
-                  color: this.backgroundColor,
-                  borderRadius: this.borderRadius,
-                  boxShadow: this.bubbleShadows),
-              // Inner text, the message
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: innerText)),
-        ));
+            color: this.backgroundColor,
+            elevation: this.bubbleElevation,
+            borderRadius: this.borderRadius,
+            child: InkWell(
+                borderRadius: this.borderRadius,
+                onTap: this.onTap ?? () {},
+                onLongPress: this.onLongPress ?? () {},
+                child: Container(
+                    padding: this.innerPadding,
+                    // Message bubble color
+                    decoration: BoxDecoration(
+                        borderRadius: this.borderRadius,
+                        boxShadow: this.bubbleShadows),
+                    // Inner text, the message
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: innerText)))));
   }
 
   /// The text in the bubble, used for display name.

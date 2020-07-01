@@ -57,8 +57,7 @@ class _SmartTextExampleState extends State<SmartTextExample> {
                       fontWeight: FontWeight.bold))),
           Padding(
               padding: const EdgeInsets.all(8.0),
-              child: ExpandableText(
-                  '#tag #tag #tag #hello #bruh',
+              child: ExpandableText('#tag #tag #tag #hello #bruh',
                   onClickableText: (val, clickType) =>
                       print('val = $val, clickType = $clickType'),
                   overflow: TextOverflow.ellipsis,
@@ -74,7 +73,8 @@ class _SmartTextExampleState extends State<SmartTextExample> {
                   showDebug: true,
                   hashtagStyle: TextStyle(color: Colors.lightBlueAccent),
                   atTextStyle: TextStyle(color: Colors.red),
-                  hyperlinkStyle: TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
+                  hyperlinkStyle: TextStyle(
+                      color: Colors.blue, decoration: TextDecoration.underline),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 3,
                   style: TextStyle(
