@@ -58,7 +58,7 @@ packages:
     source: hosted
     version: "2.1.4"
   dart_util:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       path: "."
       ref: "v0.0.9"
@@ -147,7 +147,7 @@ packages:
     source: hosted
     version: "4.0.3"
   provider_skeleton:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       path: "."
       ref: "v0.0.17"

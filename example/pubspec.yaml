@@ -31,8 +31,17 @@ dev_dependencies:
   flutter_components:
     path: ../../flutter_components/
   
-  
+  # Used for the main architect framework.
+  provider_skeleton:
+    git:
+      url: git://github.com/vicmoh/provider_skeleton.git
+      ref: v0.0.17
 
+  # Custom dart util
+  dart_util:
+    git:
+      url: git://github.com/vicmoh/dart_util.git
+      ref: v0.0.9 
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
