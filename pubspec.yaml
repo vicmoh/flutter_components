@@ -13,6 +13,18 @@ dependencies:
 
   extended_text_field: ^1.0.1
 
+  # Used for the main architect framework.
+  provider_skeleton:
+    git:
+      url: git://github.com/vicmoh/provider_skeleton.git
+      ref: v0.0.17
+
+  # Custom dart util
+  dart_util:
+    git:
+      url: git://github.com/vicmoh/dart_util.git
+      ref: v0.0.9
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

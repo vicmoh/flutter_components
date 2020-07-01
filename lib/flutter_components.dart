@@ -28,6 +28,7 @@ export './src/independent/widgets/icon_shadow.dart';
 export './src/independent/inputs/custom_field.dart';
 export './src/independent/inputs/message_field.dart';
 export './src/independent/inputs/phone_number_field.dart';
+export './src/dependent/chat_batcher.dart';
 export './src/dependent/extended_text_field/text_styles/at_text.dart';
 export './src/dependent/extended_text_field/text_styles/hash_text.dart';
 export './src/dependent/extended_text_field/text_styles/text_style_start_span.dart';
