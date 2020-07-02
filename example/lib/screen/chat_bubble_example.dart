@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:flutter_components/flutter_components.dart';
 
 class ChatBubbleExample extends StatefulWidget {
@@ -15,10 +16,29 @@ class _ChatBubbleExampleState extends State<ChatBubbleExample> {
         appBar: AppBar(),
         body: ListView(
             padding: EdgeInsets.symmetric(horizontal: 10),
-            children: <Widget>[_chat(), _chat(), _chat(), _chat()]));
+            children: <Widget>[
+              _chat(), 
+              _chat(
+                  replyHeader: ChatBubble.defaultReplyHeader(),
+                  replyMessage: ChatBubble.defaultReplyMessage('Hello World!')),
+              _chat(
+                  replyColor: Colors.red,
+                  isReplyHeaderOutside: true,
+                  replyHeader: ChatBubble.defaultReplyHeader(iconColor: Colors.grey,
+                      style: TextStyle(color: Colors.grey)),
+                  replyMessage: ChatBubble.defaultReplyMessage('Hello World!')),
+              _chat(
+                  replyColor: Color.fromRGBO(240, 240, 240, 1),
+                  isReplyHeaderOutside: true,
+                  replyHeader: ChatBubble.defaultReplyHeader(iconColor: Colors.black,
+                      style: TextStyle(color: Colors.black)),
+                  replyMessage: ChatBubble.defaultReplyMessage('Hello World!', 
+                      dividerColor: Colors.black,
+                      style:TextStyle(color: Colors.black))),
+            ]));
   }
 
-  Widget _chat() => Container(
+  Widget _chat({replyMessage, replyHeader, isReplyHeaderOutside = false, replyColor}) => Container(
           child: ChatBubble(
         fontWeight: FontWeight.w500,
         headerFontWeight: FontWeight.bold,
@@ -37,6 +57,15 @@ class _ChatBubbleExampleState extends State<ChatBubbleExample> {
             "may also be sent via an Internet connection."
                 .replaceAll(RegExp('\n\t'), ''),
         backgroundColor: Color.fromRGBO(230, 230, 240, 1),
+        backgroundGradient: LinearGradient(colors: [
+          Colors.green[200],
+          Colors.yellow[200],
+        ]),
+        replyBackgroundColor: replyColor,
+        isReplyHeaderOutside: isReplyHeaderOutside,
+        onReplyTap: () => toast('Reply is tapped.'),
+        replyMessage: replyMessage, 
+        replyHeader: replyHeader,
         borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(10),
             topLeft: Radius.circular(10),

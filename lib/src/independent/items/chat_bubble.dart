@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 class ChatBubble<T> extends StatelessWidget {
   final String headerText;
@@ -22,6 +23,7 @@ class ChatBubble<T> extends StatelessWidget {
   final Color headerColor;
   final Color textColor;
   final Color backgroundColor;
+  final LinearGradient backgroundGradient;
 
   final Widget headerWidget;
   final Widget bodyWidget;
@@ -38,6 +40,12 @@ class ChatBubble<T> extends StatelessWidget {
   final CrossAxisAlignment avatarAlignment;
   final List<BoxShadow> bubbleShadows;
 
+  final bool isReplyHeaderOutside;
+  final Widget replyHeader;
+  final Widget replyMessage;
+  final BorderRadius replyBorderRadius;
+  final Color replyBackgroundColor;
+  final Function() onReplyTap;
   final List<dynamic> replies;
   final Widget Function(T) replyBuilder;
   final void Function() onTap;
@@ -64,7 +72,7 @@ class ChatBubble<T> extends StatelessWidget {
     this.isOnTheLeftSide = false,
     this.displayNameInHeader = true,
     this.textColor = Colors.white,
-    this.backgroundColor = Colors.blue,
+    Color backgroundColor,
     this.bubbleShadows,
     this.showSpacingWithHiddenAvatar = false,
     this.avatarAlignment = CrossAxisAlignment.start,
@@ -81,14 +89,28 @@ class ChatBubble<T> extends StatelessWidget {
     this.innerPadding =
         const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
     this.bubbleElevation = 0,
-    // For the reply section
+
+    /// For the reply section
+    this.isReplyHeaderOutside = false,
+    this.replyHeader,
+    this.replyMessage,
+    BorderRadius replyBorderRadius,
+    this.replyBackgroundColor,
+    this.onReplyTap,
     List<T> replies,
     this.replyBuilder,
     this.onTap,
     this.onLongPress,
+    this.backgroundGradient,
   })  : assert(!(bodyWidget == null && message == null)),
-        this.borderRadius = borderRadius,
-        this.replies = replies ?? [];
+        this.borderRadius = borderRadius ?? BorderRadius.circular(30),
+        this.replyBorderRadius = replyBorderRadius ?? BorderRadius.circular(20),
+        this.replies = replies ?? [],
+        this.backgroundColor =
+            backgroundColor ?? Color.fromRGBO(230, 230, 240, 1);
+
+  double _maxWidth(BuildContext context) =>
+      bubbleMaxWidth ?? MediaQuery.of(context).size.width * 0.7;
 
   /// Circle avatar for profile image
   Widget _avatar(BuildContext context) {
@@ -120,32 +142,113 @@ class ChatBubble<T> extends StatelessWidget {
   }
 
   /// A single box chat tile
-  Widget _chatBox(BuildContext context) {
-    return Container(
-        padding: this.padding,
-        child: Row(
-            crossAxisAlignment: this.avatarAlignment,
-            mainAxisAlignment: (isOnTheLeftSide == false)
-                ? MainAxisAlignment.end
-                : MainAxisAlignment.start,
-            children: [
-              /// Avatar
-              this.prefixWidget != null
-                  ? this.prefixWidget
-                  : this.avatarUrl == null
-                      ? Container()
-                      : Padding(
-                          padding: this.avatarPadding, child: _avatar(context)),
+  Widget _chatBox(BuildContext context) => Container(
+      padding: this.padding,
+      child: Row(
+          crossAxisAlignment: this.avatarAlignment,
+          mainAxisAlignment: (isOnTheLeftSide == false)
+              ? MainAxisAlignment.end
+              : MainAxisAlignment.start,
+          children: [
+            /// Avatar
+            this.prefixWidget != null
+                ? this.prefixWidget
+                : this.avatarUrl == null
+                    ? Container()
+                    : Padding(
+                        padding: this.avatarPadding, child: _avatar(context)),
 
-              /// The message bubble
-              Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    _bubbleContent(context),
-                    _replyBox(context),
-                  ]),
-            ]));
-  }
+            /// The message bubble
+            Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  _singleReplyBox(context),
+                  _bubbleContent(context),
+                  _replyBox(context),
+                ]),
+          ]));
+
+  static Widget defaultReplyHeader({
+    String text = 'Replied',
+    TextStyle style = const TextStyle(
+        color: Colors.white, fontWeight: FontWeight.w500),
+    Color iconColor = Colors.white,
+  }) =>  Padding(
+          padding: const EdgeInsets.only(left: 10, bottom: 5),
+          child: RichText(
+              text: TextSpan(
+                  children: [
+                    WidgetSpan(child: Padding(
+                        padding: const EdgeInsets.only(right: 3),
+                        child: Transform.translate(
+                          offset: Offset(0, -2),
+                          child: Transform(
+                            alignment: Alignment.center,
+                            transform: Matrix4.rotationY(math.pi),
+                            child: Icon(Icons.reply, 
+                             color: iconColor, size: 15))))),
+                    TextSpan(text: text, style: style),
+                  ])));
+
+  static Widget defaultReplyMessage(String text, {
+    TextStyle style = const TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.w500),
+    Color dividerColor = Colors.white,
+  }) =>  IntrinsicHeight(
+        child: Row(
+          children: [
+            Padding(
+                padding:
+                    const EdgeInsets.only(top: 5, bottom: 5),
+                child: VerticalDivider(color: dividerColor)),
+            Expanded(
+                child: Text(
+                    text,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    style: style)),
+          ]));
+
+  _singleReplyBox(BuildContext context) => this.replyMessage == null
+     ? Container() 
+     : Transform.translate(
+        offset: Offset(0, 15),
+        child: LimitedBox(
+            maxWidth: _maxWidth(context),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+              /// Show reply header outside.
+              this.isReplyHeaderOutside 
+                ? this.replyHeader ?? Container()
+                : Container(),
+
+              /// The reply message box.
+              Material(
+                borderRadius: this.replyBorderRadius,
+                color: this.replyBackgroundColor ?? Theme.of(context).primaryColor,
+                child: InkWell(
+                    onTap: this.onReplyTap ?? () {},
+                    borderRadius: this.replyBorderRadius,
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                          bottom: 20, top: 10, left: 10, right: 10),
+                      decoration:
+                          BoxDecoration(borderRadius: this.replyBorderRadius),
+                      child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          /// The reply text.  
+                          !this.isReplyHeaderOutside
+                            ? this.replyHeader ?? Container()
+                            : Container(),
+
+                          /// The Divider and replying to
+                          this.replyMessage,
+                        ]),
+                    ))),
+            ]),
+          ));
 
   /// The reply box content
   Widget _replyBox(BuildContext context) {
@@ -211,7 +314,7 @@ class ChatBubble<T> extends StatelessWidget {
 
     /// Create bubble
     return LimitedBox(
-        maxWidth: bubbleMaxWidth ?? MediaQuery.of(context).size.width * 0.7,
+        maxWidth: _maxWidth(context),
         child: Material(
             color: this.backgroundColor,
             elevation: this.bubbleElevation,
@@ -224,6 +327,7 @@ class ChatBubble<T> extends StatelessWidget {
                     padding: this.innerPadding,
                     // Message bubble color
                     decoration: BoxDecoration(
+                        gradient: this.backgroundGradient,
                         borderRadius: this.borderRadius,
                         boxShadow: this.bubbleShadows),
                     // Inner text, the message
@@ -233,20 +337,16 @@ class ChatBubble<T> extends StatelessWidget {
   }
 
   /// The text in the bubble, used for display name.
-  Widget _smallText(String text, {Color color}) {
-    return Material(
-        color: Colors.transparent,
-        child: Text(text,
-            overflow: this.maxMessageLines == null
-                ? TextOverflow.visible
-                : TextOverflow.ellipsis,
-            textScaleFactor: this.headerTextScaleSize,
-            style: TextStyle(color: color ?? textColor.withAlpha(200))));
-  }
+  Widget _smallText(String text, {Color color}) => Material(
+      color: Colors.transparent,
+      child: Text(text,
+          overflow: this.maxMessageLines == null
+              ? TextOverflow.visible
+              : TextOverflow.ellipsis,
+          textScaleFactor: this.headerTextScaleSize,
+          style: TextStyle(color: color ?? textColor.withAlpha(200))));
 
   /// Build the widget
   @override
-  Widget build(BuildContext context) {
-    return _chatBox(context);
-  }
+  Widget build(BuildContext context) => _chatBox(context);
 }

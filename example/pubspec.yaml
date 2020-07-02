@@ -28,6 +28,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  overlay_support: ^1.0.4
+
   flutter_components:
     path: ../../flutter_components/
   
