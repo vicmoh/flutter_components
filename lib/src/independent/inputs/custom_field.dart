@@ -20,7 +20,7 @@ class CustomField extends StatefulWidget {
   final void Function(String) onChanged;
   final String hintText;
   final EdgeInsetsGeometry innerPadding;
-  final bool isBoldText;
+  final FontWeight fontWeight;
   final bool autofocus;
   final bool obscureText;
   final int maxLines;
@@ -71,7 +71,7 @@ class CustomField extends StatefulWidget {
     this.maxLines,
     this.minLines,
     this.maxLength = 128,
-    this.isBoldText = false,
+    this.fontWeight = FontWeight.w500,
     this.focusNode,
     this.border,
     this.expands = false,
@@ -117,7 +117,7 @@ class CustomField extends StatefulWidget {
     this.maxLines,
     this.minLines,
     this.maxLength = 128,
-    this.isBoldText = false,
+    this.fontWeight = FontWeight.w500,
     this.focusNode,
     this.border,
     this.enabled,
@@ -154,7 +154,7 @@ class CustomField extends StatefulWidget {
     this.outlineWeight = 1,
     this.maxLines = 1,
     this.minLines = 1,
-    this.isBoldText = false,
+    this.fontWeight = FontWeight.w500,
   })  : this.type = _Type.fourFieldsInRow,
         this.border = null,
         this.enabled = null,
@@ -270,9 +270,7 @@ class _CustomField extends State<CustomField> {
                     style: TextStyle(
                         color: this.widget.textColor,
                         fontSize: 14 * this.widget.textScaleFactor,
-                        fontWeight: (this.widget.isBoldText)
-                            ? FontWeight.w500
-                            : FontWeight.normal),
+                        fontWeight: this.widget.fontWeight),
                     // Text decoration
                     decoration: InputDecoration(
                         counterText: this.widget.counterText,
@@ -285,9 +283,7 @@ class _CustomField extends State<CustomField> {
                         // Hint style
                         hintStyle: TextStyle(
                             color: this.widget.hintColor,
-                            fontWeight: (this.widget.isBoldText)
-                                ? FontWeight.w500
-                                : FontWeight.normal),
+                            fontWeight: this.widget.fontWeight),
                         // Outline input border
                         border: this.widget.border ??
                             OutlineInputBorder(
@@ -336,9 +332,7 @@ class _CustomField extends State<CustomField> {
                         labelText: this.widget.hintText,
                         labelStyle: TextStyle(
                             color: this.widget.hintColor,
-                            fontWeight: (this.widget.isBoldText)
-                                ? FontWeight.w500
-                                : FontWeight.normal),
+                            fontWeight: this.widget.fontWeight),
                         // Padding and color
                         contentPadding: this.widget.innerPadding,
                         filled: false,
