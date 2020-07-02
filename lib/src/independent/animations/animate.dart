@@ -10,14 +10,16 @@ class AnimateContext {
   final BuildContext context;
 
   /// Animation control.
-  final AnimationController controller;
+  AnimationController get controller => _controller;
+  AnimationController _controller;
 
   /// Get animation context.
   AnimateContext({
     @required this.context,
-    @required this.controller,
+    AnimationController controller,
   })  : assert(context != null, 'buildContext must not be null.'),
-        assert(controller != null, 'controller must not be null.');
+        assert(controller != null, 'controller must not be null.'),
+        _controller = controller;
 }
 
 /// Animation state.
@@ -131,6 +133,7 @@ class _AnimateState extends State<Animate> with SingleTickerProviderStateMixin {
   void dispose() {
     _animateContext._isControllerDisposed = true;
     _animationControl?.dispose();
+    _animateContext._controller = null;
     super.dispose();
   }
 
