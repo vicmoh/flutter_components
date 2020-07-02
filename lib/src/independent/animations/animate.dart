@@ -89,6 +89,7 @@ class _AnimateState extends State<Animate> with SingleTickerProviderStateMixin {
   @override
   void dispose() {
     _animationControl?.dispose();
+    _animationControl = null;
     super.dispose();
   }
 
