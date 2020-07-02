@@ -1,5 +1,41 @@
 import 'package:flutter/material.dart';
 
+/// Get animation context.
+class AnimateContext {
+  /// Determine if controller has been disposed.
+  bool get isControllerDisposed => _isControllerDisposed;
+  bool _isControllerDisposed = false;
+
+  /// The anime context.
+  final BuildContext context;
+
+  /// Animation control.
+  final AnimationController controller;
+
+  /// Get animation context.
+  AnimateContext({
+    @required this.context,
+    @required this.controller,
+  })  : assert(context != null, 'buildContext must not be null.'),
+        assert(controller != null, 'controller must not be null.');
+}
+
+/// Animation state.
+class AnimateState {
+  /// The animate control.
+  final BuildContext context;
+
+  /// Get animation.
+  final Animation<double> animation;
+
+  /// Animation state.
+  AnimateState({
+    @required this.context,
+    @required this.animation,
+  })  : assert(context != null, 'buildContext must not be null.'),
+        assert(animation != null, 'animation must not be null.');
+}
+
 /// Animate a widget. If the [control] is null
 /// it will animate at the beginning of a state which will
 /// animate once. [Builder] is a callback that returns
@@ -10,10 +46,10 @@ class Animate extends StatefulWidget {
   final double end;
   final Duration duration;
   final Curve curve;
-  final Function(AnimationController) control;
-  final Function(Animation<double>) builder;
+  final Function(AnimateContext) control;
+  final Function(AnimateState) builder;
   final Widget child;
-  final Function(BuildContext, Widget, Animation<double>) render;
+  final Function(AnimateState, Widget child) render;
 
   /// Animate a widget. If the [control] is null
   /// it will animate at the beginning of a state which will
@@ -65,6 +101,8 @@ class Animate extends StatefulWidget {
 class _AnimateState extends State<Animate> with SingleTickerProviderStateMixin {
   Animation<double> _animation;
   AnimationController _animationControl;
+  AnimateContext _animateContext;
+  AnimateState _animateState;
 
   @override
   void initState() {
@@ -75,6 +113,9 @@ class _AnimateState extends State<Animate> with SingleTickerProviderStateMixin {
         AnimationController(vsync: this, duration: widget.duration);
     _animation = Tween<double>(begin: widget.begin, end: widget.end).animate(
         CurvedAnimation(parent: _animationControl, curve: widget.curve));
+    _animateContext =
+        AnimateContext(controller: _animationControl, context: context);
+    _animateState = AnimateState(animation: _animation, context: context);
 
     /// Controlling animation
     if (widget.control == null) {
@@ -83,13 +124,13 @@ class _AnimateState extends State<Animate> with SingleTickerProviderStateMixin {
         if (status == AnimationStatus.completed) _animationControl?.stop();
       });
     } else
-      widget?.control(_animationControl);
+      widget?.control(_animateContext);
   }
 
   @override
   void dispose() {
+    _animateContext._isControllerDisposed = true;
     _animationControl?.dispose();
-    _animationControl = null;
     super.dispose();
   }
 
@@ -105,8 +146,8 @@ class _AnimateState extends State<Animate> with SingleTickerProviderStateMixin {
         animation: _animation,
         builder: (context, child) {
           if (widget.render != null && widget.child != null)
-            return widget.render(context, child, _animation);
-          return widget.builder(_animation);
+            return widget.render(_animateState, child);
+          return widget.builder(_animateState);
         });
   }
 }
