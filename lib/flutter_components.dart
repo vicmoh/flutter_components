@@ -14,6 +14,7 @@ export './src/independent/gesture/scroll_detector.dart';
 export './src/independent/dialogs/full_screen_popup_view.dart';
 export './src/independent/dialogs/custom_dialog.dart';
 export './src/independent/alignments/vertical_stretch.dart';
+export './src/independent/alignments/mirror_transform.dart';
 export './src/independent/alignments/horizontal_stretch.dart';
 export './src/independent/alignments/center_list_view.dart';
 export './src/independent/items/comment_tile.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class IconText extends StatelessWidget {
-  final Icon icon;
+  final Widget icon;
   final Widget text;
   final EdgeInsetsGeometry padding;
   final MainAxisAlignment alignment;

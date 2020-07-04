@@ -16,32 +16,32 @@ class _AnimateExampleState extends State<AnimateExample> {
         Animate.withChild(
             begin: MediaQuery.of(context).size.width,
             end: 0,
-            control: (control) {
-              control.forward();
-              control.addListener(() {
-                if (control.isCompleted) {
-                  control.dispose();
+            control: (context) {
+              context.controller.forward();
+              context.controller.addListener(() {
+                if (context.controller.isCompleted) {
+                  context.controller.dispose();
                   if (DEBUG) print('animate with child is disposed.');
                 }
               });
             },
             child: _widget(),
-            render: (_, child, animate) => Transform.translate(
-                offset: Offset(animate.value, 0), child: child)),
+            render: (state, child) => Transform.translate(
+                offset: Offset(state.animation.value, 0), child: child)),
         Animate(
             begin: MediaQuery.of(context).size.width,
             end: 0,
             control: (control) {
-              control.forward();
-              control.addListener(() {
-                if (control.isCompleted) {
-                  control.dispose();
+              control.controller.forward();
+              control.controller.addListener(() {
+                if (control.controller.isCompleted) {
+                  control.controller.dispose();
                   if (DEBUG) print('animate is disposed.');
                 }
               });
             },
-            builder: (animate) => Transform.translate(
-                offset: Offset(animate.value, 0), child: _widget())),
+            builder: (state) => Transform.translate(
+                offset: Offset(state.animation.value, 0), child: _widget())),
       ]));
 
   _widget() => Container(height: 50, width: 50, color: Colors.red);
