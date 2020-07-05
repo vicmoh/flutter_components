@@ -104,7 +104,7 @@ class ChatBubble<T> extends StatelessWidget {
     this.backgroundGradient,
   })  : assert(!(bodyWidget == null && message == null)),
         this.borderRadius = borderRadius ?? BorderRadius.circular(30),
-        this.replyBorderRadius = replyBorderRadius ?? BorderRadius.circular(20),
+        this.replyBorderRadius = replyBorderRadius ?? BorderRadius.circular(15),
         this.replies = replies ?? [],
         this.backgroundColor =
             backgroundColor ?? Color.fromRGBO(230, 230, 240, 1);
@@ -160,7 +160,9 @@ class ChatBubble<T> extends StatelessWidget {
 
             /// The message bubble
             Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: (isOnTheLeftSide == false)
+                    ? CrossAxisAlignment.end
+                    : CrossAxisAlignment.start,
                 children: <Widget>[
                   _singleReplyBox(context),
                   _bubbleContent(context),
@@ -170,83 +172,86 @@ class ChatBubble<T> extends StatelessWidget {
 
   static Widget defaultReplyHeader({
     String text = 'Replied',
-    TextStyle style = const TextStyle(
-        color: Colors.white, fontWeight: FontWeight.w500),
+    TextStyle style =
+        const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
     Color iconColor = Colors.white,
-  }) =>  Padding(
+  }) =>
+      Padding(
           padding: const EdgeInsets.only(left: 10, bottom: 5),
           child: RichText(
-              text: TextSpan(
-                  children: [
-                    WidgetSpan(child: Padding(
-                        padding: const EdgeInsets.only(right: 3),
-                        child: Transform.translate(
-                          offset: Offset(0, -2),
-                          child: Transform(
+              text: TextSpan(children: [
+            WidgetSpan(
+                child: Padding(
+                    padding: const EdgeInsets.only(right: 3),
+                    child: Transform.translate(
+                        offset: Offset(0, -2),
+                        child: Transform(
                             alignment: Alignment.center,
                             transform: Matrix4.rotationY(math.pi),
-                            child: Icon(Icons.reply, 
-                             color: iconColor, size: 15))))),
-                    TextSpan(text: text, style: style),
-                  ])));
+                            child: Icon(Icons.reply,
+                                color: iconColor, size: 15))))),
+            TextSpan(text: text, style: style),
+          ])));
 
-  static Widget defaultReplyMessage(String text, {
-    TextStyle style = const TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.w500),
+  static Widget defaultReplyMessage(
+    String text, {
+    TextStyle style =
+        const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
     Color dividerColor = Colors.white,
-  }) =>  IntrinsicHeight(
-        child: Row(
-          children: [
-            Padding(
-                padding:
-                    const EdgeInsets.only(top: 5, bottom: 5),
-                child: VerticalDivider(color: dividerColor)),
-            Expanded(
-                child: Text(
-                    text,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                    style: style)),
-          ]));
+  }) =>
+      IntrinsicHeight(
+          child: Row(mainAxisSize: MainAxisSize.min, children: [
+        Padding(
+            padding: const EdgeInsets.only(top: 5, bottom: 5),
+            child: VerticalDivider(color: dividerColor)),
+        Flexible(
+            child: Text(text,
+                overflow: TextOverflow.ellipsis, maxLines: 3, style: style)),
+      ]));
 
   _singleReplyBox(BuildContext context) => this.replyMessage == null
-     ? Container() 
-     : Transform.translate(
-        offset: Offset(0, 15),
-        child: LimitedBox(
+      ? Container()
+      : Transform.translate(
+          offset: Offset(0, 15),
+          child: LimitedBox(
             maxWidth: _maxWidth(context),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               /// Show reply header outside.
-              this.isReplyHeaderOutside 
-                ? this.replyHeader ?? Container()
-                : Container(),
+              this.isReplyHeaderOutside
+                  ? this.replyHeader ?? Container()
+                  : Container(),
 
               /// The reply message box.
-              Material(
-                borderRadius: this.replyBorderRadius,
-                color: this.replyBackgroundColor ?? Theme.of(context).primaryColor,
-                child: InkWell(
-                    onTap: this.onReplyTap ?? () {},
-                    borderRadius: this.replyBorderRadius,
-                    child: Container(
-                      padding: const EdgeInsets.only(
-                          bottom: 20, top: 10, left: 10, right: 10),
-                      decoration:
-                          BoxDecoration(borderRadius: this.replyBorderRadius),
-                      child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          /// The reply text.  
-                          !this.isReplyHeaderOutside
-                            ? this.replyHeader ?? Container()
-                            : Container(),
+              Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                Flexible(
+                    child: Material(
+                        borderRadius: this.replyBorderRadius,
+                        color: this.replyBackgroundColor ??
+                            Theme.of(context).primaryColor,
+                        child: InkWell(
+                            onTap: this.onReplyTap ?? () {},
+                            borderRadius: this.replyBorderRadius,
+                            child: Container(
+                              padding: const EdgeInsets.only(
+                                  bottom: 20, top: 10, left: 10, right: 10),
+                              decoration: BoxDecoration(
+                                  borderRadius: this.replyBorderRadius),
+                              child: this.isReplyHeaderOutside
+                                  ? this.replyMessage
+                                  : Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                          /// The reply text.
+                                          this.replyHeader,
 
-                          /// The Divider and replying to
-                          this.replyMessage,
-                        ]),
-                    ))),
+                                          /// The Divider and replying to
+                                          this.replyMessage,
+                                        ]),
+                            )))),
+              ]),
             ]),
           ));
 
