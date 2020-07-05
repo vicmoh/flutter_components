@@ -215,44 +215,47 @@ class ChatBubble<T> extends StatelessWidget {
           offset: Offset(0, 15),
           child: LimitedBox(
             maxWidth: _maxWidth(context),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              /// Show reply header outside.
-              this.isReplyHeaderOutside
-                  ? this.replyHeader ?? Container()
-                  : Container(),
+            child: Column(
+                crossAxisAlignment: (isOnTheLeftSide == false)
+                    ? CrossAxisAlignment.end
+                    : CrossAxisAlignment.start,
+                children: [
+                  /// Show reply header outside.
+                  this.isReplyHeaderOutside
+                      ? this.replyHeader ?? Container()
+                      : Container(),
 
-              /// The reply message box.
-              Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                Flexible(
-                    child: Material(
-                        borderRadius: this.replyBorderRadius,
-                        color: this.replyBackgroundColor ??
-                            Theme.of(context).primaryColor,
-                        child: InkWell(
-                            onTap: this.onReplyTap ?? () {},
+                  /// The reply message box.
+                  Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                    Flexible(
+                        child: Material(
                             borderRadius: this.replyBorderRadius,
-                            child: Container(
-                              padding: const EdgeInsets.only(
-                                  bottom: 20, top: 10, left: 10, right: 10),
-                              decoration: BoxDecoration(
-                                  borderRadius: this.replyBorderRadius),
-                              child: this.isReplyHeaderOutside
-                                  ? this.replyMessage
-                                  : Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                          /// The reply text.
-                                          this.replyHeader,
+                            color: this.replyBackgroundColor ??
+                                Theme.of(context).primaryColor,
+                            child: InkWell(
+                                onTap: this.onReplyTap ?? () {},
+                                borderRadius: this.replyBorderRadius,
+                                child: Container(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 20, top: 10, left: 10, right: 10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: this.replyBorderRadius),
+                                  child: this.isReplyHeaderOutside
+                                      ? this.replyMessage
+                                      : Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                              /// The reply text.
+                                              this.replyHeader,
 
-                                          /// The Divider and replying to
-                                          this.replyMessage,
-                                        ]),
-                            )))),
-              ]),
-            ]),
+                                              /// The Divider and replying to
+                                              this.replyMessage,
+                                            ]),
+                                )))),
+                  ]),
+                ]),
           ));
 
   /// The reply box content
