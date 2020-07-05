@@ -12,7 +12,7 @@ dependencies:
   flutter_components:
     git:
       url: git://github.com/vicmoh/flutter_components.git
-      ref: v0.0.26
+      ref: v0.0.27
 
   # Used for the main architect framework.
   provider_skeleton:
@@ -26,4 +26,3 @@ dependencies:
       url: git://github.com/vicmoh/dart_util.git
       ref: v0.0.9
 ```
-
