@@ -175,9 +175,10 @@ class ChatBubble<T> extends StatelessWidget {
     TextStyle style =
         const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
     Color iconColor = Colors.white,
+    EdgeInsets padding = const EdgeInsets.only(left: 5, right: 5, bottom: 5), 
   }) =>
       Padding(
-          padding: const EdgeInsets.only(left: 10, bottom: 5),
+          padding: padding,
           child: RichText(
               text: TextSpan(children: [
             WidgetSpan(
@@ -202,7 +203,7 @@ class ChatBubble<T> extends StatelessWidget {
       IntrinsicHeight(
           child: Row(mainAxisSize: MainAxisSize.min, children: [
         Padding(
-            padding: const EdgeInsets.only(top: 5, bottom: 5),
+            padding: const EdgeInsets.only(top: 3, bottom: 3),
             child: VerticalDivider(color: dividerColor)),
         Flexible(
             child: Text(text,
@@ -212,7 +213,7 @@ class ChatBubble<T> extends StatelessWidget {
   _singleReplyBox(BuildContext context) => this.replyMessage == null
       ? Container()
       : Transform.translate(
-          offset: Offset(0, 15),
+          offset: Offset(0, 10),
           child: LimitedBox(
             maxWidth: _maxWidth(context),
             child: Column(
@@ -237,7 +238,7 @@ class ChatBubble<T> extends StatelessWidget {
                                 borderRadius: this.replyBorderRadius,
                                 child: Container(
                                   padding: const EdgeInsets.only(
-                                      bottom: 20, top: 10, left: 10, right: 10),
+                                      bottom: 15, top: 10, left: 10, right: 10),
                                   decoration: BoxDecoration(
                                       borderRadius: this.replyBorderRadius),
                                   child: this.isReplyHeaderOutside
