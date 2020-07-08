@@ -16,6 +16,7 @@ class MessageField extends StatefulWidget {
   final int maxLength;
   final String counterText;
   final Widget sendWidget;
+  final Widget iconWidget;
   final CrossAxisAlignment sendCrossAxisAlignment;
   final Widget inputWidget;
 
@@ -40,6 +41,7 @@ class MessageField extends StatefulWidget {
     this.sendWidget,
     this.inputWidget,
     this.sendCrossAxisAlignment = CrossAxisAlignment.end,
+    this.iconWidget,
   }) : super(key: key);
 
   _MessageFieldState createState() => _MessageFieldState();
@@ -119,8 +121,9 @@ class _MessageFieldState extends State<MessageField> {
     return GestureDetector(
         onTap: widget.onSend,
         behavior: HitTestBehavior.opaque,
-        child: Container(
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-            child: icon));
+        child: this.widget.iconWidget ??
+            Container(
+                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                child: icon));
   }
 }

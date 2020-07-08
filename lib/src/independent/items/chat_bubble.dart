@@ -175,7 +175,7 @@ class ChatBubble<T> extends StatelessWidget {
     TextStyle style =
         const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
     Color iconColor = Colors.white,
-    EdgeInsets padding = const EdgeInsets.only(left: 5, right: 5, bottom: 5), 
+    EdgeInsets padding = const EdgeInsets.only(left: 5, right: 5, bottom: 5),
   }) =>
       Padding(
           padding: padding,
