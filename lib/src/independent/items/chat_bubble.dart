@@ -326,25 +326,26 @@ class ChatBubble<T> extends StatelessWidget {
     /// Create bubble
     return LimitedBox(
         maxWidth: _maxWidth(context),
-        child: this.replaceChatBubble ?? Material(
-            color: this.backgroundColor,
-            elevation: this.bubbleElevation,
-            borderRadius: this.borderRadius,
-            child: InkWell(
+        child: this.replaceChatBubble ??
+            Material(
+                color: this.backgroundColor,
+                elevation: this.bubbleElevation,
                 borderRadius: this.borderRadius,
-                onTap: this.onTap ?? () {},
-                onLongPress: this.onLongPress ?? () {},
-                child: Container(
-                    padding: this.innerPadding,
-                    // Message bubble color
-                    decoration: BoxDecoration(
-                        gradient: this.backgroundGradient,
-                        borderRadius: this.borderRadius,
-                        boxShadow: this.bubbleShadows),
-                    // Inner text, the message
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: innerText)))));
+                child: InkWell(
+                    borderRadius: this.borderRadius,
+                    onTap: this.onTap ?? () {},
+                    onLongPress: this.onLongPress ?? () {},
+                    child: Container(
+                        padding: this.innerPadding,
+                        // Message bubble color
+                        decoration: BoxDecoration(
+                            gradient: this.backgroundGradient,
+                            borderRadius: this.borderRadius,
+                            boxShadow: this.bubbleShadows),
+                        // Inner text, the message
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: innerText)))));
   }
 
   /// The text in the bubble, used for display name.
