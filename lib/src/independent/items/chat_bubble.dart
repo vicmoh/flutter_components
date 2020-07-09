@@ -167,7 +167,7 @@ class ChatBubble<T> extends StatelessWidget {
                     : CrossAxisAlignment.start,
                 children: <Widget>[
                   _singleReplyBox(context),
-                  this.replaceChatBubble ?? _bubbleContent(context),
+                  _bubbleContent(context),
                   _replyBox(context),
                 ]),
           ]));
@@ -326,7 +326,7 @@ class ChatBubble<T> extends StatelessWidget {
     /// Create bubble
     return LimitedBox(
         maxWidth: _maxWidth(context),
-        child: Material(
+        child: this.replaceChatBubble ?? Material(
             color: this.backgroundColor,
             elevation: this.bubbleElevation,
             borderRadius: this.borderRadius,
