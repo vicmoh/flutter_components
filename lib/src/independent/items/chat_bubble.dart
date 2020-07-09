@@ -29,6 +29,7 @@ class ChatBubble<T> extends StatelessWidget {
   final Widget bodyWidget;
   final Widget footerWidget;
   final Widget prefixWidget;
+  final Widget replaceChatBubble;
 
   final int maxMessageLines;
   final double bubbleElevation;
@@ -102,6 +103,7 @@ class ChatBubble<T> extends StatelessWidget {
     this.onTap,
     this.onLongPress,
     this.backgroundGradient,
+    this.replaceChatBubble,
   })  : assert(!(bodyWidget == null && message == null)),
         this.borderRadius = borderRadius ?? BorderRadius.circular(30),
         this.replyBorderRadius = replyBorderRadius ?? BorderRadius.circular(15),
@@ -165,7 +167,7 @@ class ChatBubble<T> extends StatelessWidget {
                     : CrossAxisAlignment.start,
                 children: <Widget>[
                   _singleReplyBox(context),
-                  _bubbleContent(context),
+                  this.replaceChatBubble ?? _bubbleContent(context),
                   _replyBox(context),
                 ]),
           ]));
