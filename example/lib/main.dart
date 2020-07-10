@@ -1,5 +1,6 @@
 import 'package:example/screen/button_examples.dart';
 import 'package:example/screen/chat_bubble_example.dart';
+import 'package:example/screen/link_preview_example.dart';
 import 'package:example/screen/message_field_example.dart';
 import 'package:example/screen/stack_avatars_example.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,9 +19,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => OverlaySupport(
       child: MaterialApp(
-        title: 'Widget examples',
-        theme: ThemeData(primarySwatch: Colors.blue),
-        home: MyHomePage()));
+          title: 'Widget examples',
+          theme: ThemeData(primarySwatch: Colors.blue),
+          home: MyHomePage()));
 }
 
 class MyHomePage extends StatefulWidget {
@@ -45,51 +46,45 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: Text("Widget")),
-        body: Center(
-          child: ListView(children: <Widget>[
-            /// testing elevation for custom field
-            Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CustomField.round(
-                    elevation: 10,
-                    prefixIcon:
-                        Icon(Icons.search, color: Theme.of(context).primaryColor),
-                    backgroundColor: Colors.white,
-                    onChanged: (val) {})),
+      appBar: AppBar(title: Text("Widget")),
+      body: Center(
+        child: ListView(children: <Widget>[
+          /// testing elevation for custom field
+          Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CustomField.round(
+                  elevation: 10,
+                  prefixIcon:
+                      Icon(Icons.search, color: Theme.of(context).primaryColor),
+                  backgroundColor: Colors.white,
+                  onChanged: (val) {})),
 
-            /// Button for testing stack avatars
-            _btnNav('Stack avatar example', StackAvatarsExample()),
+          _btnNav('Stack avatar example', StackAvatarsExample()),
 
-            /// button test for phone field example
-            _btnNav('Phone field example', PhoneFieldExample()),
+          _btnNav('Phone field example', PhoneFieldExample()),
 
-            /// Example for the message field.
-            _btnNav('Message field example', MessageFieldExample()),
+          _btnNav('Message field example', MessageFieldExample()),
 
-            /// Chat bubble example.
-            _btnNav('Chat bubble example', ChatBubbleExample()),
+          _btnNav('Chat bubble example', ChatBubbleExample()),
 
-            /// Testing buttons
-            _btnNav('Buttons example', ButtonExamples()),
+          _btnNav('Buttons example', ButtonExamples()),
 
-            /// Smart text example
-            _btnNav('Smart text', SmartTextExample()),
+          _btnNav('Smart text', SmartTextExample()),
 
-            /// Animate example
-            _btnNav('Animate example', AnimateExample()),
+          _btnNav('Animate example', AnimateExample()),
 
-            _btnNav('Extended text field example', ExtendedTextSpanExample()),
+          _btnNav('Extended text field example', ExtendedTextSpanExample()),
 
-            /// Show simple popup example
-            _btn('Show simple popup', () => _showPopup()),
+          _btnNav('Link preview example', LinkPreviewExample()),
 
-            /// Testing full screen popup
-            _btn(
-                'Fullscreen popup',
-                () => FullScreenPopupView.show(context,
-                    disableSwipeToExit: false,
-                    builder: (_) => Center(child: Text('Test')))),
-          ]),
-        ));
+          _btn('Show simple popup', () => _showPopup()),
+
+          /// Testing full screen popup
+          _btn(
+              'Fullscreen popup',
+              () => FullScreenPopupView.show(context,
+                  disableSwipeToExit: false,
+                  builder: (_) => Center(child: Text('Test')))),
+        ]),
+      ));
 }
