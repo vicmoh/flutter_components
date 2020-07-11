@@ -104,8 +104,7 @@ class _SmartTextState extends State<SmartText> {
   List<TextSpan> _texts(String text) {
     assert(text != null);
     List<TextSpan> textWidgets = [];
-    int gestCount = 0;
-    text?.split(' ')?.forEach((word) {
+    text?.split('[ \n\t]+')?.forEach((word) {
       word = word.trim();
       _showDebug('word: $word');
 
