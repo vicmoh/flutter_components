@@ -155,7 +155,7 @@ class LinkPreview extends StatelessWidget {
       ? Container()
       : _horPad(Padding(
           padding: linkPadding,
-          child: Text(_stripUrl(url),
+          child: Text(_stripUrl(domain),
               textScaleFactor: 1,
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
