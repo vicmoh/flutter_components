@@ -101,7 +101,7 @@ class LinkPreview extends StatelessWidget {
       elevation: elevation,
       color: this.backgroundColor,
       child: InkWell(
-          onTap: () => this.onTap,
+          onTap: this.onTap,
           child: Padding(
               padding: this.padding,
               child: Column(
