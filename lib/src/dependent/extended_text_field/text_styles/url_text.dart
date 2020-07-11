@@ -24,7 +24,7 @@ class UrlText extends SpecialText {
 
   @override
   bool isEnd(String val) {
-    if (RegExp(SmartText.URL_REGEX).hasMatch(val))
+    if (RegExp(SmartText.HTTP_REGEX).hasMatch(val))
       return super.isEnd(val);
     else
       return false;

@@ -57,6 +57,9 @@ class SmartText extends StatefulWidget {
 
   static const HTTP_REGEX =
       r"https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)";
+
+  /// Use HTTP_REGEX instead.
+  @deprecated
   static const URL_REGEX =
       r"[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)";
   static const HASH_TAG_REGEX = r"(?:\s|^)#[A-Za-z0-9\-\.\_]+(?:\s|$)";
@@ -125,7 +128,7 @@ class _SmartTextState extends State<SmartText> {
 
         /// For hyper links
       } else if (widget.hyperlinkStyle != null &&
-          RegExp(SmartText.URL_REGEX).hasMatch(word)) {
+          RegExp(SmartText.HTTP_REGEX).hasMatch(word)) {
         try {
           textWidgets.add(TextSpan(
               text: word,
