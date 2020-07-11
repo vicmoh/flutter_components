@@ -14,17 +14,18 @@ class LinkPreview extends StatelessWidget {
     BorderRadius borderRadius,
     BorderRadius imageBorderRadius,
     BorderRadius inkWellBorderRadius,
-    this.padding = const EdgeInsets.all(0),
     this.backgroundColor = Colors.transparent,
     this.elevation = 0,
     this.linkStyle,
     this.titleStyle,
     this.descriptionStyle,
     this.isLinkAtBottom = false,
+    this.padding = const EdgeInsets.all(0),
     this.imagePadding = const EdgeInsets.only(bottom: 10),
     this.titlePadding = const EdgeInsets.only(bottom: 10),
     this.descriptionPadding = const EdgeInsets.only(bottom: 10),
     this.linkPadding = const EdgeInsets.only(bottom: 10),
+    this.textPadding = const EdgeInsets.symmetric(horizontal: 15),
   })  : this.borderRadius = borderRadius ?? BorderRadius.circular(0),
         this.imageBorderRadius = imageBorderRadius ?? BorderRadius.circular(0),
         this.inkWellBorderRadius =
@@ -52,6 +53,7 @@ class LinkPreview extends StatelessWidget {
     this.titlePadding = const EdgeInsets.only(bottom: 10),
     this.descriptionPadding = const EdgeInsets.only(bottom: 10),
     this.linkPadding = const EdgeInsets.only(bottom: 10),
+    this.textPadding = const EdgeInsets.symmetric(horizontal: 15),
     BorderRadius inkWellBorderRadius,
   })  : this.borderRadius = BorderRadius.circular(radius),
         this.imageBorderRadius = BorderRadius.only(
@@ -84,6 +86,7 @@ class LinkPreview extends StatelessWidget {
   final EdgeInsets titlePadding;
   final EdgeInsets descriptionPadding;
   final EdgeInsets linkPadding;
+  final EdgeInsets textPadding;
 
   _stripUrl(String url) {
     url = url.replaceAll(RegExp(r'http[s ]://'), '');
@@ -93,8 +96,7 @@ class LinkPreview extends StatelessWidget {
     return url;
   }
 
-  _horPad(Widget child) => Padding(
-      child: child, padding: const EdgeInsets.symmetric(horizontal: 10));
+  _horPad(Widget child) => Padding(child: child, padding: this.textPadding);
 
   _linkPreview() => Material(
       borderRadius: borderRadius,
