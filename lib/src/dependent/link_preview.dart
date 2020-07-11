@@ -57,7 +57,7 @@ class LinkPreview extends StatelessWidget {
         this.imageBorderRadius = BorderRadius.only(
             topLeft: Radius.circular(radius),
             topRight: Radius.circular(radius)),
-        this.inkWellBorderRadius = BorderRadius.circular(0),
+        this.inkWellBorderRadius = BorderRadius.circular(radius),
         assert(url != null),
         assert(onTap != null),
         super(key: key);
