@@ -8,6 +8,7 @@ class LinkPreview extends StatelessWidget {
     Key key,
     @required this.url,
     @required this.onTap,
+    this.domain,
     this.title,
     this.description,
     BorderRadius borderRadius,
@@ -33,6 +34,7 @@ class LinkPreview extends StatelessWidget {
     Key key,
     @required this.url,
     @required this.onTap,
+    this.domain,
     this.title,
     this.description,
     this.backgroundColor = Colors.transparent,
@@ -58,6 +60,7 @@ class LinkPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) => _linkPreview();
 
+  final String domain;
   final String url;
   final String title;
   final String description;
@@ -148,7 +151,7 @@ class LinkPreview extends StatelessWidget {
               style: this.descriptionStyle ??
                   TextStyle(fontWeight: FontWeight.w500, color: Colors.grey))));
 
-  _linkText() => this.url == null || this.url == ''
+  _linkText() => this.domain == null || this.domain == ''
       ? Container()
       : _horPad(Padding(
           padding: linkPadding,
