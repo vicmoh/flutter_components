@@ -13,6 +13,7 @@ class LinkPreview extends StatelessWidget {
     this.description,
     BorderRadius borderRadius,
     BorderRadius imageBorderRadius,
+    BorderRadius inkWellBorderRadius,
     this.padding = const EdgeInsets.all(0),
     this.backgroundColor = Colors.transparent,
     this.elevation = 0,
@@ -26,6 +27,8 @@ class LinkPreview extends StatelessWidget {
     this.linkPadding = const EdgeInsets.only(bottom: 10),
   })  : this.borderRadius = borderRadius ?? BorderRadius.circular(0),
         this.imageBorderRadius = imageBorderRadius ?? BorderRadius.circular(0),
+        this.inkWellBorderRadius =
+            inkWellBorderRadius ?? BorderRadius.circular(0),
         assert(url != null),
         assert(onTap != null),
         super(key: key);
@@ -49,10 +52,12 @@ class LinkPreview extends StatelessWidget {
     this.titlePadding = const EdgeInsets.only(bottom: 10),
     this.descriptionPadding = const EdgeInsets.only(bottom: 10),
     this.linkPadding = const EdgeInsets.only(bottom: 10),
+    BorderRadius inkWellBorderRadius,
   })  : this.borderRadius = BorderRadius.circular(radius),
         this.imageBorderRadius = BorderRadius.only(
             topLeft: Radius.circular(radius),
             topRight: Radius.circular(radius)),
+        this.inkWellBorderRadius = BorderRadius.circular(0),
         assert(url != null),
         assert(onTap != null),
         super(key: key);
@@ -64,6 +69,7 @@ class LinkPreview extends StatelessWidget {
   final String url;
   final String title;
   final String description;
+  final BorderRadius inkWellBorderRadius;
   final BorderRadius borderRadius;
   final BorderRadius imageBorderRadius;
   final EdgeInsetsGeometry padding;
