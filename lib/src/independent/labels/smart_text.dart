@@ -58,6 +58,9 @@ class SmartText extends StatefulWidget {
   static const HTTP_REGEX =
       r"https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)";
 
+  static const HTTP_REGEX2 =
+      r'(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})';
+
   /// Use HTTP_REGEX instead.
   @deprecated
   static const URL_REGEX =
@@ -104,7 +107,7 @@ class _SmartTextState extends State<SmartText> {
   List<TextSpan> _texts(String text) {
     assert(text != null);
     List<TextSpan> textWidgets = [];
-    text?.split('[ \n\t]+')?.forEach((word) {
+    text?.split(RegExp(r'[ \n\t\r\n]'))?.forEach((word) {
       word = word.trim();
       _showDebug('word: $word');
 
