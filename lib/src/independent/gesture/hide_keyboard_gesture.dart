@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HideKeyboardGesture extends StatefulWidget {
   final Widget child;
@@ -21,7 +22,8 @@ class _HideKeyboardGestureState extends State<HideKeyboardGesture> {
   Widget build(BuildContext context) {
     return GestureDetector(
         child: widget.child,
-        onVerticalDragCancel: () => FocusScope.of(context).unfocus(),
-        onVerticalDragStart: (_) => FocusScope.of(context).unfocus());
+        // FocusScope.of(context).unfocus() is replaced,
+        onVerticalDragCancel: () => SystemChannels.textInput.invokeMethod('TextInput.hide'),
+        onVerticalDragStart: (_) => SystemChannels.textInput.invokeMethod('TextInput.hide'));
   }
 }
