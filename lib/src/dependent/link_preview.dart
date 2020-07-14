@@ -90,9 +90,7 @@ class LinkPreview extends StatelessWidget {
 
   _stripUrl(String url) {
     url = url.replaceAll(RegExp(r'http[s ]://'), '');
-    print('first: $url');
     url = url.replaceAll(RegExp(r'/[^]*'), '');
-    print('second: $url');
     return url;
   }
 
