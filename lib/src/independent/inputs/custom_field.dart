@@ -4,6 +4,8 @@ enum _Type { round, outline, fourFieldsInRow }
 
 class CustomField extends StatefulWidget {
   // scaling and ratio
+  final TextInputAction textInputAction;
+  final void Function(String value) onSubmitted; 
   final double width;
   final double height;
   final double textScaleFactor;
@@ -78,6 +80,8 @@ class CustomField extends StatefulWidget {
     this.elevation = 0,
     this.enabled,
     this.counterText = '',
+    this.textInputAction = TextInputAction.done,
+    this.onSubmitted,
   })  : this.type = _Type.round,
         // Outline
         this.outlineColor = Colors.transparent,
@@ -123,6 +127,8 @@ class CustomField extends StatefulWidget {
     this.enabled,
     this.expands = false,
     this.counterText = '',
+    this.textInputAction = TextInputAction.done,
+    this.onSubmitted,
   })  : this.type = _Type.outline,
         this.elevation = 0;
 
@@ -167,7 +173,9 @@ class CustomField extends StatefulWidget {
         this.focusNode = null,
         this.maxLength = null,
         this.elevation = 0,
-        this.counterText = '';
+        this.counterText = '',
+        this.textInputAction = TextInputAction.none,
+        this.onSubmitted = null;
 
   /// Build field
   @override
@@ -251,6 +259,8 @@ class _CustomField extends State<CustomField> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 TextField(
+                    textInputAction: this.widget.textInputAction,
+                    onSubmitted: this.widget.onSubmitted ?? (_) {},
                     enabled: this.widget.enabled,
                     maxLength: this.widget.maxLength,
                     expands: this.widget.expands,
@@ -300,14 +310,17 @@ class _CustomField extends State<CustomField> {
     return Material(
         color: Colors.transparent,
         child: Container(
-            // Radius and Color
+            /// Radius and Color
             width: this.widget.width,
             height: this.widget.height,
-            // Text field
+
+            /// Text field
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 TextField(
+                    textInputAction: this.widget.textInputAction,
+                    onSubmitted: this.widget.onSubmitted ?? (_) {},
                     enabled: this.widget.enabled,
                     maxLength: this.widget.maxLength,
                     expands: this.widget.expands,
@@ -327,21 +340,25 @@ class _CustomField extends State<CustomField> {
                     style: TextStyle(
                         color: this.widget.textColor,
                         fontSize: 14 * this.widget.textScaleFactor),
-                    // Text decoration
+
+                    /// Text decoration
                     decoration: InputDecoration(
                         labelText: this.widget.hintText,
                         labelStyle: TextStyle(
                             color: this.widget.hintColor,
                             fontWeight: this.widget.fontWeight),
-                        // Padding and color
+
+                        /// Padding and color
                         contentPadding: this.widget.innerPadding,
                         filled: false,
                         fillColor: this.widget.backgroundColor,
-                        // Prefix and suffix this.widget
+
+                        /// Prefix and suffix this.widget
                         prefixIcon: this.widget.prefixIcon,
                         prefix: this.widget.prefix,
                         suffix: _suffixWidget(),
-                        // Outline border by default
+
+                        /// Outline border by default
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(
                                 this.widget.borderRadiusValue),
@@ -349,7 +366,8 @@ class _CustomField extends State<CustomField> {
                                 BorderSide(
                                     width: this.widget.outlineWeight,
                                     color: this.widget.outlineColor)),
-                        // Outline border on focus
+
+                        /// Outline border on focus
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(
                                 this.widget.borderRadiusValue),
