@@ -159,7 +159,7 @@ class ChatBatcher<T extends Model> extends StatelessWidget {
           isLastUserPost: isLastUserPost)),
 
       /// Last seen avatar
-      (index == 0) ? this.footer : Container(),
+      (index == 0) ? this.footer ?? Container() : Container(),
     ]);
   }
 }
