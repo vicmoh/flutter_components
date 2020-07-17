@@ -60,6 +60,11 @@ class ChatBatcher<T extends Model> extends StatelessWidget {
   /// The current position of the item.
   final int index;
 
+  /// The footer bottom of the chat.
+  /// This is sometimes used for listing
+  /// who has read the chat.
+  final Widget footer;
+
   /// The builder for creating the widget.
   final Widget Function(ChatBatchingStatus) builder;
 
@@ -84,6 +89,7 @@ class ChatBatcher<T extends Model> extends StatelessWidget {
     @required this.index,
     @required this.builder,
     @required this.fromUserId,
+    this.footer,
     this.timestampWidget,
   })  : assert(items != null, 'items must not be null.'),
         assert(index != null, 'index must not be null.'),
@@ -151,6 +157,9 @@ class ChatBatcher<T extends Model> extends StatelessWidget {
           isLastTimeDiff: isLastUserPostTimeDiff,
           isFirstUserPost: isFirstUserPost,
           isLastUserPost: isLastUserPost)),
+
+      /// Last seen avatar
+      (index == 0) ? this.footer : Container(),
     ]);
   }
 }
