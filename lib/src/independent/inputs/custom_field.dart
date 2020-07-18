@@ -349,6 +349,8 @@ class _CustomField extends State<CustomField> {
 
                     /// Text decoration
                     decoration: InputDecoration(
+                        counterText: this.widget.counterText,
+                        counterStyle: this.widget.counterStyle,
                         labelText: this.widget.hintText,
                         labelStyle: TextStyle(
                             color: this.widget.hintColor,
