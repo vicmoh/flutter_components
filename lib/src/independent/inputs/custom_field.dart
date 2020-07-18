@@ -29,6 +29,7 @@ class CustomField extends StatefulWidget {
   final int minLines;
   final int maxLength;
   final String counterText;
+  final TextStyle counterStyle;
   final FocusNode focusNode;
   final InputBorder border;
   final _Type type;
@@ -80,6 +81,7 @@ class CustomField extends StatefulWidget {
     this.elevation = 0,
     this.enabled,
     this.counterText = '',
+    this.counterStyle,
     this.textInputAction = TextInputAction.done,
     this.onSubmitted,
   })  : this.type = _Type.round,
@@ -127,6 +129,7 @@ class CustomField extends StatefulWidget {
     this.enabled,
     this.expands = false,
     this.counterText = '',
+    this.counterStyle,
     this.textInputAction = TextInputAction.done,
     this.onSubmitted,
   })  : this.type = _Type.outline,
@@ -174,6 +177,7 @@ class CustomField extends StatefulWidget {
         this.maxLength = null,
         this.elevation = 0,
         this.counterText = '',
+        this.counterStyle = null,
         this.textInputAction = TextInputAction.none,
         this.onSubmitted = null;
 
@@ -283,7 +287,9 @@ class _CustomField extends State<CustomField> {
                         fontWeight: this.widget.fontWeight),
                     // Text decoration
                     decoration: InputDecoration(
+                        
                         counterText: this.widget.counterText,
+                        counterStyle: this.widget.counterStyle,
                         contentPadding: this.widget.innerPadding,
                         hintText: this.widget.hintText,
                         // Prefix and suffix this.widget
