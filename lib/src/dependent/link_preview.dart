@@ -26,6 +26,9 @@ class LinkPreview extends StatelessWidget {
     this.descriptionPadding = const EdgeInsets.only(bottom: 10),
     this.linkPadding = const EdgeInsets.only(bottom: 10),
     this.textPadding = const EdgeInsets.symmetric(horizontal: 15),
+    this.imageFit,
+    this.height,
+    this.width,
   })  : this.borderRadius = borderRadius ?? BorderRadius.circular(0),
         this.imageBorderRadius = imageBorderRadius ?? BorderRadius.circular(0),
         this.inkWellBorderRadius =
@@ -55,11 +58,15 @@ class LinkPreview extends StatelessWidget {
     this.linkPadding = const EdgeInsets.only(bottom: 10),
     this.textPadding = const EdgeInsets.symmetric(horizontal: 15),
     BorderRadius inkWellBorderRadius,
+    this.imageFit,
+    this.height,
+    this.width,
   })  : this.borderRadius = BorderRadius.circular(radius),
         this.imageBorderRadius = BorderRadius.only(
             topLeft: Radius.circular(radius),
             topRight: Radius.circular(radius)),
-        this.inkWellBorderRadius = inkWellBorderRadius ?? BorderRadius.circular(radius),
+        this.inkWellBorderRadius =
+            inkWellBorderRadius ?? BorderRadius.circular(radius),
         assert(url != null),
         assert(onTap != null),
         super(key: key);
@@ -87,6 +94,9 @@ class LinkPreview extends StatelessWidget {
   final EdgeInsets descriptionPadding;
   final EdgeInsets linkPadding;
   final EdgeInsets textPadding;
+  final BoxFit imageFit;
+  final double height;
+  final double width;
 
   _stripUrl(String url) {
     url = url.replaceAll(RegExp(r'http[s ]://'), '');
@@ -114,6 +124,9 @@ class LinkPreview extends StatelessWidget {
                         child: ClipRRect(
                             borderRadius: this.imageBorderRadius,
                             child: CachedNetworkImage(
+                                height: height,
+                                width: width,
+                                fit: BoxFit.cover,
                                 imageUrl: url,
                                 progressIndicatorBuilder:
                                     (context, url, downloadProgress) =>

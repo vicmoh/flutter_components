@@ -23,7 +23,9 @@ class _HideKeyboardGestureState extends State<HideKeyboardGesture> {
     return GestureDetector(
         child: widget.child,
         // FocusScope.of(context).unfocus() is replaced,
-        onVerticalDragCancel: () => SystemChannels.textInput.invokeMethod('TextInput.hide'),
-        onVerticalDragStart: (_) => SystemChannels.textInput.invokeMethod('TextInput.hide'));
+        onVerticalDragCancel: () =>
+            SystemChannels.textInput.invokeMethod('TextInput.hide'),
+        onVerticalDragStart: (_) =>
+            SystemChannels.textInput.invokeMethod('TextInput.hide'));
   }
 }

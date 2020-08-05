@@ -5,7 +5,7 @@ enum _Type { round, outline, fourFieldsInRow }
 class CustomField extends StatefulWidget {
   // scaling and ratio
   final TextInputAction textInputAction;
-  final void Function(String value) onSubmitted; 
+  final void Function(String value) onSubmitted;
   final double width;
   final double height;
   final double textScaleFactor;
@@ -287,7 +287,6 @@ class _CustomField extends State<CustomField> {
                         fontWeight: this.widget.fontWeight),
                     // Text decoration
                     decoration: InputDecoration(
-                        
                         counterText: this.widget.counterText,
                         counterStyle: this.widget.counterStyle,
                         contentPadding: this.widget.innerPadding,
@@ -316,6 +315,7 @@ class _CustomField extends State<CustomField> {
     return Material(
         color: Colors.transparent,
         child: Container(
+
             /// Radius and Color
             width: this.widget.width,
             height: this.widget.height,

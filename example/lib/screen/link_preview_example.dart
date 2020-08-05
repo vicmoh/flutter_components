@@ -39,6 +39,19 @@ class LinkPreviewExampleState extends State<LinkPreviewExample> {
               padding: const EdgeInsets.all(30),
               child: LinkPreview.bubble(
                   onTap: () {},
+                  width: double.infinity,
+                  height: 150,
+                  backgroundColor: Color.fromRGBO(230, 230, 230, 1),
+                  url:
+                      "https://ichef.bbci.co.uk/news/1024/branded_news/689D/production/_113318762_gettyimages-635967265.jpg",
+                  title:
+                      "Robotics Expert Breaks Down 13 Robot Scenes From Film & TV | WIRED",
+                  description:
+                      "Chris Atkeson, a professor at the Robotics Institute at Carnegie Mellon University, watches more scenes featuring robots from movies and television and conti...")),
+          Padding(
+              padding: const EdgeInsets.all(30),
+              child: LinkPreview.bubble(
+                  onTap: () {},
                   isLinkAtBottom: true,
                   backgroundColor: Color.fromRGBO(230, 230, 230, 1),
                   padding: const EdgeInsets.only(bottom: 5),
@@ -57,7 +70,7 @@ class LinkPreviewExampleState extends State<LinkPreviewExample> {
                   backgroundColor: Color.fromRGBO(230, 230, 230, 1),
                   padding: const EdgeInsets.only(bottom: 5),
                   url:
-                      "https://ichef.bbci.co.uk/news/1024/branded_news/689D/production/_113318762_gettyimages-635967265.jpg",
+                      "https://i.imgur.com/DAXvOpm.mp4",
                   title:
                       "Robotics Expert Breaks Down 13 Robot Scenes From Film & TV | WIRED",
                   description:
