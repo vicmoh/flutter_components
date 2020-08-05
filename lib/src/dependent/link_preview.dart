@@ -126,7 +126,7 @@ class LinkPreview extends StatelessWidget {
                             child: CachedNetworkImage(
                                 height: height,
                                 width: width,
-                                fit: BoxFit.cover,
+                                fit: imageFit,
                                 imageUrl: url,
                                 progressIndicatorBuilder:
                                     (context, url, downloadProgress) =>

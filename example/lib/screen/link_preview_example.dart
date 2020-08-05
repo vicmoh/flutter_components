@@ -70,7 +70,7 @@ class LinkPreviewExampleState extends State<LinkPreviewExample> {
                   backgroundColor: Color.fromRGBO(230, 230, 230, 1),
                   padding: const EdgeInsets.only(bottom: 5),
                   url:
-                      "https://i.imgur.com/DAXvOpm.mp4",
+                      "https://ichef.bbci.co.uk/news/1024/branded_news/689D/production/_113318762_gettyimages-635967265.jpg",
                   title:
                       "Robotics Expert Breaks Down 13 Robot Scenes From Film & TV | WIRED",
                   description:
