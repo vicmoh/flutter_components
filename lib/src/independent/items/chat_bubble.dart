@@ -117,17 +117,25 @@ class ChatBubble<T> extends StatelessWidget {
   /// Circle avatar for profile image
   Widget _avatar(BuildContext context) {
     /// Create the image avatar widget
-    Widget image = Container();
+    Widget image = (this.showSpacingWithHiddenAvatar)
+        ? Container(
+            margin: EdgeInsets.only(right: 10),
+            height: this.avatarSize,
+            width: this.avatarSize,
+            color: Colors.transparent)
+        : Container();
 
     /// Edge case of the avatar widget
-    if (!this.showAvatar) return image;
-    if (this.avatarPlaceholderPath == null)
+    if (!this.showAvatar ||
+        (this.avatarPlaceholderPath == null && this.avatarUrl == null))
+      return image;
+    else if (this.avatarPlaceholderPath == null && this.avatarUrl != null)
       image = Image.network(this.avatarUrl,
           width: this.avatarSize, height: this.avatarSize, fit: BoxFit.cover);
-    if (this.avatarUrl == null)
+    else if (this.avatarUrl == null && this.avatarPlaceholderPath != null)
       image = Image.asset(this.avatarPlaceholderPath,
           width: this.avatarSize, height: this.avatarSize, fit: BoxFit.cover);
-    if (this.avatarUrl != null && this.avatarPlaceholderPath != null)
+    else if (this.avatarUrl != null && this.avatarPlaceholderPath != null)
       image = FadeInImage.assetNetwork(
           image: this.avatarUrl,
           placeholder: this.avatarPlaceholderPath,
@@ -136,11 +144,8 @@ class ChatBubble<T> extends StatelessWidget {
           fit: BoxFit.cover);
 
     /// Create the avatar widget
-    return Opacity(
-        opacity: (this.showSpacingWithHiddenAvatar) ? 0 : 1,
-        child: Container(
-            padding: EdgeInsets.only(right: 10),
-            child: ClipOval(child: image)));
+    return Container(
+        padding: EdgeInsets.only(right: 10), child: ClipOval(child: image));
   }
 
   /// A single box chat tile
@@ -155,10 +160,7 @@ class ChatBubble<T> extends StatelessWidget {
             /// Avatar
             this.prefixWidget != null
                 ? this.prefixWidget
-                : this.avatarUrl == null
-                    ? Container()
-                    : Padding(
-                        padding: this.avatarPadding, child: _avatar(context)),
+                : Padding(padding: this.avatarPadding, child: _avatar(context)),
 
             /// The message bubble
             Column(

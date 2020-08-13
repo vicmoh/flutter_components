@@ -17,7 +17,7 @@ class _ChatBubbleExampleState extends State<ChatBubbleExample> {
         body: ListView(
             padding: EdgeInsets.symmetric(horizontal: 10),
             children: <Widget>[
-              _chat(),
+              _chat(avatarUrl: null),
               _chat(
                   replyHeader: ChatBubble.defaultReplyHeader(),
                   replyMessage: ChatBubble.defaultReplyMessage('Hello World!')),
@@ -72,24 +72,27 @@ class _ChatBubbleExampleState extends State<ChatBubbleExample> {
             ]));
   }
 
-  Widget _chat(
-          {hideAvatar = false,
-          replyMessage,
-          replyHeader,
-          isReplyHeaderOutside = false,
-          replyColor,
-          isRightSide = false,
-          isSmallMessage = false,
-          headerText = 'Pinicle Pickle - 6h'}) =>
+  Widget _chat({
+    hideAvatar = false,
+    replyMessage,
+    replyHeader,
+    isReplyHeaderOutside = false,
+    replyColor,
+    isRightSide = false,
+    isSmallMessage = false,
+    headerText = 'Pinicle Pickle - 6h',
+    avatarUrl =
+        'https://vignette.wikia.nocookie.net/blinks/images/d/d3/Lisa_Infobox.PNG',
+  }) =>
       Container(
           child: ChatBubble(
         fontWeight: FontWeight.w500,
         headerFontWeight: FontWeight.bold,
         isOnTheLeftSide: !isRightSide,
         avatarAlignment: CrossAxisAlignment.end,
-        avatarUrl:
-            'https://vignette.wikia.nocookie.net/blinks/images/d/d3/Lisa_Infobox.PNG',
+        avatarUrl: avatarUrl,
         showAvatar: !hideAvatar,
+        showSpacingWithHiddenAvatar: true,
         message: isSmallMessage
             ? "yo"
             : "Text messaging, or texting," +
