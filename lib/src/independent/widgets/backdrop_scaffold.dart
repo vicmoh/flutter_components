@@ -143,7 +143,6 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
 
   /// The backdrop panel visibility
   void _toggleBackdropPanelVisibility() {
-    print('Backdrop is toggled.');
     FocusScope.of(context).requestFocus(FocusNode());
     if (!_panelController.isAnimating)
       _panelController.fling(

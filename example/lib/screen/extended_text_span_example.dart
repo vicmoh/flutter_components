@@ -34,6 +34,7 @@ class _ExtendedTextSpanExampleState extends State<ExtendedTextSpanExample> {
         child: Column(children: [
           _text('hash, at, and http'),
           ExtendedTextField(
+              maxLines: 5,
               specialTextSpanBuilder: GenericInputSpanBuilder(
                   hashTextStyle: TextStyle(color: Colors.blue),
                   atTextStyle: TextStyle(color: Colors.red),

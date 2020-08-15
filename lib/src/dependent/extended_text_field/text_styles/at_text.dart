@@ -18,6 +18,15 @@ class AtText extends SpecialText {
       : super(FLAG, " ", textStyle, onTap: onTap);
 
   @override
+  bool isEnd(String val) {
+    var newLine = val.indexOf("\n");
+    var newLine2 = val.indexOf("\r\n");
+    var tab = val.indexOf('\t');
+    var space = val.indexOf(' ');
+    return (newLine > 0 || newLine2 > 0 || tab > 0 || space > 0);
+ }
+
+  @override
   InlineSpan finishText() {
     final String atText = toString();
 

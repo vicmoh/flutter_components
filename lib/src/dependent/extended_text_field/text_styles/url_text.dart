@@ -24,11 +24,12 @@ class UrlText extends SpecialText {
 
   @override
   bool isEnd(String val) {
-    if (RegExp(SmartText.HTTP_REGEX).hasMatch(val))
-      return super.isEnd(val);
-    else
-      return false;
-  }
+    var newLine = val.indexOf("\n");
+    var newLine2 = val.indexOf("\r\n");
+    var tab = val.indexOf('\t');
+    var space = val.indexOf(' ');
+    return (newLine > 0 || newLine2 > 0 || tab > 0 || space > 0);
+ }
 
   @override
   InlineSpan finishText() {

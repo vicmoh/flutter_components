@@ -63,8 +63,6 @@ class EmailText extends SpecialText {
                               InkWell(
                                   child: Icon(Icons.close, size: 15.0),
                                   onTap: () {
-                                    print(
-                                        'email length, ${controller.text.length}');
                                     controller?.value = controller?.value
                                         ?.copyWith(
                                             text:
