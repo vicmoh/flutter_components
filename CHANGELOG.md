@@ -1,3 +1,3 @@
-## [0.0.1] - TODO: Add release date.
+## [0.0.37] - 08/21/2020
 
-* TODO: Describe initial release.
+* Update the extended_text_field package to 4.0.0
