@@ -41,6 +41,7 @@ class ChatBubble<T> extends StatelessWidget {
   final CrossAxisAlignment avatarAlignment;
   final List<BoxShadow> bubbleShadows;
 
+  final Widget replaceDefaultReplyWidget;
   final bool isReplyHeaderOutside;
   final Widget replyHeader;
   final Widget replyMessage;
@@ -91,17 +92,21 @@ class ChatBubble<T> extends StatelessWidget {
         const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
     this.bubbleElevation = 0,
 
-    /// For the reply section
+    /// For the reply section.
+    this.replaceDefaultReplyWidget,
     this.isReplyHeaderOutside = false,
     this.replyHeader,
     this.replyMessage,
     BorderRadius replyBorderRadius,
     this.replyBackgroundColor,
     this.onReplyTap,
-    List<T> replies,
+
+    /// Reply builder that goes below the chat bubble.
     this.replyBuilder,
-    this.onTap,
-    this.onLongPress,
+    List<T> replies,
+  
+    /// On tap pressed.
+    this.onTap, this.onLongPress,
     this.backgroundGradient,
     this.replaceChatBubble,
   })  : assert(!(bodyWidget == null && message == null)),
@@ -214,9 +219,14 @@ class ChatBubble<T> extends StatelessWidget {
                 overflow: TextOverflow.ellipsis, maxLines: 3, style: style)),
       ]));
 
-  _singleReplyBox(BuildContext context) => this.replyMessage == null
-      ? Container()
-      : Transform.translate(
+  _singleReplyBox(BuildContext context) {
+    /// Use custom reply widget.
+    if (this.replaceDefaultReplyWidget != null)
+      return this.replaceDefaultReplyWidget;
+
+    /// single reply message.
+    if (this.replyMessage != null)
+      return Transform.translate(
           offset: Offset(0, 10),
           child: LimitedBox(
             maxWidth: _maxWidth(context),
@@ -262,6 +272,10 @@ class ChatBubble<T> extends StatelessWidget {
                   ]),
                 ]),
           ));
+
+    /// Don't show any widget.
+    return Container();
+  }
 
   /// The reply box content
   Widget _replyBox(BuildContext context) {
