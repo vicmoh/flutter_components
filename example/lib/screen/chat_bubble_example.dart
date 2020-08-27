@@ -135,6 +135,9 @@ class _ChatBubbleExampleState extends State<ChatBubbleExample> {
         onReplyTap: () => toast('Reply is tapped.'),
         replyMessage: replyMessage,
         replyHeader: replyHeader,
+        headerStyle: TextStyle(fontWeight: FontWeight.bold,
+            color: Colors.pink),
+        textStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
         borderRadius: isRightSide
             ? BorderRadius.only(
                 bottomLeft: Radius.circular(30),

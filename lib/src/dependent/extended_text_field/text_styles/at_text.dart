@@ -24,7 +24,7 @@ class AtText extends SpecialText {
     var tab = val.indexOf('\t');
     var space = val.indexOf(' ');
     return (newLine > 0 || newLine2 > 0 || tab > 0 || space > 0);
- }
+  }
 
   @override
   InlineSpan finishText() {

@@ -16,7 +16,7 @@ class HashText extends SpecialText {
   HashText(TextStyle textStyle, SpecialTextGestureTapCallback onTap,
       {this.showAtBackground = false, this.start})
       : super(FLAG, " ", textStyle, onTap: onTap);
-  
+
   @override
   bool isEnd(String val) {
     var newLine = val.indexOf("\n");
@@ -24,7 +24,7 @@ class HashText extends SpecialText {
     var tab = val.indexOf('\t');
     var space = val.indexOf(' ');
     return (newLine > 0 || newLine2 > 0 || tab > 0 || space > 0);
- }
+  }
 
   @override
   InlineSpan finishText() {

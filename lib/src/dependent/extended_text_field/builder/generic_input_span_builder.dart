@@ -45,9 +45,11 @@ class GenericInputSpanBuilder extends SpecialTextSpanBuilder {
     SpecialTextGestureTapCallback onTap,
     int index,
   }) {
-    if (flag == null || flag.trim() == "" || 
-        flag.trim() == "\n" || flag.trim() == "\t" 
-        || flag == "\r\n") return null;
+    if (flag == null ||
+        flag.trim() == "" ||
+        flag.trim() == "\n" ||
+        flag.trim() == "\t" ||
+        flag == "\r\n") return null;
     if (this.hashTextStyle != null && isStart(flag, _HASH_FLAG))
       return TextStyleStartSpan(this.hashTextStyle ?? textStyle, onTap,
           flag: _HASH_FLAG,
