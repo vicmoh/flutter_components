@@ -20,8 +20,8 @@ class ChatBubble<T> extends StatelessWidget {
   final double headerTextScaleSize;
   final double messageTextScaleSize;
 
-  final Color headerColor;
-  final Color textColor;
+  final TextStyle headerStyle;
+  final TextStyle textStyle;
   final Color backgroundColor;
   final LinearGradient backgroundGradient;
 
@@ -35,8 +35,6 @@ class ChatBubble<T> extends StatelessWidget {
   final double bubbleElevation;
   final EdgeInsets padding;
   final EdgeInsets innerPadding;
-  final FontWeight headerFontWeight;
-  final FontWeight fontWeight;
 
   final CrossAxisAlignment avatarAlignment;
   final List<BoxShadow> bubbleShadows;
@@ -73,24 +71,26 @@ class ChatBubble<T> extends StatelessWidget {
     this.avatarUrl,
     this.isOnTheLeftSide = false,
     this.displayNameInHeader = true,
-    this.textColor = Colors.white,
     Color backgroundColor,
     this.bubbleShadows,
     this.showSpacingWithHiddenAvatar = false,
     this.avatarAlignment = CrossAxisAlignment.start,
     BorderRadius borderRadius,
     this.avatarSize = 33,
-    this.headerColor,
     this.headerWidget,
     this.maxMessageLines,
-    this.headerFontWeight = FontWeight.normal,
-    this.fontWeight,
     this.footerWidget,
     this.prefixWidget,
     this.padding = const EdgeInsets.symmetric(vertical: 3),
     this.innerPadding =
         const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
     this.bubbleElevation = 0,
+
+    /// Text decoration
+    this.headerStyle =
+        const TextStyle(color: Colors.grey, fontWeight: FontWeight.w500),
+    this.textStyle =
+        const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
 
     /// For the reply section.
     this.replaceDefaultReplyWidget,
@@ -104,9 +104,10 @@ class ChatBubble<T> extends StatelessWidget {
     /// Reply builder that goes below the chat bubble.
     this.replyBuilder,
     List<T> replies,
-  
+
     /// On tap pressed.
-    this.onTap, this.onLongPress,
+    this.onTap,
+    this.onLongPress,
     this.backgroundGradient,
     this.replaceChatBubble,
   })  : assert(!(bodyWidget == null && message == null)),
@@ -305,7 +306,7 @@ class ChatBubble<T> extends StatelessWidget {
     if (this.headerText != null && this.displayNameInHeader)
       innerText.add(Container(
           padding: EdgeInsets.only(bottom: 5),
-          child: _smallText(this.headerText, color: this.headerColor)));
+          child: _headerText(this.headerText)));
 
     /// Header widget
     if (this.headerWidget != null) innerText.add(this.headerWidget);
@@ -321,19 +322,12 @@ class ChatBubble<T> extends StatelessWidget {
                 textScaleFactor: this.messageTextScaleSize,
                 maxLines: this.maxMessageLines,
                 text: TextSpan(
-                    style: TextStyle(
-                        fontWeight: this.headerFontWeight,
-                        color:
-                            this.headerColor ?? this.textColor.withAlpha(200)),
+                    style: this.headerStyle,
                     text: (this.headerText != null && !this.displayNameInHeader)
                         ? '$headerText: '
                         : '',
                     children: [
-                      TextSpan(
-                          text: '$message',
-                          style: TextStyle(
-                              fontWeight: this.fontWeight,
-                              color: this.textColor)),
+                      TextSpan(text: '$message', style: this.textStyle),
                     ]))));
 
     /// The footer of the bubble
@@ -365,14 +359,14 @@ class ChatBubble<T> extends StatelessWidget {
   }
 
   /// The text in the bubble, used for display name.
-  Widget _smallText(String text, {Color color}) => Material(
+  Widget _headerText(String text) => Material(
       color: Colors.transparent,
       child: Text(text,
           overflow: this.maxMessageLines == null
               ? TextOverflow.visible
               : TextOverflow.ellipsis,
           textScaleFactor: this.headerTextScaleSize,
-          style: TextStyle(color: color ?? textColor.withAlpha(200))));
+          style: this.headerStyle));
 
   /// Build the widget
   @override

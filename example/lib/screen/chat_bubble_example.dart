@@ -18,26 +18,26 @@ class _ChatBubbleExampleState extends State<ChatBubbleExample> {
             padding: EdgeInsets.symmetric(horizontal: 10),
             children: <Widget>[
               _chat(
-                  replaceDefaultReplyWidget: 
-                    Transform.translate(
-                        offset: Offset(0, 10),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start, 
-                            children: [
-                                ChatBubble.defaultReplyHeader(text: 'Replied',
-                                    style: TextStyle(
-                                        color: Colors.grey, 
-                                        fontWeight: FontWeight.w500),
-                                    iconColor: Colors.grey),
-                                Container(
-                                  height: 100,
-                                  width: 150,
-                                  child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Image.network(
+                  replaceDefaultReplyWidget: Transform.translate(
+                      offset: Offset(0, 10),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ChatBubble.defaultReplyHeader(
+                                text: 'Replied',
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w500),
+                                iconColor: Colors.grey),
+                            Container(
+                                height: 100,
+                                width: 150,
+                                child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.network(
                                         'https://www.w3schools.com/w3css/img_lights.jpg',
                                         fit: BoxFit.cover)))
-                    ]))),
+                          ]))),
               _chat(avatarUrl: null),
               _chat(
                   replyHeader: ChatBubble.defaultReplyHeader(),
@@ -109,7 +109,6 @@ class _ChatBubbleExampleState extends State<ChatBubbleExample> {
       Container(
           child: ChatBubble(
         replaceDefaultReplyWidget: replaceDefaultReplyWidget,
-        fontWeight: FontWeight.w500,
         headerFontWeight: FontWeight.bold,
         isOnTheLeftSide: !isRightSide,
         avatarAlignment: CrossAxisAlignment.end,
@@ -151,7 +150,5 @@ class _ChatBubbleExampleState extends State<ChatBubbleExample> {
         messageTextScaleSize: 1.2,
         displayNameInHeader: false,
         headerText: headerText,
-        headerColor: Colors.pink,
-        textColor: Colors.black87,
       ));
 }
