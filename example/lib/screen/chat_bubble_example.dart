@@ -109,7 +109,6 @@ class _ChatBubbleExampleState extends State<ChatBubbleExample> {
       Container(
           child: ChatBubble(
         replaceDefaultReplyWidget: replaceDefaultReplyWidget,
-        headerFontWeight: FontWeight.bold,
         isOnTheLeftSide: !isRightSide,
         avatarAlignment: CrossAxisAlignment.end,
         avatarUrl: avatarUrl,
