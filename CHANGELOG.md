@@ -1,3 +1,8 @@
+## [0.0.40] - 08/28/2020
+
+* Fixed new lines on smart and extended text where
+  it goes missing if exist.
+
 ## [0.0.39] - 08/27/2020
 
 * Update using text style for header and message text.

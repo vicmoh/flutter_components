@@ -107,20 +107,22 @@ class _SmartTextState extends State<SmartText> {
   List<TextSpan> _texts(String text) {
     assert(text != null);
     List<TextSpan> textWidgets = [];
-    text?.split(RegExp(r'[ \n\t\r\n]'))?.forEach((word) {
-      word = word.trim();
+    text?.split(RegExp(r'[ ]'))?.forEach((word) {
+      word = word;
       _showDebug('word: $word');
 
       /// For hashtag
       if (widget.hashtagStyle != null &&
-          RegExp(SmartText.HASH_TAG_REGEX).hasMatch(word)) {
+          RegExp(SmartText.HASH_TAG_REGEX).hasMatch(word.trim())) {
         try {
           textWidgets.add(TextSpan(
               text: word,
               style: this.widget.hashtagStyle,
               recognizer: _addGesture(() {
                 if (this.widget?.onPressed != null)
-                  this.widget.onPressed(word, ClickableTextTypes.hashtag);
+                  this
+                      .widget
+                      .onPressed(word.trim(), ClickableTextTypes.hashtag);
               })));
           _spaceText(textWidgets);
         } catch (err) {
@@ -130,14 +132,16 @@ class _SmartTextState extends State<SmartText> {
 
         /// For hyper links
       } else if (widget.hyperlinkStyle != null &&
-          RegExp(SmartText.HTTP_REGEX).hasMatch(word)) {
+          RegExp(SmartText.HTTP_REGEX).hasMatch(word.trim())) {
         try {
           textWidgets.add(TextSpan(
               text: word,
               style: this.widget.hyperlinkStyle,
               recognizer: _addGesture(() {
                 if (this.widget?.onPressed != null)
-                  this.widget.onPressed(word, ClickableTextTypes.hyperlink);
+                  this
+                      .widget
+                      .onPressed(word.trim(), ClickableTextTypes.hyperlink);
               })));
           _spaceText(textWidgets);
         } catch (err) {
@@ -147,14 +151,14 @@ class _SmartTextState extends State<SmartText> {
 
         /// For at symbol text
       } else if (widget.atTextStyle != null &&
-          RegExp(SmartText.AT_TAG_REGEX).hasMatch(word)) {
+          RegExp(SmartText.AT_TAG_REGEX).hasMatch(word.trim())) {
         try {
           textWidgets.add(TextSpan(
               text: word,
               style: this.widget.atTextStyle,
               recognizer: _addGesture(() {
                 if (this.widget?.onPressed != null)
-                  this.widget.onPressed(word, ClickableTextTypes.atTag);
+                  this.widget.onPressed(word.trim(), ClickableTextTypes.atTag);
               })));
           _spaceText(textWidgets);
         } catch (err) {
