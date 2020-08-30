@@ -19,10 +19,21 @@ class _SmartTextExampleState extends State<SmartTextExample> {
         body: ListView(children: <Widget>[
           Padding(
               padding: const EdgeInsets.all(8.0),
+              child: SmartText('Hello world this is #tag and url https://google.com'
+                    + '\n\n\n lol my name is...',
+                  onPressed: (val, clickType) =>
+                      Log(this, 'val = $val, clickType = $clickType'),
+                  hyperlinkStyle: TextStyle(
+                      color: Colors.blue, decoration: TextDecoration.underline),
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 14 * 1.5,
+                      fontWeight: FontWeight.bold))),
+          Padding(
+              padding: const EdgeInsets.all(8.0),
               child: SmartText('Hello world this is #tag and url google.com',
-                  onPressed: (val, clickType) {
-                      Log(this, 'val = $val, clickType = $clickType');
-                  },
+                  onPressed: (val, clickType) =>
+                      Log(this, 'val = $val, clickType = $clickType'),
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 14 * 1.5,
@@ -37,9 +48,8 @@ class _SmartTextExampleState extends State<SmartTextExample> {
                       ' it is so sick and awesome' +
                       ' and #things and #yo no #sure what ' +
                       'to say, got to youtube.com',
-                  onPressed: (val, clickType) {
-                      print('val = $val, clickType = $clickType');
-                  },
+                  onPressed: (val, clickType) =>
+                      Log(this, 'val = $val, clickType = $clickType'),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 3,
                   style: TextStyle(
@@ -62,7 +72,7 @@ class _SmartTextExampleState extends State<SmartTextExample> {
               padding: const EdgeInsets.all(8.0),
               child: ExpandableText('#tag #tag #tag #hello #bruh',
                   onClickableText: (val, clickType) =>
-                      print('val = $val, clickType = $clickType'),
+                      Log(this, 'val = $val, clickType = $clickType'),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 3,
                   style: TextStyle(
@@ -74,9 +84,8 @@ class _SmartTextExampleState extends State<SmartTextExample> {
               child: SmartText(
                   'https://google.com @megh #hundo #test @megh @vic #test',
                   showDebug: true,
-                  onPressed: (val, clickType) {
-                      Log(this, 'val = $val, clickType = $clickType');
-                  },
+                  onPressed: (val, clickType) =>
+                      Log(this, 'val = $val, clickType = $clickType'),
                   hashtagStyle: TextStyle(color: Colors.lightBlueAccent),
                   atTextStyle: TextStyle(color: Colors.red),
                   hyperlinkStyle: TextStyle(
@@ -97,9 +106,8 @@ class _SmartTextExampleState extends State<SmartTextExample> {
                       ' it is so sick and awesome' +
                       ' and #things and #yo no #sure what ' +
                       'to say, got to youtube.com',
-                  onClickableText: (val, clickType) {
-                      Log(this, 'val = $val, clickType = $clickType');
-                  },
+                  onClickableText: (val, clickType) =>
+                      Log(this, 'val = $val, clickType = $clickType'),
                   overflow:
                       _isExpanded ? TextOverflow.clip : TextOverflow.ellipsis,
                   seeMorePressed: () {

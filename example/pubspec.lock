@@ -75,11 +75,11 @@ packages:
     dependency: "direct dev"
     description:
       path: "."
-      ref: "v0.0.9"
-      resolved-ref: "54f98f937e598c3da69839b90d5e3775b4cfa515"
+      ref: "v0.0.11"
+      resolved-ref: a2db7be14d2a0d901b2acb3c6699ed9a965f0dcb
       url: "git://github.com/vicmoh/dart_util.git"
     source: git
-    version: "0.0.9"
+    version: "0.0.11"
   extended_text_field:
     dependency: transitive
     description:
@@ -126,7 +126,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.38"
+    version: "0.0.40"
   flutter_test:
     dependency: "direct dev"
     description: flutter
