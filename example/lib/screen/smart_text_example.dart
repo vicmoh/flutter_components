@@ -19,8 +19,8 @@ class _SmartTextExampleState extends State<SmartTextExample> {
         body: ListView(children: <Widget>[
           Padding(
               padding: const EdgeInsets.all(8.0),
-              child: SmartText('Hello world this is #tag and url https://google.com'
-                    + '\n\n\n lol my name is...',
+              child: SmartText(('Hello world this is #tag and url https://google.com'
+                    + '\n\n\nlol my name is...').removeDuplicateWhiteSpaces(),
                   onPressed: (val, clickType) =>
                       Log(this, 'val = $val, clickType = $clickType'),
                   hyperlinkStyle: TextStyle(

@@ -95,6 +95,9 @@ class _SmartTextState extends State<SmartText> {
     textWidgets.add(TextSpan(text: ' ', style: this.widget.style));
   }
 
+  _addText(List<TextSpan> textWidgets, String word) => 
+    textWidgets.add(TextSpan(text: word, style: this.widget.style));
+
   _spaceText(textWidgets) =>
       textWidgets.add(TextSpan(text: ' ', style: this.widget.style));
 
@@ -104,71 +107,133 @@ class _SmartTextState extends State<SmartText> {
     return _tapGestures.last;
   }
 
+  _isWhiteSpace(val) => (val == '\n' || val == '\r' || val == '\r\n');
+
+  _preWhiteSpace(String val) {
+    if (val == null) return '';
+    String pre = '';
+    for (int x=0; x<val.length; x++) {
+      if (_isWhiteSpace(val[x])) 
+        pre += val[x];
+      else
+        break;
+    }
+    return pre;
+  }
+
+  _postWhiteSpace(String val) {
+    if (val == null) return '';
+    String post = '';
+    for (int x=val.length-1; x >= 0; x--) {
+      if (_isWhiteSpace(val[x])) 
+        post = val[x] + post;
+      else
+        break;
+    }
+    return post;
+  }
+
+  _addStyleText(List<TextSpan> textWidgets, String word) {
+    /// For hashtag
+    if (widget.hashtagStyle != null &&
+        RegExp(SmartText.HASH_TAG_REGEX).hasMatch(word.trim())) {
+      try {
+        textWidgets.add(TextSpan(
+            text: word,
+            style: this.widget.hashtagStyle,
+            recognizer: _addGesture(() {
+              if (this.widget?.onPressed != null)
+                this
+                    .widget
+                    .onPressed(word.trim(), ClickableTextTypes.hashtag);
+            })));
+        _spaceText(textWidgets);
+      } catch (err) {
+        _showDebug(err);
+        _addNormText(textWidgets, word);
+      }
+
+      /// For hyper links
+    } else if (widget.hyperlinkStyle != null &&
+        RegExp(SmartText.HTTP_REGEX).hasMatch(word.trim())) {
+      try {
+        textWidgets.add(TextSpan(
+            text: word,
+            style: this.widget.hyperlinkStyle,
+            recognizer: _addGesture(() {
+              if (this.widget?.onPressed != null)
+                this
+                    .widget
+                    .onPressed(word.trim(), ClickableTextTypes.hyperlink);
+            })));
+        _spaceText(textWidgets);
+      } catch (err) {
+        _showDebug(err);
+        _addNormText(textWidgets, word);
+      }
+
+      /// For at symbol text
+    } else if (widget.atTextStyle != null &&
+        RegExp(SmartText.AT_TAG_REGEX).hasMatch(word.trim())) {
+      try {
+        textWidgets.add(TextSpan(
+            text: word,
+            style: this.widget.atTextStyle,
+            recognizer: _addGesture(() {
+              if (this.widget?.onPressed != null)
+                this.widget.onPressed(word.trim(), ClickableTextTypes.atTag);
+            })));
+        _spaceText(textWidgets);
+      } catch (err) {
+        _showDebug(err);
+        _addNormText(textWidgets, word);
+      }
+
+      /// Default text
+    } else
+      _addNormText(textWidgets, word);
+  }
+
   List<TextSpan> _texts(String text) {
     assert(text != null);
     List<TextSpan> textWidgets = [];
-    text?.split(RegExp(r'[ ]'))?.forEach((word) {
+    text?.split(' ')?.forEach((word) {
       word = word;
       _showDebug('word: $word');
 
-      /// For hashtag
-      if (widget.hashtagStyle != null &&
-          RegExp(SmartText.HASH_TAG_REGEX).hasMatch(word.trim())) {
-        try {
-          textWidgets.add(TextSpan(
-              text: word,
-              style: this.widget.hashtagStyle,
-              recognizer: _addGesture(() {
-                if (this.widget?.onPressed != null)
-                  this
-                      .widget
-                      .onPressed(word.trim(), ClickableTextTypes.hashtag);
-              })));
-          _spaceText(textWidgets);
-        } catch (err) {
-          _showDebug(err);
-          _addNormText(textWidgets, word);
-        }
+      /// Check if there is white spaces.
+      if (word.contains('\n') || word.contains('\t') || word.contains('\r\n')) {
+        var cur = '';
+        for (int x=0; x<word.length; x++) {
 
-        /// For hyper links
-      } else if (widget.hyperlinkStyle != null &&
-          RegExp(SmartText.HTTP_REGEX).hasMatch(word.trim())) {
-        try {
-          textWidgets.add(TextSpan(
-              text: word,
-              style: this.widget.hyperlinkStyle,
-              recognizer: _addGesture(() {
-                if (this.widget?.onPressed != null)
-                  this
-                      .widget
-                      .onPressed(word.trim(), ClickableTextTypes.hyperlink);
-              })));
-          _spaceText(textWidgets);
-        } catch (err) {
-          _showDebug(err);
-          _addNormText(textWidgets, word);
-        }
+          /// To be added case
+          if (x > 1 && !_isWhiteSpace(word[x - 1]) &&_isWhiteSpace(word[x])) {
+            print('Adding: $cur');
+            _addStyleText(textWidgets, cur);
+            cur = '';
+          }
 
-        /// For at symbol text
-      } else if (widget.atTextStyle != null &&
-          RegExp(SmartText.AT_TAG_REGEX).hasMatch(word.trim())) {
-        try {
-          textWidgets.add(TextSpan(
-              text: word,
-              style: this.widget.atTextStyle,
-              recognizer: _addGesture(() {
-                if (this.widget?.onPressed != null)
-                  this.widget.onPressed(word.trim(), ClickableTextTypes.atTag);
-              })));
-          _spaceText(textWidgets);
-        } catch (err) {
-          _showDebug(err);
-          _addNormText(textWidgets, word);
-        }
+          /// Determine whether it is white space or not.
+          if (_isWhiteSpace(word[x])) {
+            print('is white space.');
+            print('[${word[x]}]');
+            _addText(textWidgets, word[x]);
+          } else {
+            print('cur: $cur');
+            cur += word[x];
+            if (word.length == 1) 
+              _addStyleText(textWidgets, cur);
+          }
 
-        /// Default text
-      } else
-        _addNormText(textWidgets, word);
+          /// Last letter case
+          if (x == word.length - 1) {
+            print('Adding: $cur');
+            _addStyleText(textWidgets, cur);
+            cur = '';
+          }
+        }
+      } else 
+        _addStyleText(textWidgets, word);
     });
     textWidgets.removeLast();
     return textWidgets;
