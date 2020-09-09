@@ -3,12 +3,9 @@ import 'package:flutter/widgets.dart';
 /// A transparent page route, use similar
 /// way of any other page route.
 class TransparentPageRoute extends PageRoute<void> {
-  final double animationLength;
-
   TransparentPageRoute({
     @required this.builder,
     RouteSettings settings,
-    this.animationLength = 1,
     this.duration = const Duration(milliseconds: 300),
   })  : assert(builder != null),
         super(settings: settings, fullscreenDialog: false);
@@ -39,7 +36,7 @@ class TransparentPageRoute extends PageRoute<void> {
   ) {
     final result = builder(context);
     return FadeTransition(
-        opacity: Tween<double>(begin: 0, end: this.animationLength).animate(animation),
+        opacity: Tween<double>(begin: 0, end: 1).animate(animation),
         child: Semantics(
             scopesRoute: true, explicitChildNodes: true, child: result));
   }
