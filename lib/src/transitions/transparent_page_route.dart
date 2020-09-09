@@ -36,6 +36,7 @@ class TransparentPageRoute extends PageRoute<void> {
   ) {
     final result = builder(context);
     return FadeTransition(
+        duration: this.duration,
         opacity: Tween<double>(begin: 0, end: 1).animate(animation),
         child: Semantics(
             scopesRoute: true, explicitChildNodes: true, child: result));
