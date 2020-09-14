@@ -3,14 +3,16 @@ EXPORT_FILE=flutter_components
 # Export and test the program.
 all: analyze export sure clean
 
-analyze:
-	flutter analyze
-
 # Git add, commit, and push.
 git: all
 	git add -A
 	git commit -m '$(m)'
 	git push
+
+# Analyze dart code such 
+# as warnings and error.
+analyze:
+	flutter analyze
 
 # Create an export file.
 export:
