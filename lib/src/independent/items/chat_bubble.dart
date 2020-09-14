@@ -50,6 +50,7 @@ class ChatBubble<T> extends StatelessWidget {
   final Widget Function(T) replyBuilder;
   final void Function() onTap;
   final void Function() onLongPress;
+  final void Function() onAvatarTap;
 
   /// Chat bubble mostly used for messaging.
   /// One of the parameter
@@ -110,6 +111,7 @@ class ChatBubble<T> extends StatelessWidget {
     this.onLongPress,
     this.backgroundGradient,
     this.replaceChatBubble,
+    this.onAvatarTap,
   })  : assert(!(bodyWidget == null && message == null)),
         this.borderRadius = borderRadius ?? BorderRadius.circular(30),
         this.replyBorderRadius = replyBorderRadius ?? BorderRadius.circular(15),
@@ -150,8 +152,14 @@ class ChatBubble<T> extends StatelessWidget {
           fit: BoxFit.cover);
 
     /// Create the avatar widget
-    return Container(
-        padding: EdgeInsets.only(right: 10), child: ClipOval(child: image));
+    return  Container(
+          padding: EdgeInsets.only(right: 10), 
+          child: GestureDetector(
+            onTap: () {
+              if (this.onAvatarTap != null)
+                onAvatarTap();
+            },
+            child:ClipOval(child: image)));
   }
 
   /// A single box chat tile

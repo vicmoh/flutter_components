@@ -1,6 +1,5 @@
 import 'package:extended_text_field/extended_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_components/flutter_components.dart';
 
 /// The at symbol text.
 class UrlText extends SpecialText {

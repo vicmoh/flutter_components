@@ -109,30 +109,6 @@ class _SmartTextState extends State<SmartText> {
 
   _isWhiteSpace(val) => (val == '\n' || val == '\r' || val == '\r\n');
 
-  _preWhiteSpace(String val) {
-    if (val == null) return '';
-    String pre = '';
-    for (int x=0; x<val.length; x++) {
-      if (_isWhiteSpace(val[x])) 
-        pre += val[x];
-      else
-        break;
-    }
-    return pre;
-  }
-
-  _postWhiteSpace(String val) {
-    if (val == null) return '';
-    String post = '';
-    for (int x=val.length-1; x >= 0; x--) {
-      if (_isWhiteSpace(val[x])) 
-        post = val[x] + post;
-      else
-        break;
-    }
-    return post;
-  }
-
   _addStyleText(List<TextSpan> textWidgets, String word) {
     /// For hashtag
     if (widget.hashtagStyle != null &&
