@@ -1,3 +1,7 @@
+## [0.0.41] - 09/14/2020
+
+* Allow chat bubble avatar to be pressed.
+
 ## [0.0.40] - 08/28/2020
 
 * Fixed new lines on smart and extended text where

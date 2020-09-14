@@ -1,7 +1,10 @@
 EXPORT_FILE=flutter_components
 
 # Export and test the program.
-all: export sure clean
+all: analyze export sure clean
+
+analyze:
+	flutter analyze
 
 # Git add, commit, and push.
 git: all
