@@ -1,3 +1,8 @@
+
+## [0.0.42] - 09/15/2020
+
+* Silent the print statement in smart text.
+
 ## [0.0.41] - 09/14/2020
 
 * Allow chat bubble avatar to be pressed.

@@ -184,18 +184,14 @@ class _SmartTextState extends State<SmartText> {
 
           /// To be added case
           if (x > 1 && !_isWhiteSpace(word[x - 1]) &&_isWhiteSpace(word[x])) {
-            print('Adding: $cur');
             _addStyleText(textWidgets, cur);
             cur = '';
           }
 
           /// Determine whether it is white space or not.
           if (_isWhiteSpace(word[x])) {
-            print('is white space.');
-            print('[${word[x]}]');
             _addText(textWidgets, word[x]);
           } else {
-            print('cur: $cur');
             cur += word[x];
             if (word.length == 1) 
               _addStyleText(textWidgets, cur);
@@ -203,7 +199,6 @@ class _SmartTextState extends State<SmartText> {
 
           /// Last letter case
           if (x == word.length - 1) {
-            print('Adding: $cur');
             _addStyleText(textWidgets, cur);
             cur = '';
           }
