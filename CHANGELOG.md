@@ -1,3 +1,6 @@
+## [0.0.43] - 10/02/2020
+
+* Update extended text field package to 5.0.0.
 
 ## [0.0.42] - 09/15/2020
 
