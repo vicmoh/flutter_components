@@ -32,8 +32,8 @@ class CenterListView extends StatelessWidget {
           height: constraint.biggest.height,
           width: constraint.biggest.width,
           child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: this.mainAxisAlignment,
+              crossAxisAlignment: this.crossAxisAlignment,
               children: <Widget>[this.child]));
       return ListView(
           controller: this.controller,

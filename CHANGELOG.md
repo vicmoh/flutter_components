@@ -1,3 +1,8 @@
+## [0.0.44] - 10/20/2020
+
+* CenterListView mainAxisAlignemnt and crossAxisAlignment
+fixed where options does nothing.
+
 ## [0.0.43] - 10/02/2020
 
 * Update extended text field package to 5.0.0.
