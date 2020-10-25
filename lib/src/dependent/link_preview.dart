@@ -128,10 +128,16 @@ class LinkPreview extends StatelessWidget {
                                 width: width,
                                 fit: imageFit,
                                 imageUrl: url,
-                                progressIndicatorBuilder:
-                                    (context, url, downloadProgress) =>
+                                progressIndicatorBuilder: (context, url,
+                                        downloadProgress) =>
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
                                         CircularProgressIndicator(
                                             value: downloadProgress.progress),
+                                      ],
+                                    ),
                                 errorWidget: (context, url, error) =>
                                     Icon(Icons.error, color: Colors.red)))),
 

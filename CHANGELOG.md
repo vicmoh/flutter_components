@@ -1,3 +1,7 @@
+## [0.0.45] - 10/25/2020
+
+* When loading on link preview, loader is now centered.
+
 ## [0.0.44] - 10/20/2020
 
 * CenterListView mainAxisAlignemnt and crossAxisAlignment
