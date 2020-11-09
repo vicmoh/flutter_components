@@ -134,14 +134,20 @@ class LinkPreview extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          CircularProgressIndicator(
-                                              value: downloadProgress.progress),
+                                          Padding(
+                                              padding: const EdgeInsets.all(10),
+                                              child: CircularProgressIndicator(
+                                                  value: downloadProgress
+                                                      .progress)),
                                         ]),
                                 errorWidget: (context, url, error) => Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Icon(Icons.error, color: Colors.red),
+                                          Padding(
+                                              padding: const EdgeInsets.all(10),
+                                              child: Icon(Icons.error,
+                                                  color: Colors.red)),
                                         ])))),
 
                     /// Footer
