@@ -136,10 +136,12 @@ class LinkPreview extends StatelessWidget {
                                       children: [
                                         CircularProgressIndicator(
                                             value: downloadProgress.progress),
-                                      ],
-                                    ),
+                                      ]),
                                 errorWidget: (context, url, error) =>
-                                    Icon(Icons.error, color: Colors.red)))),
+                                  Row(mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.error, color: Colors.red),
+                                    ])))),
 
                     /// Footer
                     isLinkAtBottom ? Container() : _linkText(),
