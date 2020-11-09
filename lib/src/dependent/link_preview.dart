@@ -131,17 +131,18 @@ class LinkPreview extends StatelessWidget {
                                 progressIndicatorBuilder: (context, url,
                                         downloadProgress) =>
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        CircularProgressIndicator(
-                                            value: downloadProgress.progress),
-                                      ]),
-                                errorWidget: (context, url, error) =>
-                                  Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(Icons.error, color: Colors.red),
-                                    ])))),
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          CircularProgressIndicator(
+                                              value: downloadProgress.progress),
+                                        ]),
+                                errorWidget: (context, url, error) => Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(Icons.error, color: Colors.red),
+                                        ])))),
 
                     /// Footer
                     isLinkAtBottom ? Container() : _linkText(),

@@ -95,8 +95,8 @@ class _SmartTextState extends State<SmartText> {
     textWidgets.add(TextSpan(text: ' ', style: this.widget.style));
   }
 
-  _addText(List<TextSpan> textWidgets, String word) => 
-    textWidgets.add(TextSpan(text: word, style: this.widget.style));
+  _addText(List<TextSpan> textWidgets, String word) =>
+      textWidgets.add(TextSpan(text: word, style: this.widget.style));
 
   _spaceText(textWidgets) =>
       textWidgets.add(TextSpan(text: ' ', style: this.widget.style));
@@ -119,9 +119,7 @@ class _SmartTextState extends State<SmartText> {
             style: this.widget.hashtagStyle,
             recognizer: _addGesture(() {
               if (this.widget?.onPressed != null)
-                this
-                    .widget
-                    .onPressed(word.trim(), ClickableTextTypes.hashtag);
+                this.widget.onPressed(word.trim(), ClickableTextTypes.hashtag);
             })));
         _spaceText(textWidgets);
       } catch (err) {
@@ -180,10 +178,9 @@ class _SmartTextState extends State<SmartText> {
       /// Check if there is white spaces.
       if (word.contains('\n') || word.contains('\t') || word.contains('\r\n')) {
         var cur = '';
-        for (int x=0; x<word.length; x++) {
-
+        for (int x = 0; x < word.length; x++) {
           /// To be added case
-          if (x > 1 && !_isWhiteSpace(word[x - 1]) &&_isWhiteSpace(word[x])) {
+          if (x > 1 && !_isWhiteSpace(word[x - 1]) && _isWhiteSpace(word[x])) {
             _addStyleText(textWidgets, cur);
             cur = '';
           }
@@ -193,8 +190,7 @@ class _SmartTextState extends State<SmartText> {
             _addText(textWidgets, word[x]);
           } else {
             cur += word[x];
-            if (word.length == 1) 
-              _addStyleText(textWidgets, cur);
+            if (word.length == 1) _addStyleText(textWidgets, cur);
           }
 
           /// Last letter case
@@ -203,7 +199,7 @@ class _SmartTextState extends State<SmartText> {
             cur = '';
           }
         }
-      } else 
+      } else
         _addStyleText(textWidgets, word);
     });
     textWidgets.removeLast();

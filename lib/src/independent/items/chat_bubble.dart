@@ -152,14 +152,13 @@ class ChatBubble<T> extends StatelessWidget {
           fit: BoxFit.cover);
 
     /// Create the avatar widget
-    return  Container(
-          padding: EdgeInsets.only(right: 10), 
-          child: GestureDetector(
+    return Container(
+        padding: EdgeInsets.only(right: 10),
+        child: GestureDetector(
             onTap: () {
-              if (this.onAvatarTap != null)
-                onAvatarTap();
+              if (this.onAvatarTap != null) onAvatarTap();
             },
-            child:ClipOval(child: image)));
+            child: ClipOval(child: image)));
   }
 
   /// A single box chat tile
