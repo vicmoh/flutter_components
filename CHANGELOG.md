@@ -1,3 +1,8 @@
+## [0.0.46] - 10/25/2020
+
+* Update the pub specification packages. 
+* Extended text field and cached network image.
+
 ## [0.0.45] - 10/25/2020
 
 * When loading on link preview, loader is now centered.
