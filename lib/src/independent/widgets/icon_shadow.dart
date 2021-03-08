@@ -20,7 +20,7 @@ class IconShadow extends StatelessWidget {
     double dimens3 = 3.0;
     Color _shadowColor = icon.color;
     if (shadowColor != null) _shadowColor = shadowColor;
-    List<Widget> list = new List();
+    final list = <Widget>[];
     if (showShadow) {
       list.addAll([
         Positioned(

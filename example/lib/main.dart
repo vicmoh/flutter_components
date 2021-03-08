@@ -31,13 +31,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  _btnNav(text, screen) => RaisedButton(
+  _btnNav(text, screen) => ElevatedButton(
       child: Text(text),
       onPressed: () =>
           Navigator.push(context, CupertinoPageRoute(builder: (_) => screen)));
 
   _btn(text, onPressed) =>
-      RaisedButton(child: Text(text), onPressed: onPressed);
+      ElevatedButton(child: Text(text), onPressed: onPressed);
 
   _showPopup() => showDialog(
       context: context,

@@ -245,7 +245,7 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
         backgroundColor: widget.backgroundColor,
         appBar: widget.appBar,
         body: LayoutBuilder(builder: _buildStack),
-        resizeToAvoidBottomPadding: false);
+        resizeToAvoidBottomInset: false);
   }
 }
 
