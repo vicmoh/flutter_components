@@ -93,14 +93,14 @@ packages:
       name: extended_text_field
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.0"
+    version: "6.0.1"
   extended_text_library:
     dependency: transitive
     description:
       name: extended_text_library
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0"
+    version: "5.0.2"
   fake_async:
     dependency: transitive
     description:

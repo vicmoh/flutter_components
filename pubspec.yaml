@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  extended_text_field: ^6.0.0
+  extended_text_field: ^6.0.1
   cached_network_image: ^2.5.0
 
 dev_dependencies:
