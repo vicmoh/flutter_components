@@ -28,7 +28,7 @@ clean:
 	cd lib/flutter_package_exporter; make clean;
 
 # Install dependencies.
-install: clean 
+install: 
 	cd lib; git clone https://github.com/vicmoh/flutter_package_exporter || cd flutter_package_exporter; git pull;
 
 new:

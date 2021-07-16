@@ -68,11 +68,11 @@ packages:
     dependency: "direct dev"
     description:
       path: "."
-      ref: "v0.0.11"
-      resolved-ref: a2db7be14d2a0d901b2acb3c6699ed9a965f0dcb
+      ref: "v0.0.12"
+      resolved-ref: "9c7e96cb137fcdc6e92a4b91f81879b8e9794e8b"
       url: "git://github.com/vicmoh/dart_util.git"
     source: git
-    version: "0.0.11"
+    version: "0.0.12"
   extended_text_field:
     dependency: "direct main"
     description:
