@@ -1,3 +1,9 @@
+## [0.0.47] - 10/25/2020
+
+* Fix expanded text where the
+text goes in the middle when
+overflown.
+
 ## [0.0.46] - 10/25/2020
 
 * Update the pub specification packages. 

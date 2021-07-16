@@ -24,5 +24,5 @@ dependencies:
   dart_util:
     git:
       url: git://github.com/vicmoh/dart_util.git
-      ref: v0.0.9
+      ref: v0.0.12
 ```

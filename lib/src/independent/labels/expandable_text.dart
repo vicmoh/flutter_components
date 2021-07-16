@@ -17,6 +17,7 @@ class ExpandableText extends StatefulWidget {
   final TextStyle hyperlinkStyle;
   final TextOverflow overflow;
   final Function(String, ClickableTextTypes) onClickableText;
+  final CrossAxisAlignment crossAxisAlignment;
 
   /// An expandable text where it limits the
   /// text unless you click [seeMoreButton] for example.
@@ -36,6 +37,7 @@ class ExpandableText extends StatefulWidget {
         color: Colors.lightBlue, decoration: TextDecoration.underline),
     this.overflow = TextOverflow.clip,
     this.textAlign = TextAlign.left,
+    this.crossAxisAlignment = CrossAxisAlignment.start,
   }) : super(key: key);
 
   @override
@@ -59,21 +61,25 @@ class _ExpandableTextState extends State<ExpandableText> {
       /// Check which to render
       if (painter?.didExceedMaxLines != null && painter.didExceedMaxLines)
         return Container(
-          child: Column(children: <Widget>[
-            _text(),
-            this.widget.seeMoreButton ??
-                Container(
-                    padding: EdgeInsets.only(top: 5),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Expanded(
-                              child: GestureDetector(
-                                  onTap: this.widget.seeMorePressed ?? () {},
-                                  child: Text('See more',
-                                      style: TextStyle(color: Colors.grey)))),
-                        ])),
-          ]),
+          child: Column(
+              crossAxisAlignment: widget.crossAxisAlignment,
+              children: <Widget>[
+                _text(),
+                this.widget.seeMoreButton ??
+                    Container(
+                        padding: EdgeInsets.only(top: 5),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Expanded(
+                                  child: GestureDetector(
+                                      onTap:
+                                          this.widget.seeMorePressed ?? () {},
+                                      child: Text('See more',
+                                          style:
+                                              TextStyle(color: Colors.grey)))),
+                            ])),
+              ]),
         );
       else
         return _text();
