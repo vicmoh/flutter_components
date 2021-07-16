@@ -26,7 +26,7 @@ class LinkPreview extends StatelessWidget {
     this.descriptionPadding = const EdgeInsets.only(bottom: 10),
     this.linkPadding = const EdgeInsets.only(bottom: 10),
     this.textPadding = const EdgeInsets.symmetric(horizontal: 15),
-    this.imageFit,
+    this.imageFit = BoxFit.cover,
     this.height,
     this.width,
   })  : this.borderRadius = borderRadius ?? BorderRadius.circular(0),
@@ -58,7 +58,7 @@ class LinkPreview extends StatelessWidget {
     this.linkPadding = const EdgeInsets.only(bottom: 10),
     this.textPadding = const EdgeInsets.symmetric(horizontal: 15),
     BorderRadius inkWellBorderRadius,
-    this.imageFit,
+    this.imageFit = BoxFit.cover,
     this.height,
     this.width,
   })  : this.borderRadius = BorderRadius.circular(radius),
@@ -126,7 +126,7 @@ class LinkPreview extends StatelessWidget {
                             child: CachedNetworkImage(
                                 height: height,
                                 width: width,
-                                fit: imageFit,
+                                fit: imageFit ?? BoxFit.cover,
                                 imageUrl: url,
                                 progressIndicatorBuilder: (context, url,
                                         downloadProgress) =>

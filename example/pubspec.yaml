@@ -28,11 +28,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  overlay_support: ^1.0.4
+  overlay_support: ^1.2.0-nullsafety.0
 
   flutter_components:
     path: ../../flutter_components/
-  
+
   # Used for the main architect framework.
   provider_skeleton:
     git:
@@ -43,14 +43,13 @@ dev_dependencies:
   dart_util:
     git:
       url: git://github.com/vicmoh/dart_util.git
-      ref: v0.0.11
+      ref: v0.0.12
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
