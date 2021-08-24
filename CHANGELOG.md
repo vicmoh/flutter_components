@@ -1,3 +1,8 @@
+## [0.0.48] - 8/24/2021
+
+- Added image file parameter
+  for the StackAvatar widget.
+
 ## [0.0.47] - 7/16/2021
 
 - Fix expanded text where the
