@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 /// A stack up avatars that is on top of one and another.
@@ -17,6 +19,7 @@ class StackAvatars extends StatelessWidget {
   final double outlineWeight;
   final double imageOffsetSpacing;
   final bool reverseOffsetSpacing;
+  final File imageFile;
 
   /// A stack up avatars that is on top of one and another.
   /// It is used in the user post card and the event card modal.
@@ -27,8 +30,11 @@ class StackAvatars extends StatelessWidget {
   /// if it is null it will not show any loading.
   /// [imageOffsetSpacing] is the image spacing between each images
   /// when more than 1 images is tracked.
+  ///
+  /// If [imageFile] is define, it will use image file instead of the url.
   StackAvatars({
     @required this.imageUrls,
+    this.imageFile,
     this.imagePlaceholderPath,
     this.padding,
     this.imageSize = 23,
@@ -40,11 +46,35 @@ class StackAvatars extends StatelessWidget {
   });
 
   /// Circle avatar for profile image
-  Widget _avatar(
-    String profileImageUrl, {
+  Widget _avatar({
+    String profileImageUrl,
     double offset = 0,
     Color outlineColor,
   }) {
+    var asset = (this.imagePlaceholderPath != null)
+
+        /// causes to have continuous state at the start.
+        ? (profileImageUrl == null)
+            ? Image.asset(this.imagePlaceholderPath,
+                width: imageSize, height: imageSize, fit: BoxFit.cover)
+            : FadeInImage.assetNetwork(
+                image: profileImageUrl,
+                fadeInCurve: Curves.easeIn,
+                fadeOutCurve: Curves.easeIn,
+                fadeInDuration: Duration(milliseconds: 300),
+                fadeOutDuration: Duration(milliseconds: 300),
+                placeholder: this.imagePlaceholderPath,
+                width: imageSize,
+                height: imageSize,
+                fit: BoxFit.cover)
+        : Image.network(profileImageUrl,
+            width: imageSize, height: imageSize, fit: BoxFit.cover);
+
+    /// Use this image file if the
+    if (this.imageFile != null)
+      asset = Image.file(this.imageFile,
+          width: imageSize, height: imageSize, fit: BoxFit.cover);
+
     return Container(
         padding: EdgeInsets.only(left: offset),
         child: Container(
@@ -56,30 +86,7 @@ class StackAvatars extends StatelessWidget {
                 shape: BoxShape.circle),
 
             /// The avatar image
-            child: ClipOval(
-                child: (this.imagePlaceholderPath != null)
-
-                    /// TODO: For some reason asset network
-                    /// causes to have continuous state at the start.
-                    ? (profileImageUrl == null)
-                        ? Image.asset(this.imagePlaceholderPath,
-                            width: imageSize,
-                            height: imageSize,
-                            fit: BoxFit.cover)
-                        : FadeInImage.assetNetwork(
-                            image: profileImageUrl,
-                            fadeInCurve: Curves.easeIn,
-                            fadeOutCurve: Curves.easeIn,
-                            fadeInDuration: Duration(milliseconds: 300),
-                            fadeOutDuration: Duration(milliseconds: 300),
-                            placeholder: this.imagePlaceholderPath,
-                            width: imageSize,
-                            height: imageSize,
-                            fit: BoxFit.cover)
-                    : Image.network(profileImageUrl,
-                        width: imageSize,
-                        height: imageSize,
-                        fit: BoxFit.cover))));
+            child: ClipOval(child: asset)));
   }
 
   /// Main content with stack
@@ -87,12 +94,20 @@ class StackAvatars extends StatelessWidget {
     double offset = 0;
     List<Widget> images = [];
     int count = 0;
-    for (var each in this.imageUrls) {
-      Color color = each != null ? this.outlineColor : Colors.transparent;
-      images.add(this._avatar(each, offset: offset, outlineColor: color));
-      offset += this.imageOffsetSpacing;
-      count++;
-      if (this.maxAvatarToShow == count) break;
+
+    if (imageFile == null) {
+      for (var each in this.imageUrls) {
+        Color color = each != null ? this.outlineColor : Colors.transparent;
+        images.add(_avatar(
+            profileImageUrl: each, offset: offset, outlineColor: color));
+        offset += this.imageOffsetSpacing;
+        count++;
+        if (this.maxAvatarToShow == count) break;
+      }
+    } else {
+      images.add(_avatar(
+          offset: offset,
+          outlineColor: this.outlineColor ?? Colors.transparent));
     }
 
     /// Return the main Content
