@@ -51,29 +51,31 @@ class StackAvatars extends StatelessWidget {
     double offset = 0,
     Color outlineColor,
   }) {
-    var asset = (this.imagePlaceholderPath != null)
-
-        /// causes to have continuous state at the start.
-        ? (profileImageUrl == null)
-            ? Image.asset(this.imagePlaceholderPath,
-                width: imageSize, height: imageSize, fit: BoxFit.cover)
-            : FadeInImage.assetNetwork(
-                image: profileImageUrl,
-                fadeInCurve: Curves.easeIn,
-                fadeOutCurve: Curves.easeIn,
-                fadeInDuration: Duration(milliseconds: 300),
-                fadeOutDuration: Duration(milliseconds: 300),
-                placeholder: this.imagePlaceholderPath,
-                width: imageSize,
-                height: imageSize,
-                fit: BoxFit.cover)
-        : Image.network(profileImageUrl,
-            width: imageSize, height: imageSize, fit: BoxFit.cover);
-
     /// Use this image file if the
-    if (this.imageFile != null)
+    Widget asset;
+    if (this.imageFile != null) {
       asset = Image.file(this.imageFile,
           width: imageSize, height: imageSize, fit: BoxFit.cover);
+    } else {
+      asset = (this.imagePlaceholderPath != null)
+
+          /// causes to have continuous state at the start.
+          ? (profileImageUrl == null)
+              ? Image.asset(this.imagePlaceholderPath,
+                  width: imageSize, height: imageSize, fit: BoxFit.cover)
+              : FadeInImage.assetNetwork(
+                  image: profileImageUrl,
+                  fadeInCurve: Curves.easeIn,
+                  fadeOutCurve: Curves.easeIn,
+                  fadeInDuration: Duration(milliseconds: 300),
+                  fadeOutDuration: Duration(milliseconds: 300),
+                  placeholder: this.imagePlaceholderPath,
+                  width: imageSize,
+                  height: imageSize,
+                  fit: BoxFit.cover)
+          : Image.network(profileImageUrl,
+              width: imageSize, height: imageSize, fit: BoxFit.cover);
+    }
 
     return Container(
         padding: EdgeInsets.only(left: offset),
