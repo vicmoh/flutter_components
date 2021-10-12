@@ -1,3 +1,7 @@
+## [0.0.49] - 10/11/2021
+
+- Upgrade to null-safety
+
 ## [0.0.48] - 8/24/2021
 
 - Added image file parameter
