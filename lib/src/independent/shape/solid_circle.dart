@@ -4,7 +4,7 @@ class SolidCircle extends StatelessWidget {
   /// A solid color circle. Sometimes used in notifications
   /// to show that there is unread content.
   const SolidCircle({
-    Key key,
+    Key? key,
     this.color = Colors.grey,
     this.size = 15,
     this.borderRadius = 90,

@@ -8,33 +8,33 @@ class CustomButton extends StatelessWidget {
   final String buttonLabel;
   final bool isBoldLabel;
   // With child
-  final Widget child;
+  final Widget? child;
   // Color
-  final Color outlineColor;
+  final Color? outlineColor;
   final Color backgroundColor;
   final Color textColor;
-  final LinearGradient backgroundGradient;
+  final LinearGradient? backgroundGradient;
   // Padding and sizing
-  final double verticalInnerPadding;
-  final double horizontalInnerPadding;
-  final double height;
-  final double width;
+  final double? verticalInnerPadding;
+  final double? horizontalInnerPadding;
+  final double? height;
+  final double? width;
   final double elevation;
-  final BorderRadius borderRadius;
+  final BorderRadius? borderRadius;
   // Other
   final double outlineWeight;
   final bool isCheckMarkShown;
   final bool isMaterial;
   final _ButtonType type;
   // Callback
-  final void Function() onPressed;
-  final void Function(dynamic) onChanged;
+  final void Function()? onPressed;
+  final void Function(dynamic)? onChanged;
 
   /// Custom round button that being used through the app.
   /// [onPressed] is a call back function when the button is pressed.
   CustomButton.withText({
-    @required this.onPressed,
-    @required this.buttonLabel,
+    required this.onPressed,
+    required this.buttonLabel,
     this.textColor = Colors.black,
     this.backgroundColor = Colors.white,
     this.isBoldLabel = false,
@@ -45,7 +45,7 @@ class CustomButton extends StatelessWidget {
     this.outlineColor,
     this.outlineWeight = 0,
     this.isCheckMarkShown = false,
-    BorderRadius borderRadius,
+    BorderRadius? borderRadius,
     this.isMaterial = true,
     this.backgroundGradient,
   })  : this.type = _ButtonType.other,
@@ -58,15 +58,15 @@ class CustomButton extends StatelessWidget {
   /// Custom round button.
   /// [onPressed] is a call back function when the button is pressed.
   CustomButton.withChild({
-    @required this.onPressed,
-    @required this.child,
+    required this.onPressed,
+    required this.child,
     this.backgroundColor = Colors.white,
     this.verticalInnerPadding = 10,
     this.horizontalInnerPadding = 10,
     this.elevation = 5,
     this.outlineColor,
     this.outlineWeight = 0,
-    BorderRadius borderRadius,
+    BorderRadius? borderRadius,
     this.isMaterial = true,
     this.backgroundGradient,
   })  : this.type = _ButtonType.other,
@@ -83,8 +83,8 @@ class CustomButton extends StatelessWidget {
   /// Custom round drop down button.
   /// [onPressed] is a call back function when the button is pressed.
   CustomButton.dropDown({
-    @required this.onChanged,
-    @required this.buttonLabel,
+    required this.onChanged,
+    required this.buttonLabel,
     this.textColor = Colors.black,
     this.backgroundColor = Colors.white,
     this.verticalInnerPadding = 0,
@@ -94,10 +94,9 @@ class CustomButton extends StatelessWidget {
     this.outlineWeight = 0,
     this.width,
     this.height,
-    BorderRadius borderRadius,
+    BorderRadius? borderRadius,
     this.isMaterial = true,
-  })  : assert(!(buttonLabel == null)),
-        this.child = null,
+  })  : this.child = null,
         this.type = _ButtonType.dropDown,
         this.buttonLabelScaleSize = 0,
         this.isCheckMarkShown = false,
@@ -110,8 +109,8 @@ class CustomButton extends StatelessWidget {
   /// [onPressed] is a call back function when the button is pressed.
   /// [child] is recommended to be passed with [Icon] widget.
   CustomButton.circle({
-    @required this.onPressed,
-    @required this.child,
+    required this.onPressed,
+    required this.child,
     this.outlineWeight = 0,
     this.outlineColor,
     this.backgroundColor = Colors.white,
@@ -156,8 +155,8 @@ class CustomButton extends StatelessWidget {
 
         /// Button inner padding
         padding: EdgeInsets.symmetric(
-            vertical: this.verticalInnerPadding,
-            horizontal: this.horizontalInnerPadding),
+            vertical: this.verticalInnerPadding!,
+            horizontal: this.horizontalInnerPadding!),
 
         /// Inner text container
         child: Container(
@@ -172,7 +171,7 @@ class CustomButton extends StatelessWidget {
                         // The inner text
                         (this.child == null)
                             ? this._textLabel(context)
-                            : this.child,
+                            : this.child!,
                       ])));
 
     //? Return with outline
@@ -224,8 +223,8 @@ class CustomButton extends StatelessWidget {
 
             /// Inner padding
             padding: EdgeInsets.symmetric(
-                vertical: this.verticalInnerPadding,
-                horizontal: this.horizontalInnerPadding),
+                vertical: this.verticalInnerPadding!,
+                horizontal: this.horizontalInnerPadding!),
 
             /// Radius and color
             decoration: BoxDecoration(

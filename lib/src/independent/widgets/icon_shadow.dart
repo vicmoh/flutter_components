@@ -4,7 +4,7 @@ import 'dart:ui' as ui;
 class IconShadow extends StatelessWidget {
   final Icon icon;
   final bool showShadow;
-  final Color shadowColor;
+  final Color? shadowColor;
 
   /// Widget to add shadows on the icon.
   /// Takes [icon] and [shadowColor].
@@ -18,7 +18,7 @@ class IconShadow extends StatelessWidget {
     double dimens = 1.0;
     double dimens2 = 2.0;
     double dimens3 = 3.0;
-    Color _shadowColor = icon.color;
+    Color? _shadowColor = icon.color;
     if (shadowColor != null) _shadowColor = shadowColor;
     final list = <Widget>[];
     if (showShadow) {

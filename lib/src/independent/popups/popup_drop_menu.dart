@@ -6,13 +6,13 @@ class PopupDropMenu<T> {
   final BuildContext context;
 
   /// The Elevation of the menu.
-  final double elevation;
+  final double? elevation;
 
   /// Background color of the menu.
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   /// Shape of the menu.
-  final ShapeBorder shape;
+  final ShapeBorder? shape;
 
   /// Place this key to a content.
   /// For the popup to know where to show
@@ -25,11 +25,11 @@ class PopupDropMenu<T> {
     this.elevation,
     this.backgroundColor,
     this.shape,
-  }) : assert(context != null, 'context must not be null.');
+  });
 
   Offset _getPosition() {
     try {
-      final RenderBox obj = key.currentContext.findRenderObject();
+      final RenderBox obj = key.currentContext!.findRenderObject() as RenderBox;
       var offset = obj.localToGlobal(Offset.zero);
       return offset;
     } catch (err) {
@@ -39,7 +39,7 @@ class PopupDropMenu<T> {
 
   /// Show the popup drop down menu.
   /// Offset the program.
-  Future<T> show(List<PopupMenuItem<T>> items) async {
+  Future<T?> show(List<PopupMenuItem<T>> items) async {
     Offset offset;
     try {
       offset = _getPosition();

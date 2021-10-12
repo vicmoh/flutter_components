@@ -5,12 +5,12 @@ class IconText extends StatelessWidget {
   final Widget text;
   final EdgeInsetsGeometry padding;
   final MainAxisAlignment alignment;
-  final void Function() onPressed;
+  final void Function()? onPressed;
 
   /// Simple flat text button with icon on the left.
   IconText({
-    @required this.icon,
-    @required this.text,
+    required this.icon,
+    required this.text,
     this.alignment = MainAxisAlignment.start,
     this.padding = const EdgeInsets.all(0.0),
     this.onPressed,

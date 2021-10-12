@@ -8,18 +8,18 @@ class PhoneNumberField extends StatefulWidget {
   final void Function() onCountryCodeTap;
   final void Function(String) onFieldChanged;
   final bool isCountryCodeLoading;
-  final Color countryCodeLoaderColor;
+  final Color? countryCodeLoaderColor;
 
   /// A simple phone number input field containing the country code
   /// button and the field choice. [onFieldChanged] callbacks a string
   /// including the country code when on field is changed.
   PhoneNumberField({
-    Key key,
-    @required this.onCountryCodeTap,
-    @required this.onFieldChanged,
-    BorderRadius borderRadius,
-    Color backgroundColor,
-    TextStyle textStyle,
+    Key? key,
+    required this.onCountryCodeTap,
+    required this.onFieldChanged,
+    BorderRadius? borderRadius,
+    Color? backgroundColor,
+    TextStyle? textStyle,
     this.isCountryCodeLoading = false,
     this.countryCodeString = 'CD +1',
     this.countryCodeLoaderColor,

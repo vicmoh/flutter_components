@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 class ChatBubble<T> extends StatelessWidget {
-  final String headerText;
-  final String message;
+  final String? headerText;
+  final String? message;
 
   final EdgeInsetsGeometry avatarPadding;
-  final String avatarUrl;
-  final String avatarPlaceholderPath;
+  final String? avatarUrl;
+  final String? avatarPlaceholderPath;
   final double avatarSize;
 
   final bool showSpacingWithHiddenAvatar;
@@ -15,7 +15,7 @@ class ChatBubble<T> extends StatelessWidget {
   final bool displayNameInHeader;
   final bool showAvatar;
 
-  final double bubbleMaxWidth;
+  final double? bubbleMaxWidth;
   final BorderRadius borderRadius;
   final double headerTextScaleSize;
   final double messageTextScaleSize;
@@ -23,34 +23,34 @@ class ChatBubble<T> extends StatelessWidget {
   final TextStyle headerStyle;
   final TextStyle textStyle;
   final Color backgroundColor;
-  final LinearGradient backgroundGradient;
+  final LinearGradient? backgroundGradient;
 
-  final Widget headerWidget;
-  final Widget bodyWidget;
-  final Widget footerWidget;
-  final Widget prefixWidget;
-  final Widget replaceChatBubble;
+  final Widget? headerWidget;
+  final Widget? bodyWidget;
+  final Widget? footerWidget;
+  final Widget? prefixWidget;
+  final Widget? replaceChatBubble;
 
-  final int maxMessageLines;
+  final int? maxMessageLines;
   final double bubbleElevation;
   final EdgeInsets padding;
   final EdgeInsets innerPadding;
 
   final CrossAxisAlignment avatarAlignment;
-  final List<BoxShadow> bubbleShadows;
+  final List<BoxShadow>? bubbleShadows;
 
-  final Widget replaceDefaultReplyWidget;
+  final Widget? replaceDefaultReplyWidget;
   final bool isReplyHeaderOutside;
-  final Widget replyHeader;
-  final Widget replyMessage;
+  final Widget? replyHeader;
+  final Widget? replyMessage;
   final BorderRadius replyBorderRadius;
-  final Color replyBackgroundColor;
-  final Function() onReplyTap;
+  final Color? replyBackgroundColor;
+  final Function()? onReplyTap;
   final List<dynamic> replies;
-  final Widget Function(T) replyBuilder;
-  final void Function() onTap;
-  final void Function() onLongPress;
-  final void Function() onAvatarTap;
+  final Widget Function(T?)? replyBuilder;
+  final void Function()? onTap;
+  final void Function()? onLongPress;
+  final void Function()? onAvatarTap;
 
   /// Chat bubble mostly used for messaging.
   /// One of the parameter
@@ -72,11 +72,11 @@ class ChatBubble<T> extends StatelessWidget {
     this.avatarUrl,
     this.isOnTheLeftSide = false,
     this.displayNameInHeader = true,
-    Color backgroundColor,
+    Color? backgroundColor,
     this.bubbleShadows,
     this.showSpacingWithHiddenAvatar = false,
     this.avatarAlignment = CrossAxisAlignment.start,
-    BorderRadius borderRadius,
+    BorderRadius? borderRadius,
     this.avatarSize = 33,
     this.headerWidget,
     this.maxMessageLines,
@@ -98,13 +98,13 @@ class ChatBubble<T> extends StatelessWidget {
     this.isReplyHeaderOutside = false,
     this.replyHeader,
     this.replyMessage,
-    BorderRadius replyBorderRadius,
+    BorderRadius? replyBorderRadius,
     this.replyBackgroundColor,
     this.onReplyTap,
 
     /// Reply builder that goes below the chat bubble.
     this.replyBuilder,
-    List<T> replies,
+    List<T>? replies,
 
     /// On tap pressed.
     this.onTap,
@@ -138,15 +138,15 @@ class ChatBubble<T> extends StatelessWidget {
         (this.avatarPlaceholderPath == null && this.avatarUrl == null))
       return image;
     else if (this.avatarPlaceholderPath == null && this.avatarUrl != null)
-      image = Image.network(this.avatarUrl,
+      image = Image.network(this.avatarUrl!,
           width: this.avatarSize, height: this.avatarSize, fit: BoxFit.cover);
     else if (this.avatarUrl == null && this.avatarPlaceholderPath != null)
-      image = Image.asset(this.avatarPlaceholderPath,
+      image = Image.asset(this.avatarPlaceholderPath!,
           width: this.avatarSize, height: this.avatarSize, fit: BoxFit.cover);
     else if (this.avatarUrl != null && this.avatarPlaceholderPath != null)
       image = FadeInImage.assetNetwork(
-          image: this.avatarUrl,
-          placeholder: this.avatarPlaceholderPath,
+          image: this.avatarUrl!,
+          placeholder: this.avatarPlaceholderPath!,
           width: this.avatarSize,
           height: this.avatarSize,
           fit: BoxFit.cover);
@@ -156,7 +156,7 @@ class ChatBubble<T> extends StatelessWidget {
         padding: EdgeInsets.only(right: 10),
         child: GestureDetector(
             onTap: () {
-              if (this.onAvatarTap != null) onAvatarTap();
+              if (this.onAvatarTap != null) onAvatarTap!();
             },
             child: ClipOval(child: image)));
   }
@@ -172,7 +172,7 @@ class ChatBubble<T> extends StatelessWidget {
           children: [
             /// Avatar
             this.prefixWidget != null
-                ? this.prefixWidget
+                ? this.prefixWidget!
                 : Padding(padding: this.avatarPadding, child: _avatar(context)),
 
             /// The message bubble
@@ -271,10 +271,10 @@ class ChatBubble<T> extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: [
                                               /// The reply text.
-                                              this.replyHeader,
+                                              this.replyHeader!,
 
                                               /// The Divider and replying to
-                                              this.replyMessage,
+                                              this.replyMessage!,
                                             ]),
                                 )))),
                   ]),
@@ -287,13 +287,13 @@ class ChatBubble<T> extends StatelessWidget {
 
   /// The reply box content
   Widget _replyBox(BuildContext context) {
-    if (this.replies == null || this.replies.length == 0) return Container();
+    if (this.replies.length == 0) return Container();
 
     /// Get the replies data
     List<Widget> list = [];
     int num = 0;
     for (var each in this.replies) {
-      list.add(replyBuilder(each));
+      list.add(replyBuilder!(each));
       num++;
       if (num >= 3) break;
     }
@@ -307,13 +307,13 @@ class ChatBubble<T> extends StatelessWidget {
 
   /// The message in the bubble and padding
   LimitedBox _bubbleContent(BuildContext context) {
-    List<Widget> innerText = [];
+    List<Widget?> innerText = [];
 
     /// The name on top
     if (this.headerText != null && this.displayNameInHeader)
       innerText.add(Container(
           padding: EdgeInsets.only(bottom: 5),
-          child: _headerText(this.headerText)));
+          child: _headerText(this.headerText!)));
 
     /// Header widget
     if (this.headerWidget != null) innerText.add(this.headerWidget);
@@ -362,7 +362,7 @@ class ChatBubble<T> extends StatelessWidget {
                         // Inner text, the message
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: innerText)))));
+                            children: innerText as List<Widget>)))));
   }
 
   /// The text in the bubble, used for display name.

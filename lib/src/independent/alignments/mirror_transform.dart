@@ -4,9 +4,7 @@ import 'dart:math' as math;
 /// Transform any widget in mirror effect.
 class MirrorTransform extends StatelessWidget {
   /// Transform any widget in mirror effect.
-  const MirrorTransform({Key key, this.child})
-      : assert(child != null, 'child must not be null.'),
-        super(key: key);
+  const MirrorTransform({Key? key, required this.child}) : super(key: key);
 
   /// The widget to be transform
   final Widget child;

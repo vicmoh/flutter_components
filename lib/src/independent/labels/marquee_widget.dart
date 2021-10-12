@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class MarqueeWidget extends StatefulWidget {
   final double height;
   final double width;
-  final List<Widget> items;
+  final List<Widget>? items;
 
   /// Auto horizontal scroll of marquee widget.
   /// Any [items] listed will be automatically scrolled horizontally
@@ -20,7 +20,7 @@ class MarqueeWidget extends StatefulWidget {
 class _MarqueeWidgetState extends State<MarqueeWidget>
     with SingleTickerProviderStateMixin {
   ScrollController scrollCtrl = new ScrollController();
-  AnimationController animateCtrl;
+  AnimationController? animateCtrl;
 
   @override
   void dispose() {
@@ -35,7 +35,7 @@ class _MarqueeWidgetState extends State<MarqueeWidget>
     animateCtrl =
         new AnimationController(vsync: this, duration: Duration(seconds: 3))
           ..addListener(() {
-            if (animateCtrl.isCompleted) animateCtrl.repeat();
+            if (animateCtrl!.isCompleted) animateCtrl!.repeat();
             offset += 1.0;
             if (offset - 1 > scrollCtrl.offset) {
               offset = 0.0;
@@ -44,7 +44,7 @@ class _MarqueeWidgetState extends State<MarqueeWidget>
               scrollCtrl.jumpTo(offset);
             });
           });
-    animateCtrl.forward();
+    animateCtrl!.forward();
   }
 
   @override
@@ -57,7 +57,7 @@ class _MarqueeWidgetState extends State<MarqueeWidget>
       child: Center(
         child: ListView(
           controller: scrollCtrl,
-          children: widget.items,
+          children: widget.items!,
           scrollDirection: Axis.horizontal,
         ),
       ),

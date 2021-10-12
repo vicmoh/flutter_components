@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 /// Builds a Backdrop.
 ///
@@ -15,20 +14,20 @@ class BackdropScaffold extends StatefulWidget {
   /// [Function toggleBackdropPanelVisibility],
   /// [bool isBackdropPanelVisible]) -> Widget
   final Widget Function(
-    AnimationController panelController,
-    double backdropHeight,
+    AnimationController? panelController,
+    double? backdropHeight,
     Function toggleBackdropPanelVisibility,
     bool isBackdropPanelVisible,
-  ) frontPanelBuilder;
-  final void Function(Function update, Function end) getVerticalDrags;
+  )? frontPanelBuilder;
+  final void Function(Function update, Function end)? getVerticalDrags;
   final double maxFrontPanelHeight;
-  final Widget frontPanel;
+  final Widget? frontPanel;
   final Widget backPanel;
   final Widget handleBarContent;
   final Color backdropColor;
   final Color handleBarColor;
   final Color backgroundColor;
-  final PreferredSizeWidget appBar;
+  final PreferredSizeWidget? appBar;
   final double handleBarSpacing;
   final double constVelocity;
   final bool isFrostedGlassBackground;
@@ -39,9 +38,9 @@ class BackdropScaffold extends StatefulWidget {
   /// Backdrop is a modal that can be drag up and down
   /// that sits on top of the page.
   const BackdropScaffold({
-    @required this.backPanel,
-    @required this.handleBarContent,
-    BorderRadius borderRadius,
+    required this.backPanel,
+    required this.handleBarContent,
+    BorderRadius? borderRadius,
     this.maxFrontPanelHeight = 110,
     this.handleBarColor = Colors.grey,
     this.backdropColor = Colors.white,
@@ -55,9 +54,7 @@ class BackdropScaffold extends StatefulWidget {
     this.constVelocity = 1,
     this.getVerticalDrags,
     this.openByDefault = false,
-  })  : assert(handleBarContent != null),
-        assert(frontPanel != null || frontPanelBuilder != null),
-        assert(backPanel != null),
+  })  : assert(frontPanel != null || frontPanelBuilder != null),
         this.borderRadius = borderRadius ??
             const BorderRadius.only(
                 topLeft: Radius.circular(50.0),
@@ -73,13 +70,13 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
   final GlobalKey _backdropKey = GlobalKey(debugLabel: 'Backdrop');
 
   /// Declare animation controller for controlling the animation.
-  AnimationController _panelController;
+  AnimationController? _panelController;
 
   /// Animation controller for fade in.
-  AnimationController _fadeController;
+  AnimationController? _fadeController;
 
   /// The animation for the fade.
-  Animation<double> _fadeAnimation;
+  late Animation<double> _fadeAnimation;
 
   /// Initialize the state.
   @override
@@ -97,7 +94,7 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
     // set the init state of the modal.
     // When the value is set to zero the modal starts
     // At the bottom of the code.
-    this._panelController.value = 0;
+    this._panelController!.value = 0;
 
     // Set the animation for the fade panel
     this._fadeController = AnimationController(
@@ -105,12 +102,12 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
       vsync: this,
     );
     this._fadeAnimation = CurvedAnimation(
-      parent: _fadeController,
+      parent: _fadeController!,
       curve: Curves.easeInOut,
     );
-    this._fadeController.forward();
+    this._fadeController!.forward();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => _openByDefault());
+    WidgetsBinding.instance!.addPostFrameCallback((_) => _openByDefault());
   }
 
   /// When state is completed.
@@ -129,23 +126,24 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
 
   /// Check weather the back drop panel is visible.
   bool get _isBackdropPanelVisible {
-    final AnimationStatus status = _panelController.status;
+    final AnimationStatus status = _panelController!.status;
     return status == AnimationStatus.completed ||
         status == AnimationStatus.forward;
   }
 
   /// Get the backdrop panel height from the
   /// global back drop key that it is using.
-  double get _backdropHeight {
-    final RenderBox renderBox = _backdropKey.currentContext?.findRenderObject();
-    return renderBox?.size?.height;
+  double? get _backdropHeight {
+    final RenderBox? renderBox =
+        _backdropKey.currentContext?.findRenderObject() as RenderBox?;
+    return renderBox?.size.height;
   }
 
   /// The backdrop panel visibility
   void _toggleBackdropPanelVisibility() {
     FocusScope.of(context).requestFocus(FocusNode());
-    if (!_panelController.isAnimating)
-      _panelController.fling(
+    if (!_panelController!.isAnimating)
+      _panelController!.fling(
           velocity: _isBackdropPanelVisible
               ? -widget.constVelocity
               : widget.constVelocity);
@@ -153,31 +151,31 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
 
   /// The handle drag when user is currently dragging.
   void _handleDragUpdate(DragUpdateDetails details) {
-    _panelController.value -= details.primaryDelta / _backdropHeight;
+    _panelController!.value -= details.primaryDelta! / _backdropHeight!;
   }
 
   /// The handler drag for vertical at the end of swipe.
   void _handleDragEnd(DragEndDetails details) {
     // Case check
-    if (_panelController.isAnimating ||
-        _panelController.status == AnimationStatus.completed ||
-        _panelController.status == AnimationStatus.dismissed) return;
+    if (_panelController!.isAnimating ||
+        _panelController!.status == AnimationStatus.completed ||
+        _panelController!.status == AnimationStatus.dismissed) return;
     // Fling velocity
     final double flingVelocity =
-        details.velocity.pixelsPerSecond.dy / _backdropHeight;
+        details.velocity.pixelsPerSecond.dy / _backdropHeight!;
     // Condition of the handle fling.
     if (flingVelocity < 0.0) {
       // When swiping up
-      _panelController.fling(
-          velocity: math.max(widget.constVelocity, -flingVelocity));
+      _panelController!
+          .fling(velocity: math.max(widget.constVelocity, -flingVelocity));
     } else if (flingVelocity > 0.0) {
       // When swiping down
-      _panelController.fling(
-          velocity: math.min(-widget.constVelocity, -flingVelocity));
+      _panelController!
+          .fling(velocity: math.min(-widget.constVelocity, -flingVelocity));
     } else {
       // On tap
-      _panelController.fling(
-          velocity: _panelController.value < 0.5
+      _panelController!.fling(
+          velocity: _panelController!.value < 0.5
               ? -widget.constVelocity
               : widget.constVelocity);
     }
@@ -194,15 +192,15 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
     Animation<RelativeRect> panelAnimation = RelativeRectTween(
       begin: RelativeRect.fromLTRB(0.0, panelTop, 0.0, panelBottom),
       end: RelativeRect.fromLTRB(0.0, widget.maxFrontPanelHeight, 0.0, 0.0),
-    ).animate(this._panelController.view);
+    ).animate(this._panelController!.view);
 
     // Call back for the drag handler
-    if (widget?.getVerticalDrags != null)
-      widget.getVerticalDrags(_handleDragUpdate, _handleDragEnd);
+    if (widget.getVerticalDrags != null)
+      widget.getVerticalDrags!(_handleDragUpdate, _handleDragEnd);
 
     // Determine if what widget to use
     var toBeChild = widget.frontPanel ??
-        widget.frontPanelBuilder(
+        widget.frontPanelBuilder!(
           this._panelController,
           this._backdropHeight,
           this._toggleBackdropPanelVisibility,
@@ -257,22 +255,22 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
 
 class _BackdropPanel extends StatefulWidget {
   final VoidCallback onTap;
-  final GestureDragUpdateCallback onVerticalDragUpdate;
-  final GestureDragEndCallback onVerticalDragEnd;
-  final Widget handleBarContent;
+  final GestureDragUpdateCallback? onVerticalDragUpdate;
+  final GestureDragEndCallback? onVerticalDragEnd;
+  final Widget? handleBarContent;
   final Widget child;
   final Color backgroundColor;
   final Color handleBarColor;
   final BorderRadius borderRadius;
-  final Key handleBarKey;
+  final Key? handleBarKey;
   final bool isFrostedGlassBackground;
 
   /// The back drop panel.
   const _BackdropPanel({
-    Key key,
-    @required this.onTap,
-    @required this.child,
-    BorderRadius borderRadius,
+    Key? key,
+    required this.onTap,
+    required this.child,
+    BorderRadius? borderRadius,
     this.isFrostedGlassBackground = false,
     this.handleBarKey,
     this.onVerticalDragUpdate,
@@ -340,7 +338,7 @@ class _BackdropPanelState extends State<_BackdropPanel> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         this._handlerBar(),
-                        widget.handleBarContent,
+                        widget.handleBarContent!,
                       ]))),
           // The content below the handle bar
           Expanded(child: widget.child),

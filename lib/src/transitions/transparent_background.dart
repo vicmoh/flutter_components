@@ -5,22 +5,22 @@ import 'package:flutter_components/flutter_components.dart';
 /// for the background of a custom dialog.
 class TransparentBackground extends StatefulWidget {
   TransparentBackground({
-    Key key,
-    @required this.child,
+    Key? key,
+    required this.child,
     this.backgroundColor = Colors.black54,
     this.onBackgroundTap,
   }) : super(key: key);
 
   final Widget child;
-  final Function() onBackgroundTap;
+  final Function()? onBackgroundTap;
   final Color backgroundColor;
 
   /// Show on a new page route where it
   /// is wrap with transparent scaffold widget.
   static Future<void> show(
     context, {
-    @required Widget child,
-    Function() onBackgroundTap,
+    required Widget child,
+    Function()? onBackgroundTap,
     Color backgroundColor = Colors.black54,
   }) async {
     await Navigator.push(
@@ -43,7 +43,7 @@ class _TransparentBackgroundState extends State<TransparentBackground> {
     return GestureDetector(
         onTap: () {
           if (this.widget.onBackgroundTap != null)
-            this.widget.onBackgroundTap();
+            this.widget.onBackgroundTap!();
           else
             Navigator.pop(context);
         },

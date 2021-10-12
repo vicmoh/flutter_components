@@ -12,22 +12,22 @@ class SmartText extends StatefulWidget {
   final String text;
 
   /// The default text style.
-  final TextStyle style;
+  final TextStyle? style;
 
   /// The at symbol style.
-  final TextStyle atTextStyle;
+  final TextStyle? atTextStyle;
 
   /// The hash tag style.
-  final TextStyle hashtagStyle;
+  final TextStyle? hashtagStyle;
 
   /// The hyper url link style.
-  final TextStyle hyperlinkStyle;
+  final TextStyle? hyperlinkStyle;
 
   /// Text overflow type.
   final TextOverflow overflow;
 
   /// Number of lines the text will hold.
-  final int maxLines;
+  final int? maxLines;
 
   /// Text alignment.
   final TextAlign textAlign;
@@ -37,13 +37,13 @@ class SmartText extends StatefulWidget {
 
   /// Callback function when a clickable text is
   /// on pressed.
-  final Function(String, ClickableTextTypes) onPressed;
+  final Function(String, ClickableTextTypes)? onPressed;
 
   /// Smart text containing clickable hash tags
   /// and hyper links.
   SmartText(
     this.text, {
-    Key key,
+    Key? key,
     this.onPressed,
     this.maxLines,
     this.style = const TextStyle(color: Colors.black),
@@ -82,7 +82,7 @@ class _SmartTextState extends State<SmartText> {
 
   @override
   void dispose() {
-    _tapGestures?.forEach((gest) => gest?.dispose());
+    _tapGestures.forEach((gest) => gest.dispose());
     super.dispose();
   }
 
@@ -118,8 +118,8 @@ class _SmartTextState extends State<SmartText> {
             text: word,
             style: this.widget.hashtagStyle,
             recognizer: _addGesture(() {
-              if (this.widget?.onPressed != null)
-                this.widget.onPressed(word.trim(), ClickableTextTypes.hashtag);
+              if (this.widget.onPressed != null)
+                this.widget.onPressed!(word.trim(), ClickableTextTypes.hashtag);
             })));
         _spaceText(textWidgets);
       } catch (err) {
@@ -135,10 +135,9 @@ class _SmartTextState extends State<SmartText> {
             text: word,
             style: this.widget.hyperlinkStyle,
             recognizer: _addGesture(() {
-              if (this.widget?.onPressed != null)
-                this
-                    .widget
-                    .onPressed(word.trim(), ClickableTextTypes.hyperlink);
+              if (this.widget.onPressed != null)
+                this.widget.onPressed!(
+                    word.trim(), ClickableTextTypes.hyperlink);
             })));
         _spaceText(textWidgets);
       } catch (err) {
@@ -154,8 +153,8 @@ class _SmartTextState extends State<SmartText> {
             text: word,
             style: this.widget.atTextStyle,
             recognizer: _addGesture(() {
-              if (this.widget?.onPressed != null)
-                this.widget.onPressed(word.trim(), ClickableTextTypes.atTag);
+              if (this.widget.onPressed != null)
+                this.widget.onPressed!(word.trim(), ClickableTextTypes.atTag);
             })));
         _spaceText(textWidgets);
       } catch (err) {
@@ -169,9 +168,8 @@ class _SmartTextState extends State<SmartText> {
   }
 
   List<TextSpan> _texts(String text) {
-    assert(text != null);
     List<TextSpan> textWidgets = [];
-    text?.split(' ')?.forEach((word) {
+    text.split(' ').forEach((word) {
       word = word;
       _showDebug('word: $word');
 

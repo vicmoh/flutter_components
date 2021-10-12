@@ -8,8 +8,8 @@ class VerticalShadows extends StatelessWidget {
   /// Useful to darken an images. The widget uses [stack]
   /// where the shadows will be on top of the child.
   VerticalShadows({
-    @required this.child,
-    @required this.shadows,
+    required this.child,
+    required this.shadows,
   });
 
   /// Create the widget

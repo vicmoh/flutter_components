@@ -5,7 +5,7 @@ class FullScreenPopupView extends StatefulWidget {
   final BorderRadius borderRadius;
   final EdgeInsetsGeometry margin;
   final EdgeInsetsGeometry padding;
-  final BoxConstraints constraints;
+  final BoxConstraints? constraints;
   final Curve animationCurve;
   final Duration animationDuration;
   final Color backgroundColor;
@@ -16,15 +16,15 @@ class FullScreenPopupView extends StatefulWidget {
   /// That can be dismiss by swiping horizontally.
   /// Should be used with [TransparentPageRoute].
   FullScreenPopupView({
-    Key key,
-    @required this.builder,
+    Key? key,
+    required this.builder,
     this.animationCurve = Curves.elasticOut,
-    Duration animationDuration,
-    BorderRadius borderRadius,
-    EdgeInsetsGeometry margin,
-    EdgeInsetsGeometry padding,
-    Color backgroundColor,
-    BoxConstraints constraints,
+    Duration? animationDuration,
+    BorderRadius? borderRadius,
+    EdgeInsetsGeometry? margin,
+    EdgeInsetsGeometry? padding,
+    Color? backgroundColor,
+    BoxConstraints? constraints,
     this.disableSwipeToExit = false,
   })  : this.borderRadius = borderRadius ?? BorderRadius.circular(30),
         this.margin = margin ?? EdgeInsets.all(20),
@@ -37,14 +37,14 @@ class FullScreenPopupView extends StatefulWidget {
   /// Show the fullscreen popup view by navigating to a new child in the tree..
   static Future<void> show(
     context, {
-    @required Widget Function(BuildContext) builder,
+    required Widget Function(BuildContext) builder,
     Curve animationCurve = Curves.elasticOut,
-    Duration animationDuration,
-    BorderRadius borderRadius,
-    EdgeInsetsGeometry margin,
-    EdgeInsetsGeometry padding,
-    Color backgroundColor,
-    BoxConstraints constraints,
+    Duration? animationDuration,
+    BorderRadius? borderRadius,
+    EdgeInsetsGeometry? margin,
+    EdgeInsetsGeometry? padding,
+    Color? backgroundColor,
+    BoxConstraints? constraints,
     bool disableSwipeToExit = false,
   }) =>
       Navigator.push(
@@ -66,9 +66,9 @@ class FullScreenPopupView extends StatefulWidget {
 }
 
 class _FullScreenPopupViewState extends State<FullScreenPopupView> {
-  bool _isPopupShowed;
-  bool _isPopping;
-  PageController _pageController;
+  late bool _isPopupShowed;
+  late bool _isPopping;
+  PageController? _pageController;
 
   @override
   void initState() {
@@ -80,7 +80,7 @@ class _FullScreenPopupViewState extends State<FullScreenPopupView> {
     _isPopping = false;
     _pageController = PageController(initialPage: 0)
       ..addListener(() {
-        var curPage = _pageController.page.round();
+        var curPage = _pageController!.page!.round();
         if (curPage == 1 || _isPopupShowed) {
           _isPopupShowed = true;
           if ((curPage > 1 || curPage < 1) && !_isPopping && _isPopupShowed) {
@@ -92,7 +92,7 @@ class _FullScreenPopupViewState extends State<FullScreenPopupView> {
 
     // Call the page controller to make after the tree is done loading.
     // So that the page controller is attached to the page view.
-    WidgetsBinding.instance.addPostFrameCallback((_) =>
+    WidgetsBinding.instance!.addPostFrameCallback((_) =>
         _pageController?.animateToPage(1,
             duration: this.widget.animationDuration,
             curve: this.widget.animationCurve));
@@ -100,7 +100,7 @@ class _FullScreenPopupViewState extends State<FullScreenPopupView> {
 
   @override
   void dispose() {
-    _pageController.dispose();
+    _pageController!.dispose();
     super.dispose();
   }
 

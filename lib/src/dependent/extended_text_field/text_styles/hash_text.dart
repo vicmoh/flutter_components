@@ -7,7 +7,7 @@ class HashText extends SpecialText {
   static const String FLAG = "#";
 
   /// The hash start recognizing of the symbol.
-  final int start;
+  final int? start;
 
   /// Whether show background for #somebody
   final bool showAtBackground;
@@ -35,10 +35,10 @@ class HashText extends SpecialText {
             background: Paint()..color = Colors.blueAccent,
             text: atText,
             actualText: atText,
-            start: start,
+            start: start!,
             deleteAll: true,
             style: textStyle)
         : SpecialTextSpan(
-            text: atText, actualText: atText, start: start, style: textStyle);
+            text: atText, actualText: atText, start: start!, style: textStyle);
   }
 }

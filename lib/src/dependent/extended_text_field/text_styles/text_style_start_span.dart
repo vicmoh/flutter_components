@@ -16,13 +16,11 @@ class TextStyleStartSpan extends SpecialText {
   /// The at tag symbol text.
   TextStyleStartSpan(
     TextStyle textStyle,
-    SpecialTextGestureTapCallback onTap, {
+    SpecialTextGestureTapCallback? onTap, {
     this.showAtBackground = false,
-    @required this.start,
-    @required this.flag,
-  })  : assert(start != null, 'start must not be null.'),
-        assert(flag != null, 'flag must not be null.'),
-        super(flag, " ", textStyle, onTap: onTap);
+    required this.start,
+    required this.flag,
+  }) : super(flag, " ", textStyle, onTap: onTap);
 
   @override
   bool isEnd(String val) {

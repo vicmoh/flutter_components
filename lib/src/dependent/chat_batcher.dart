@@ -34,20 +34,14 @@ class ChatBatchingStatus {
   /// The batching status if the
   /// Current position.
   ChatBatchingStatus({
-    @required this.isSafe,
-    @required this.isMostRecent,
-    @required this.isOldestItem,
-    @required this.isFirstTimeDiff,
-    @required this.isLastTimeDiff,
-    @required this.isLastUserPost,
-    @required this.isFirstUserPost,
-  })  : assert(isSafe != null),
-        assert(isMostRecent != null),
-        assert(isOldestItem != null),
-        assert(isFirstTimeDiff != null),
-        assert(isLastTimeDiff != null),
-        assert(isFirstUserPost != null),
-        assert(isLastUserPost != null);
+    required this.isSafe,
+    required this.isMostRecent,
+    required this.isOldestItem,
+    required this.isFirstTimeDiff,
+    required this.isLastTimeDiff,
+    required this.isLastUserPost,
+    required this.isFirstUserPost,
+  });
 }
 
 /// Chat batcher that will
@@ -63,7 +57,7 @@ class ChatBatcher<T extends Model> extends StatelessWidget {
   /// The footer bottom of the chat.
   /// This is sometimes used for listing
   /// who has read the chat.
-  final Widget footer;
+  final Widget? footer;
 
   /// The builder for creating the widget.
   final Widget Function(ChatBatchingStatus) builder;
@@ -79,22 +73,19 @@ class ChatBatcher<T extends Model> extends StatelessWidget {
   final String Function(T) fromUserId;
 
   /// Time stamp widget.
-  final Widget timestampWidget;
+  final Widget? timestampWidget;
 
   /// Chat batcher that will
   /// batch chat based on certain
   /// condition such as time stamp etc.
   ChatBatcher({
-    @required this.items,
-    @required this.index,
-    @required this.builder,
-    @required this.fromUserId,
+    required this.items,
+    required this.index,
+    required this.builder,
+    required this.fromUserId,
     this.footer,
     this.timestampWidget,
-  })  : assert(items != null, 'items must not be null.'),
-        assert(index != null, 'index must not be null.'),
-        assert(builder != null, 'builder must not be null.'),
-        assert(fromUserId != null, 'userCompare must not be null.');
+  });
 
   @override
   build(context) => _chatBubble();
@@ -109,14 +100,14 @@ class ChatBatcher<T extends Model> extends StatelessWidget {
 
     /// Calculate of the time and padding.
     var diff = items[index]
-        .timestamp
-        .difference(items[isSafe ? index + 1 : index].timestamp)
+        .timestamp!
+        .difference(items[isSafe ? index + 1 : index].timestamp!)
         .inMinutes;
     var isLongTime = diff > 1;
     var isLastUserPostTimeDiff = (index != 0 &&
         (items[isSafe ? index - 1 : index]
-                .timestamp
-                .difference(items[index].timestamp)
+                .timestamp!
+                .difference(items[index].timestamp!)
                 .inMinutes >
             1));
 
@@ -143,7 +134,7 @@ class ChatBatcher<T extends Model> extends StatelessWidget {
               Padding(
                   padding: EdgeInsets.symmetric(vertical: 15),
                   child: Text(
-                      items[index].timestamp.toDynamicTime(isTwelveHour: true),
+                      items[index].timestamp!.toDynamicTime(isTwelveHour: true),
                       textScaleFactor: 0.8,
                       style: TextStyle(color: Colors.grey)))
           : Container(),

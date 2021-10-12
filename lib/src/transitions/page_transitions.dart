@@ -9,7 +9,8 @@ class PageTransitions {
   /// ```dart
   /// Navigator.push(context, PageTransitions.fade(SomePage()));
   /// ```
-  static PageRouteBuilder fade(Widget page, {Curve curve, Duration duration}) {
+  static PageRouteBuilder fade(Widget page,
+      {Curve? curve, Duration? duration}) {
     return PageRouteBuilder(
         transitionDuration: duration ?? Duration(milliseconds: 300),
         pageBuilder: (context, animation, secondaryAnimation) => page,

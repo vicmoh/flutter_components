@@ -12,13 +12,13 @@ class GenericInputSpanBuilder extends SpecialTextSpanBuilder {
   final bool showAtBackground;
 
   /// Hash tag style.
-  final TextStyle hashTextStyle;
+  final TextStyle? hashTextStyle;
 
   /// The at text style.
-  final TextStyle atTextStyle;
+  final TextStyle? atTextStyle;
 
   /// The https text style.
-  final TextStyle httpsTextStyle;
+  final TextStyle? httpsTextStyle;
 
   /// Special text span builder for building special text.
   GenericInputSpanBuilder({
@@ -31,7 +31,7 @@ class GenericInputSpanBuilder extends SpecialTextSpanBuilder {
   @override
   TextSpan build(
     String data, {
-    TextStyle textStyle,
+    TextStyle? textStyle,
     onTap,
   }) {
     var textSpan = super.build(data, textStyle: textStyle, onTap: onTap);
@@ -39,31 +39,30 @@ class GenericInputSpanBuilder extends SpecialTextSpanBuilder {
   }
 
   @override
-  SpecialText createSpecialText(
+  SpecialText? createSpecialText(
     String flag, {
-    TextStyle textStyle,
-    SpecialTextGestureTapCallback onTap,
-    int index,
+    TextStyle? textStyle,
+    SpecialTextGestureTapCallback? onTap,
+    int? index,
   }) {
-    if (flag == null ||
-        flag.trim() == "" ||
+    if (flag.trim() == "" ||
         flag.trim() == "\n" ||
         flag.trim() == "\t" ||
         flag == "\r\n") return null;
     if (this.hashTextStyle != null && isStart(flag, _HASH_FLAG))
-      return TextStyleStartSpan(this.hashTextStyle ?? textStyle, onTap,
+      return TextStyleStartSpan(this.hashTextStyle ?? textStyle!, onTap,
           flag: _HASH_FLAG,
-          start: index - (_HASH_FLAG.length - 1),
+          start: index! - (_HASH_FLAG.length - 1),
           showAtBackground: showAtBackground);
     if (this.atTextStyle != null && isStart(flag, _AT_FLAG))
-      return TextStyleStartSpan(this.atTextStyle ?? textStyle, onTap,
+      return TextStyleStartSpan(this.atTextStyle ?? textStyle!, onTap,
           flag: _AT_FLAG,
-          start: index - (_AT_FLAG.length - 1),
+          start: index! - (_AT_FLAG.length - 1),
           showAtBackground: showAtBackground);
     if (this.httpsTextStyle != null && isStart(flag, _HTTPS_FLAG))
-      return TextStyleStartSpan(this.httpsTextStyle ?? textStyle, onTap,
+      return TextStyleStartSpan(this.httpsTextStyle ?? textStyle!, onTap,
           flag: _HTTPS_FLAG,
-          start: index - (_HTTPS_FLAG.length - 1),
+          start: index! - (_HTTPS_FLAG.length - 1),
           showAtBackground: showAtBackground);
     return null;
   }

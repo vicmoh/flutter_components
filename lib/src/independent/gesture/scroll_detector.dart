@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ScrollDetector extends StatefulWidget {
-  final Function() onScrollStart;
-  final Function() onScrollEnd;
+  final Function()? onScrollStart;
+  final Function()? onScrollEnd;
   final Widget child;
 
   /// A widget that detects whether the [ListView]
@@ -10,10 +10,10 @@ class ScrollDetector extends StatefulWidget {
   /// scrolling happens, and [onScrollEnd] is when
   /// scrolling stops.
   ScrollDetector({
-    Key key,
+    Key? key,
     this.onScrollStart,
     this.onScrollEnd,
-    @required this.child,
+    required this.child,
   }) : super(key: key);
   _ScrollDetectorState createState() => _ScrollDetectorState();
 }
@@ -21,13 +21,13 @@ class ScrollDetector extends StatefulWidget {
 class _ScrollDetectorState extends State<ScrollDetector> {
   /// When scrolling
   bool _scrollingStarted() {
-    if (widget.onScrollStart != null) widget?.onScrollStart();
+    if (widget.onScrollStart != null) widget.onScrollStart!();
     return false;
   }
 
   /// When idle
   bool _scrollingEnded() {
-    if (widget.onScrollEnd != null) widget?.onScrollEnd();
+    if (widget.onScrollEnd != null) widget.onScrollEnd!();
     return false;
   }
 

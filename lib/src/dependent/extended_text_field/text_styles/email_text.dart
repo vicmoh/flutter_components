@@ -5,13 +5,13 @@ import 'dart:ui' as ui show PlaceholderAlignment;
 /// Email special text.
 class EmailText extends SpecialText {
   /// The input field text controller.
-  final TextEditingController controller;
+  final TextEditingController? controller;
 
   /// Start
-  final int start;
+  final int? start;
 
   /// The current build context.
-  final BuildContext context;
+  final BuildContext? context;
 
   /// The email text background color.
   final Color backgroundColor;
@@ -19,11 +19,11 @@ class EmailText extends SpecialText {
   /// Email special text.
   EmailText(
     TextStyle textStyle,
-    SpecialTextGestureTapCallback onTap, {
+    SpecialTextGestureTapCallback? onTap, {
     this.start,
     this.controller,
     this.context,
-    String startFlag,
+    required String startFlag,
     this.backgroundColor = Colors.transparent,
   }) : super(startFlag, " ", textStyle, onTap: onTap);
 
@@ -44,7 +44,7 @@ class EmailText extends SpecialText {
 
     return ExtendedWidgetSpan(
         actualText: text,
-        start: start,
+        start: start!,
         alignment: ui.PlaceholderAlignment.middle,
         child: GestureDetector(
             child: Padding(
@@ -63,19 +63,17 @@ class EmailText extends SpecialText {
                               InkWell(
                                   child: Icon(Icons.close, size: 15.0),
                                   onTap: () {
-                                    controller?.value = controller?.value
-                                        ?.copyWith(
-                                            text:
-                                                controller
-                                                    .text
-                                                    .replaceRange(
-                                                        start,
-                                                        start + text.length,
-                                                        ""),
-                                            selection:
-                                                TextSelection.fromPosition(
-                                                    TextPosition(
-                                                        offset: start)));
+                                    if (controller != null)
+                                      controller?.value = controller!.value
+                                          .copyWith(
+                                              text: controller!
+                                                  .text
+                                                  .replaceRange(start!,
+                                                      start! + text.length, ""),
+                                              selection:
+                                                  TextSelection.fromPosition(
+                                                      TextPosition(
+                                                          offset: start!)));
                                   }),
                             ])))),
             onTap: () {}),

@@ -7,7 +7,7 @@ class UrlText extends SpecialText {
   static const String FLAG = "http";
 
   /// The at start recognizing of the symbol.
-  final int start;
+  final int? start;
 
   /// whether show background for @somebody
   final bool showAtBackground;
@@ -18,7 +18,7 @@ class UrlText extends SpecialText {
     SpecialTextGestureTapCallback onTap, {
     this.showAtBackground = false,
     this.start,
-    @required String startFlag,
+    required String startFlag,
   }) : super(startFlag, " ", textStyle);
 
   @override
@@ -33,17 +33,17 @@ class UrlText extends SpecialText {
   @override
   InlineSpan finishText() {
     TextStyle textStyle =
-        this.textStyle?.copyWith(color: Colors.blue, fontSize: 16.0);
+        this.textStyle.copyWith(color: Colors.blue, fontSize: 16.0);
     final String atText = toString();
     return showAtBackground
         ? BackgroundTextSpan(
             background: Paint()..color = Colors.blue.withOpacity(0.15),
             text: atText,
             actualText: atText,
-            start: start,
+            start: start!,
             deleteAll: true,
             style: textStyle)
         : SpecialTextSpan(
-            text: atText, actualText: atText, start: start, style: textStyle);
+            text: atText, actualText: atText, start: start!, style: textStyle);
   }
 }

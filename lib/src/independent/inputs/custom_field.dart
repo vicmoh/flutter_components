@@ -5,9 +5,9 @@ enum _Type { round, outline, fourFieldsInRow }
 class CustomField extends StatefulWidget {
   // scaling and ratio
   final TextInputAction textInputAction;
-  final void Function(String value) onSubmitted;
-  final double width;
-  final double height;
+  final void Function(String value)? onSubmitted;
+  final double? width;
+  final double? height;
   final double textScaleFactor;
   final double borderRadiusValue;
   // colors
@@ -18,38 +18,38 @@ class CustomField extends StatefulWidget {
   // other
   final double elevation;
   final TextInputType keyboardType;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final void Function(String) onChanged;
-  final String hintText;
+  final String? hintText;
   final EdgeInsetsGeometry innerPadding;
   final FontWeight fontWeight;
   final bool autofocus;
   final bool obscureText;
-  final int maxLines;
-  final int minLines;
-  final int maxLength;
+  final int? maxLines;
+  final int? minLines;
+  final int? maxLength;
   final String counterText;
-  final TextStyle counterStyle;
-  final FocusNode focusNode;
-  final InputBorder border;
+  final TextStyle? counterStyle;
+  final FocusNode? focusNode;
+  final InputBorder? border;
   final _Type type;
   // For outline
   final Color focusOutlineColor;
   final Color outlineColor;
   final double outlineWeight;
   // Suffix
-  final Widget prefixIcon;
-  final Widget prefix;
-  final Widget suffix;
+  final Widget? prefixIcon;
+  final Widget? prefix;
+  final Widget? suffix;
   final bool expands;
-  final bool enabled;
-  final Widget Function(bool isPassShown) suffixForObscureText;
+  final bool? enabled;
+  final Widget Function(bool isPassShown)? suffixForObscureText;
 
   /// A round field widget. Usually used on top of a list view on
   /// home screen content. [onChanged] function call back when
   /// user type on the field.
   CustomField.round({
-    @required this.onChanged,
+    required this.onChanged,
     this.textColor = Colors.white,
     this.cursorColor = Colors.white,
     this.hintColor = Colors.grey,
@@ -94,7 +94,7 @@ class CustomField extends StatefulWidget {
   /// used for form input. [onChanged] function call back when
   /// user type on the field.
   CustomField.outline({
-    @required this.onChanged,
+    required this.onChanged,
     this.textColor = Colors.black,
     this.cursorColor = Colors.black,
     this.hintColor = Colors.grey,
@@ -140,7 +140,7 @@ class CustomField extends StatefulWidget {
   /// for verification code. [onChanged] function call
   /// back when user type on the field.
   CustomField.fourFieldsInRow({
-    @required this.onChanged,
+    required this.onChanged,
     this.textColor = Colors.black,
     this.cursorColor = Colors.black,
     this.hintColor = Colors.grey,
@@ -208,14 +208,14 @@ class _CustomField extends State<CustomField> {
   initState() {
     super.initState();
     for (int x = 0; x < 4; x++)
-      _characterControllers?.add(TextEditingController());
+      _characterControllers.add(TextEditingController());
   }
 
   /// Dispose state
   @override
   dispose() {
     super.dispose();
-    _characterControllers?.forEach((el) => el?.dispose());
+    _characterControllers.forEach((el) => el.dispose());
   }
 
   /// Build state
@@ -239,7 +239,7 @@ class _CustomField extends State<CustomField> {
     // Gesture widget
     var gestureWidget = GestureDetector(
         child: (widget.suffixForObscureText != null)
-            ? widget.suffixForObscureText(_isPasswordShown)
+            ? widget.suffixForObscureText!(_isPasswordShown)
             : widget.suffix,
         onTap: () => setState(
             () => _isPasswordShown = (_isPasswordShown) ? false : true));
@@ -370,7 +370,7 @@ class _CustomField extends State<CustomField> {
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(
                                 this.widget.borderRadiusValue),
-                            borderSide: this.widget.border ??
+                            borderSide: this.widget.border as BorderSide? ??
                                 BorderSide(
                                     width: this.widget.outlineWeight,
                                     color: this.widget.outlineColor)),
@@ -389,9 +389,9 @@ class _CustomField extends State<CustomField> {
   /// Single field for digit input
   _singleFieldForFourDigit(
     BuildContext context, {
-    @required int currentFocusIndex,
-    @required int nextFocusIndex,
-    @required TextEditingController controller,
+    required int currentFocusIndex,
+    required int nextFocusIndex,
+    required TextEditingController controller,
     bool isLastDigit = false,
   }) {
     return Container(

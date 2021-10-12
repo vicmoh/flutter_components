@@ -13,15 +13,14 @@ class EmailSpanBuilder extends SpecialTextSpanBuilder {
   final BuildContext context;
 
   /// Special email span builder.
-  EmailSpanBuilder(this.context, {@required this.controller})
-      : assert(controller != null, 'controller must not be null.');
+  EmailSpanBuilder(this.context, {required this.controller});
 
   @override
-  SpecialText createSpecialText(String flag,
-      {TextStyle textStyle, onTap, int index}) {
-    if (flag == null || flag == "") return null;
+  SpecialText? createSpecialText(String flag,
+      {TextStyle? textStyle, onTap, int? index}) {
+    if (flag == "") return null;
     if (!flag.startsWith(" ") && !flag.startsWith("@")) {
-      return EmailText(textStyle, onTap,
+      return EmailText(textStyle!, onTap,
           start: index,
           context: context,
           controller: controller,

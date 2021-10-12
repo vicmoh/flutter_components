@@ -5,25 +5,24 @@ import 'package:flutter/material.dart';
 /// that will be shown in the middle of the list view.
 class CenterListView extends StatelessWidget {
   final Widget child;
-  final EdgeInsetsGeometry listViewPadding;
+  final EdgeInsetsGeometry? listViewPadding;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
-  final ScrollPhysics physics;
-  final ScrollController controller;
+  final ScrollPhysics? physics;
+  final ScrollController? controller;
 
   /// A list view for showing content
   /// center vertically. Takes a [child] widget
   /// that will be shown in the middle of the list view.
   const CenterListView({
-    Key key,
+    Key? key,
     this.listViewPadding,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.physics,
     this.controller,
-    @required this.child,
-  })  : assert(child != null, 'CenterListView(): Child cannot be null.'),
-        super(key: key);
+    required this.child,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

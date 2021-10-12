@@ -3,12 +3,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class FrostedGlass extends StatefulWidget {
-  final double blurHeight;
-  final double blurWidth;
+  final double? blurHeight;
+  final double? blurWidth;
   final double blurStrength;
   final Color blurColor;
   final BorderRadius borderRadius;
-  final Widget child;
+  final Widget? child;
 
   /// A widget that will blur a content.
   /// The [Child] is the widget you want to be blurred and
@@ -16,13 +16,13 @@ class FrostedGlass extends StatefulWidget {
   /// [blurColor] must be have transparency to be able
   /// to see the blur.
   FrostedGlass({
-    Key key,
+    Key? key,
     this.child,
     this.blurHeight,
     this.blurWidth,
     this.blurStrength = 10,
     this.blurColor = Colors.transparent,
-    BorderRadius borderRadius,
+    BorderRadius? borderRadius,
   })  : this.borderRadius = borderRadius ?? BorderRadius.circular(0),
         super(key: key);
 
@@ -30,8 +30,8 @@ class FrostedGlass extends StatefulWidget {
 }
 
 class _FrostedGlassState extends State<FrostedGlass> {
-  double _childHeight;
-  double _childWidth;
+  double? _childHeight;
+  double? _childWidth;
 
   @override
   Widget build(BuildContext context) {

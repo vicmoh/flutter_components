@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
 
 class MessageField extends StatefulWidget {
-  final TextEditingController fieldController;
+  final TextEditingController? fieldController;
   final Color backgroundColor;
   final Color textColor;
   final Color dividerColor;
   final double innerVerticalPadding;
   final Function() onSend;
-  final Function(String) onFieldChanged;
-  final Widget onSendLoadingWidget;
+  final Function(String)? onFieldChanged;
+  final Widget? onSendLoadingWidget;
   final bool isLoading;
   final String hintText;
   final double hintTextFontScale;
-  final FocusNode focusNode;
-  final int maxLength;
+  final FocusNode? focusNode;
+  final int? maxLength;
   final String counterText;
-  final Widget sendWidget;
-  final Widget iconWidget;
+  final Widget? sendWidget;
+  final Widget? iconWidget;
   final CrossAxisAlignment sendCrossAxisAlignment;
-  final Widget inputWidget;
+  final Widget? inputWidget;
 
   /// Class for sending and entering a message.
   /// Used in [ChatPage] and [LiveFeedPage]
   MessageField({
-    Key key,
-    @required this.onSend,
+    Key? key,
+    required this.onSend,
     this.onFieldChanged,
     this.backgroundColor = Colors.grey,
     this.textColor = Colors.white,
@@ -97,7 +97,7 @@ class _MessageFieldState extends State<MessageField> {
           cursorColor: widget.textColor,
           maxLines: 5,
           minLines: 1,
-          onChanged: widget.onFieldChanged ?? () {},
+          onChanged: widget.onFieldChanged ?? () {} as void Function(String)?,
           style: TextStyle(
               color: widget.textColor,
               fontSize: 14 * this.widget.hintTextFontScale),

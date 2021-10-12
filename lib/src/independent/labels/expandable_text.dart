@@ -8,15 +8,15 @@ import 'package:flutter_components/flutter_components.dart';
 /// before you see the see button.
 class ExpandableText extends StatefulWidget {
   final String text;
-  final TextStyle style;
+  final TextStyle? style;
   final int maxLines;
-  final Widget seeMoreButton;
-  final Function() seeMorePressed;
+  final Widget? seeMoreButton;
+  final Function()? seeMorePressed;
   final TextAlign textAlign;
   final TextStyle hashtagStyle;
   final TextStyle hyperlinkStyle;
   final TextOverflow overflow;
-  final Function(String, ClickableTextTypes) onClickableText;
+  final Function(String, ClickableTextTypes)? onClickableText;
   final CrossAxisAlignment crossAxisAlignment;
 
   /// An expandable text where it limits the
@@ -26,7 +26,7 @@ class ExpandableText extends StatefulWidget {
   /// before you see the see button.
   ExpandableText(
     this.text, {
-    Key key,
+    Key? key,
     this.style,
     this.maxLines = 5,
     this.seeMoreButton,
@@ -59,7 +59,7 @@ class _ExpandableTextState extends State<ExpandableText> {
       painter.layout(maxWidth: constraints.maxWidth);
 
       /// Check which to render
-      if (painter?.didExceedMaxLines != null && painter.didExceedMaxLines)
+      if (painter.didExceedMaxLines && painter.didExceedMaxLines)
         return Container(
           child: Column(
               crossAxisAlignment: widget.crossAxisAlignment,

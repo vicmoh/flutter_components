@@ -5,15 +5,15 @@ import 'package:flutter/material.dart';
 class LinkPreview extends StatelessWidget {
   /// Link preview to the preview of the URL.
   LinkPreview({
-    Key key,
-    @required this.url,
-    @required this.onTap,
+    Key? key,
+    required this.url,
+    required this.onTap,
     this.domain,
     this.title,
     this.description,
-    BorderRadius borderRadius,
-    BorderRadius imageBorderRadius,
-    BorderRadius inkWellBorderRadius,
+    BorderRadius? borderRadius,
+    BorderRadius? imageBorderRadius,
+    BorderRadius? inkWellBorderRadius,
     this.backgroundColor = Colors.transparent,
     this.elevation = 0,
     this.linkStyle,
@@ -33,14 +33,12 @@ class LinkPreview extends StatelessWidget {
         this.imageBorderRadius = imageBorderRadius ?? BorderRadius.circular(0),
         this.inkWellBorderRadius =
             inkWellBorderRadius ?? BorderRadius.circular(0),
-        assert(url != null),
-        assert(onTap != null),
         super(key: key);
 
   LinkPreview.bubble({
-    Key key,
-    @required this.url,
-    @required this.onTap,
+    Key? key,
+    required this.url,
+    required this.onTap,
     this.domain,
     this.title,
     this.description,
@@ -57,7 +55,7 @@ class LinkPreview extends StatelessWidget {
     this.descriptionPadding = const EdgeInsets.only(bottom: 10),
     this.linkPadding = const EdgeInsets.only(bottom: 10),
     this.textPadding = const EdgeInsets.symmetric(horizontal: 15),
-    BorderRadius inkWellBorderRadius,
+    BorderRadius? inkWellBorderRadius,
     this.imageFit = BoxFit.cover,
     this.height,
     this.width,
@@ -67,17 +65,15 @@ class LinkPreview extends StatelessWidget {
             topRight: Radius.circular(radius)),
         this.inkWellBorderRadius =
             inkWellBorderRadius ?? BorderRadius.circular(radius),
-        assert(url != null),
-        assert(onTap != null),
         super(key: key);
 
   @override
   Widget build(BuildContext context) => _linkPreview();
 
-  final String domain;
+  final String? domain;
   final String url;
-  final String title;
-  final String description;
+  final String? title;
+  final String? description;
   final BorderRadius inkWellBorderRadius;
   final BorderRadius borderRadius;
   final BorderRadius imageBorderRadius;
@@ -85,9 +81,9 @@ class LinkPreview extends StatelessWidget {
   final Color backgroundColor;
   final Function() onTap;
   final double elevation;
-  final TextStyle linkStyle;
-  final TextStyle titleStyle;
-  final TextStyle descriptionStyle;
+  final TextStyle? linkStyle;
+  final TextStyle? titleStyle;
+  final TextStyle? descriptionStyle;
   final bool isLinkAtBottom;
   final EdgeInsets imagePadding;
   final EdgeInsets titlePadding;
@@ -95,8 +91,8 @@ class LinkPreview extends StatelessWidget {
   final EdgeInsets linkPadding;
   final EdgeInsets textPadding;
   final BoxFit imageFit;
-  final double height;
-  final double width;
+  final double? height;
+  final double? width;
 
   _stripUrl(String url) {
     url = url.replaceAll(RegExp(r'http[s ]://'), '');
@@ -126,7 +122,7 @@ class LinkPreview extends StatelessWidget {
                             child: CachedNetworkImage(
                                 height: height,
                                 width: width,
-                                fit: imageFit ?? BoxFit.cover,
+                                fit: imageFit,
                                 imageUrl: url,
                                 progressIndicatorBuilder: (context, url,
                                         downloadProgress) =>
@@ -167,7 +163,7 @@ class LinkPreview extends StatelessWidget {
       ? Container()
       : _horPad(Padding(
           padding: titlePadding,
-          child: Text(title,
+          child: Text(title!,
               textScaleFactor: 1,
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
@@ -179,7 +175,7 @@ class LinkPreview extends StatelessWidget {
       ? Container()
       : _horPad(Padding(
           padding: descriptionPadding,
-          child: Text(description,
+          child: Text(description!,
               textScaleFactor: 1,
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
@@ -190,7 +186,7 @@ class LinkPreview extends StatelessWidget {
       ? Container()
       : _horPad(Padding(
           padding: linkPadding,
-          child: Text(_stripUrl(domain),
+          child: Text(_stripUrl(domain!),
               textScaleFactor: 1,
               overflow: TextOverflow.ellipsis,
               maxLines: 1,

@@ -4,29 +4,29 @@ import 'package:flutter/material.dart';
 enum _TileType { withImage, message, ticket, icon, child }
 
 class CustomTile extends StatelessWidget {
-  final String imageUrl;
-  final String imagePlaceholderPath;
-  final List<String> subImageUrls;
+  final String? imageUrl;
+  final String? imagePlaceholderPath;
+  final List<String>? subImageUrls;
   // String for display
   final String heading;
-  final String subHeading;
-  final String time;
-  final String monthForDisplayDate;
-  final String dayForDisplayDate;
+  final String? subHeading;
+  final String? time;
+  final String? monthForDisplayDate;
+  final String? dayForDisplayDate;
   // Padding and size
   final bool isHeadingUnderline;
   final bool isSubHeadingUnderline;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
   final bool headIsBold;
   final bool subIsBold;
   final int headMaxLines;
   final int subMaxLines;
   final double headTextScale;
   final double subTextScale;
-  final double textWidth;
-  final double contentTopPadding;
+  final double? textWidth;
+  final double? contentTopPadding;
   final double avatarSize;
-  final EdgeInsetsGeometry headAndSubHeadingPadding;
+  final EdgeInsetsGeometry? headAndSubHeadingPadding;
   // Color
   final Color headingColor;
   final Color subHeadingColor;
@@ -37,20 +37,20 @@ class CustomTile extends StatelessWidget {
   final bool showDivider;
   final bool isRead;
   // Icon and child
-  final Icon icon;
-  final Widget child;
-  final Widget trailing;
+  final Icon? icon;
+  final Widget? child;
+  final Widget? trailing;
   // Callback and type
   final _TileType type;
   final Function onTap;
-  final String heroTag;
+  final String? heroTag;
 
   /// A notification tile for the notification page list view.
   /// [imageUrl] a circle image, can be used with profile picture or event.
   CustomTile.withImage({
-    @required this.imageUrl,
-    @required this.heading,
-    @required this.onTap,
+    required this.imageUrl,
+    required this.heading,
+    required this.onTap,
     this.time,
     this.contentTopPadding = 15,
     this.showDivider = true,
@@ -86,10 +86,10 @@ class CustomTile extends StatelessWidget {
   /// A notification tile for the notification page list view.
   /// [imageUrl] a circle image, can be used with profile picture or event.
   CustomTile.messageTile({
-    @required this.imageUrl,
-    @required this.heading,
-    @required this.time,
-    @required this.onTap,
+    required this.imageUrl,
+    required this.heading,
+    required this.time,
+    required this.onTap,
     this.contentTopPadding = 15,
     this.showDivider = true,
     this.avatarSize = 40,
@@ -123,9 +123,9 @@ class CustomTile extends StatelessWidget {
 
   /// A notification tile for the notification page list view.
   CustomTile.withIcon({
-    @required this.icon,
-    @required this.heading,
-    @required this.onTap,
+    required this.icon,
+    required this.heading,
+    required this.onTap,
     this.contentTopPadding = 0,
     this.showDivider = false,
     this.avatarSize = 40,
@@ -160,9 +160,9 @@ class CustomTile extends StatelessWidget {
 
   /// A notification tile for the notification page list view.
   CustomTile.withChild({
-    @required this.child,
-    @required this.heading,
-    @required this.onTap,
+    required this.child,
+    required this.heading,
+    required this.onTap,
     this.headAndSubHeadingPadding,
     this.widgetBackgroundColor = Colors.transparent,
     this.time,
@@ -200,13 +200,13 @@ class CustomTile extends StatelessWidget {
   /// For parameter [time] for ticket, pass the time
   /// in format of string "<Month> <Date>".
   CustomTile.dateDisplay({
-    @required this.imageUrl,
-    @required this.heading,
-    @required this.time,
-    @required this.onTap,
-    @required this.widgetBackgroundColor,
-    @required this.monthForDisplayDate,
-    @required this.dayForDisplayDate,
+    required this.imageUrl,
+    required this.heading,
+    required this.time,
+    required this.onTap,
+    required this.widgetBackgroundColor,
+    required this.monthForDisplayDate,
+    required this.dayForDisplayDate,
     this.showDivider = false,
     this.avatarSize = 40,
     this.isRead = true,
@@ -247,23 +247,23 @@ class CustomTile extends StatelessWidget {
           child: this.icon,
           padding: EdgeInsets.only(
               left: 20,
-              top: (subHeading != null) ? 0 : (this.contentTopPadding + 4)));
+              top: (subHeading != null) ? 0 : (this.contentTopPadding! + 4)));
     } else {
       toBeReturn = Container(
           child: ClipOval(
               child: (this.imagePlaceholderPath != null)
                   ? (this.imageUrl == null)
-                      ? Image.asset(this.imagePlaceholderPath,
+                      ? Image.asset(this.imagePlaceholderPath!,
                           width: this.avatarSize,
                           height: this.avatarSize,
                           fit: BoxFit.cover)
                       : FadeInImage.assetNetwork(
-                          image: this.imageUrl,
-                          placeholder: this.imagePlaceholderPath,
+                          image: this.imageUrl!,
+                          placeholder: this.imagePlaceholderPath!,
                           width: this.avatarSize,
                           height: this.avatarSize,
                           fit: BoxFit.cover)
-                  : Image.network(this.imageUrl,
+                  : Image.network(this.imageUrl!,
                       width: this.avatarSize,
                       height: this.avatarSize,
                       fit: BoxFit.cover)));
@@ -284,13 +284,13 @@ class CustomTile extends StatelessWidget {
                     ? Image.network(url, fit: BoxFit.cover)
                     : FadeInImage.assetNetwork(
                         image: url,
-                        placeholder: this.imagePlaceholderPath,
+                        placeholder: this.imagePlaceholderPath!,
                         fit: BoxFit.cover))));
 
     // Create a list of images
     List<Widget> images = [];
     int count = 0;
-    for (var each in this.subImageUrls) {
+    for (var each in this.subImageUrls!) {
       images.add(image(each));
       count++;
       if (count == 6) break;
@@ -301,7 +301,7 @@ class CustomTile extends StatelessWidget {
   }
 
   /// Leading content
-  Widget _leading(BuildContext context) {
+  Widget? _leading(BuildContext context) {
     if (this.child != null) return this.child;
     return Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -311,11 +311,11 @@ class CustomTile extends StatelessWidget {
   /// Heading content
   Widget _heading(BuildContext context) {
     // Text widget
-    var textWidget = (String text) => Container(
-        padding: EdgeInsets.only(top: this.contentTopPadding),
+    var textWidget = (String? text) => Container(
+        padding: EdgeInsets.only(top: this.contentTopPadding!),
         child: Container(
             width: this.textWidth,
-            child: Text(text,
+            child: Text(text!,
                 softWrap: true,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.left,
@@ -353,9 +353,9 @@ class CustomTile extends StatelessWidget {
   /// Sub heading content
   Widget _subHeading(BuildContext context) {
     // Text widget
-    var textWidget = (String text) => Container(
+    var textWidget = (String? text) => Container(
         width: this.textWidth,
-        child: Text(text,
+        child: Text(text!,
             softWrap: true,
             overflow: TextOverflow.ellipsis,
             maxLines: this.subMaxLines,
@@ -402,8 +402,8 @@ class CustomTile extends StatelessWidget {
   Widget _normalTileContent(BuildContext context) {
     return ListTile(
       // on tile click
-      onTap: this.onTap,
-      onLongPress: this.onTap,
+      onTap: this.onTap as void Function()?,
+      onLongPress: this.onTap as void Function()?,
       // Avatar
       leading: this._leading(context),
       // Head title
@@ -470,7 +470,7 @@ class CustomTile extends StatelessWidget {
           SizedBox(height: 5),
           Container(
               width: this.textWidth,
-              child: Text(this.subHeading,
+              child: Text(this.subHeading!,
                   textScaleFactor: this.subTextScale,
                   style: TextStyle(
                       decoration: (this.isSubHeadingUnderline)
@@ -501,21 +501,21 @@ class CustomTile extends StatelessWidget {
             // Image
             child: (this.imagePlaceholderPath != null)
                 ? FadeInImage.assetNetwork(
-                    image: this.imageUrl ?? this.imagePlaceholderPath,
-                    placeholder: this.imagePlaceholderPath,
+                    image: this.imageUrl ?? this.imagePlaceholderPath!,
+                    placeholder: this.imagePlaceholderPath!,
                     fit: BoxFit.cover)
-                : Image.network(this.imageUrl ?? this.imagePlaceholderPath,
+                : Image.network(this.imageUrl ?? this.imagePlaceholderPath!,
                     fit: BoxFit.cover)));
 
     return (this.heroTag != null)
-        ? Hero(child: image, tag: this.heroTag)
+        ? Hero(child: image, tag: this.heroTag!)
         : image;
   }
 
   /// The main ticket tile content
   Widget _dateDisplayContent(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: onTap as void Function()?,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         // The material widget
@@ -552,7 +552,7 @@ class CustomTile extends StatelessWidget {
               // Icon
               Column(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [this.child]),
+                  children: [this.child!]),
               // Sub and title
               Container(
                   padding: this.headAndSubHeadingPadding,
@@ -589,7 +589,7 @@ class CustomTile extends StatelessWidget {
                                 width: this.textWidth,
                                 child: Material(
                                     color: Colors.transparent,
-                                    child: Text(this.subHeading,
+                                    child: Text(this.subHeading!,
                                         softWrap: true,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: this.subMaxLines,
@@ -609,9 +609,7 @@ class CustomTile extends StatelessWidget {
     // Return the material
     return Material(
       color: Colors.transparent,
-      child: (this.onTap != null)
-          ? InkWell(onTap: this.onTap, child: content)
-          : content,
+      child: InkWell(onTap: this.onTap as void Function()?, child: content),
     );
   }
 
@@ -619,7 +617,7 @@ class CustomTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Back color
-    var backgroundColor = this.unreadBackgroundColor ?? Colors.transparent;
+    var backgroundColor = this.unreadBackgroundColor;
     if (this.unreadBackgroundColor == Colors.transparent && !this.isRead)
       backgroundColor = Colors.black.withOpacity(0.3);
 

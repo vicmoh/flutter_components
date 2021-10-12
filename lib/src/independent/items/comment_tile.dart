@@ -17,13 +17,13 @@ class CommentTile extends StatelessWidget {
   final Color thumbsUpColor;
   final Color thumbsDownColor;
   // Callback
-  final Function() onLiked;
-  final Function() onDisliked;
+  final Function()? onLiked;
+  final Function()? onDisliked;
 
   const CommentTile({
-    Key key,
-    @required this.name,
-    @required this.message,
+    Key? key,
+    required this.name,
+    required this.message,
     this.bottomRightHead = '',
     this.bottomRightSub = '',
     this.numberOfLikes = '',

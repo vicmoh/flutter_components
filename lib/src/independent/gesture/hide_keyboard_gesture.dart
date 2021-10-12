@@ -9,8 +9,8 @@ class HideKeyboardGesture extends StatefulWidget {
   /// To hide the keyboard. Wrap the root of [Scaffold]
   /// page with this class.
   HideKeyboardGesture({
-    Key key,
-    @required this.child,
+    Key? key,
+    required this.child,
   }) : super(key: key);
 
   @override

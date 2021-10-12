@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class MarqueeText extends StatefulWidget {
   final String text;
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
   final Axis scrollAxis;
   final double ratioOfBlankToScreen;
 
@@ -14,11 +14,11 @@ class MarqueeText extends StatefulWidget {
   /// where it shows the whole string in one line
   /// by moving the text horizontally to the left.
   MarqueeText({
-    @required this.text,
+    required this.text,
     this.textStyle,
     this.scrollAxis: Axis.horizontal,
     this.ratioOfBlankToScreen: 0.25,
-  }) : assert(text != null);
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -28,11 +28,11 @@ class MarqueeText extends StatefulWidget {
 
 class MarqueeTextState extends State<MarqueeText>
     with SingleTickerProviderStateMixin {
-  ScrollController scrollController;
-  double screenWidth;
-  double screenHeight;
+  ScrollController? scrollController;
+  late double screenWidth;
+  late double screenHeight;
   double position = 0.0;
-  Timer timer;
+  late Timer timer;
   final double _moveDistance = 3.0;
   final int _timerRest = 100;
   GlobalKey _key = GlobalKey();
@@ -41,20 +41,20 @@ class MarqueeTextState extends State<MarqueeText>
   void initState() {
     super.initState();
     scrollController = new ScrollController();
-    WidgetsBinding.instance.addPostFrameCallback((callback) {
+    WidgetsBinding.instance!.addPostFrameCallback((callback) {
       startTimer();
     });
   }
 
   void startTimer() {
     double widgetWidth =
-        _key.currentContext.findRenderObject().paintBounds.size.width;
+        _key.currentContext!.findRenderObject()!.paintBounds.size.width;
     double widgetHeight =
-        _key.currentContext.findRenderObject().paintBounds.size.height;
+        _key.currentContext!.findRenderObject()!.paintBounds.size.height;
 
     timer = Timer.periodic(new Duration(milliseconds: _timerRest), (timer) {
-      double maxScrollExtent = scrollController.position.maxScrollExtent;
-      double pixels = scrollController.position.pixels;
+      double maxScrollExtent = scrollController!.position.maxScrollExtent;
+      double pixels = scrollController!.position.pixels;
       if (pixels + _moveDistance >= maxScrollExtent) {
         if (widget.scrollAxis == Axis.horizontal) {
           position = (maxScrollExtent -
@@ -73,10 +73,10 @@ class MarqueeTextState extends State<MarqueeText>
               pixels -
               maxScrollExtent;
         }
-        scrollController.jumpTo(position);
+        scrollController!.jumpTo(position);
       }
       position += _moveDistance;
-      scrollController.animateTo(position,
+      scrollController!.animateTo(position,
           duration: new Duration(milliseconds: _timerRest),
           curve: Curves.linear);
     });

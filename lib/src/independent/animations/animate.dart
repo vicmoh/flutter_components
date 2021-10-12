@@ -10,16 +10,14 @@ class AnimateContext {
   final BuildContext context;
 
   /// Animation control.
-  AnimationController get controller => _controller;
-  AnimationController _controller;
+  AnimationController? get controller => _controller;
+  AnimationController? _controller;
 
   /// Get animation context.
   AnimateContext({
-    @required this.context,
-    AnimationController controller,
-  })  : assert(context != null, 'buildContext must not be null.'),
-        assert(controller != null, 'controller must not be null.'),
-        _controller = controller;
+    required this.context,
+    required AnimationController controller,
+  }) : _controller = controller;
 }
 
 /// Animation state.
@@ -32,10 +30,9 @@ class AnimateState {
 
   /// Animation state.
   AnimateState({
-    @required this.context,
-    @required this.animation,
-  })  : assert(context != null, 'buildContext must not be null.'),
-        assert(animation != null, 'animation must not be null.');
+    required this.context,
+    required this.animation,
+  });
 }
 
 /// Animate a widget. If the [control] is null
@@ -48,10 +45,10 @@ class Animate extends StatefulWidget {
   final double end;
   final Duration duration;
   final Curve curve;
-  final Function(AnimateContext) control;
-  final Function(AnimateState) builder;
-  final Widget child;
-  final Function(AnimateState, Widget child) render;
+  final Function(AnimateContext?)? control;
+  final Function(AnimateState?)? builder;
+  final Widget? child;
+  final Function(AnimateState?, Widget? child)? render;
 
   /// Animate a widget. If the [control] is null
   /// it will animate at the beginning of a state which will
@@ -61,16 +58,14 @@ class Animate extends StatefulWidget {
   /// If [control] is not null, controller is not disposed
   /// Hence it should dispose the controller once done.
   Animate({
-    Key key,
-    @required this.begin,
-    @required this.end,
-    @required this.builder,
+    Key? key,
+    required this.begin,
+    required this.end,
+    required this.builder,
     this.control,
     this.duration = const Duration(milliseconds: 300),
     this.curve = Curves.easeIn,
-  })  : assert(begin != null, 'begin must not be null.'),
-        assert(end != null, 'end must not be null.'),
-        assert(builder != null, 'builder must not be null.'),
+  })  : assert(builder != null, 'builder must not be null.'),
         this.render = null,
         this.child = null,
         super(key: key);
@@ -82,18 +77,15 @@ class Animate extends StatefulWidget {
   /// If [control] is not null, controller is not disposed
   /// Hence it should dispose the controller once done.
   Animate.withChild({
-    Key key,
-    @required this.begin,
-    @required this.end,
-    @required this.child,
-    @required this.render,
+    Key? key,
+    required this.begin,
+    required this.end,
+    required Widget this.child,
+    required this.render,
     this.control,
     this.duration = const Duration(milliseconds: 300),
     this.curve = Curves.easeIn,
-  })  : assert(begin != null, 'begin must not be null.'),
-        assert(end != null, 'end must not be null.'),
-        assert(child != null, 'child must not be null.'),
-        assert(render != null, 'render must not be null.'),
+  })  : assert(render != null, 'render must not be null.'),
         this.builder = null,
         super(key: key);
 
@@ -101,10 +93,10 @@ class Animate extends StatefulWidget {
 }
 
 class _AnimateState extends State<Animate> with SingleTickerProviderStateMixin {
-  Animation<double> _animation;
-  AnimationController _animationControl;
-  AnimateContext _animateContext;
-  AnimateState _animateState;
+  late Animation<double> _animation;
+  AnimationController? _animationControl;
+  AnimateContext? _animateContext;
+  AnimateState? _animateState;
 
   @override
   void initState() {
@@ -114,9 +106,9 @@ class _AnimateState extends State<Animate> with SingleTickerProviderStateMixin {
     _animationControl =
         AnimationController(vsync: this, duration: widget.duration);
     _animation = Tween<double>(begin: widget.begin, end: widget.end).animate(
-        CurvedAnimation(parent: _animationControl, curve: widget.curve));
+        CurvedAnimation(parent: _animationControl!, curve: widget.curve));
     _animateContext =
-        AnimateContext(controller: _animationControl, context: context);
+        AnimateContext(controller: _animationControl!, context: context);
     _animateState = AnimateState(animation: _animation, context: context);
 
     /// Controlling animation
@@ -126,14 +118,14 @@ class _AnimateState extends State<Animate> with SingleTickerProviderStateMixin {
         if (status == AnimationStatus.completed) _animationControl?.stop();
       });
     } else
-      widget?.control(_animateContext);
+      widget.control!(_animateContext);
   }
 
   @override
   void dispose() {
-    _animateContext._isControllerDisposed = true;
+    _animateContext!._isControllerDisposed = true;
     _animationControl?.dispose();
-    _animateContext._controller = null;
+    _animateContext!._controller = null;
     super.dispose();
   }
 
@@ -149,8 +141,8 @@ class _AnimateState extends State<Animate> with SingleTickerProviderStateMixin {
         animation: _animation,
         builder: (context, child) {
           if (widget.render != null && widget.child != null)
-            return widget.render(_animateState, child);
-          return widget.builder(_animateState);
+            return widget.render!(_animateState, child);
+          return widget.builder!(_animateState);
         });
   }
 }

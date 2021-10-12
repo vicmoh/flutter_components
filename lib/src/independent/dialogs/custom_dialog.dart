@@ -7,20 +7,20 @@ enum _DialogType { simple, loader }
 class CustomDialog extends StatefulWidget {
   final bool isCenterTitle;
   final bool isCenterBodyText;
-  final String title;
-  final String bodyText;
-  final Widget bodyChild;
-  final Widget footerChild;
+  final String? title;
+  final String? bodyText;
+  final Widget? bodyChild;
+  final Widget? footerChild;
   final MainAxisAlignment buttonHorizontalAlignment;
-  final List<Widget> buttons;
+  final List<Widget>? buttons;
   final TextStyle titleStyle;
   final TextStyle bodyTextStyle;
   final Color backgroundColor;
   final double borderRadius;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final bool isDoubleTapToCancel;
-  final BoxConstraints constraints;
+  final BoxConstraints? constraints;
   final _DialogType _type;
 
   static _defaultTitleStyle() => TextStyle(
@@ -30,8 +30,8 @@ class CustomDialog extends StatefulWidget {
 
   /// Custom Dialog, must be wrap with [showDialog] function.
   CustomDialog({
-    @required this.title,
-    @required this.bodyText,
+    required this.title,
+    required this.bodyText,
     this.isCenterTitle = false,
     this.isCenterBodyText = false,
     this.buttonHorizontalAlignment = MainAxisAlignment.end,
@@ -41,8 +41,8 @@ class CustomDialog extends StatefulWidget {
     this.width,
     this.footerChild,
     this.constraints,
-    TextStyle titleStyle,
-    TextStyle bodyTextStyle,
+    TextStyle? titleStyle,
+    TextStyle? bodyTextStyle,
     this.buttons,
   })  : this._type = _DialogType.simple,
         this.isDoubleTapToCancel = false,
@@ -53,7 +53,7 @@ class CustomDialog extends StatefulWidget {
   /// Custom Dialog, must be wrap with [showDialog] function.
   /// This uses [bodyChild] of a widget instead of [bodyText].
   CustomDialog.child({
-    @required this.bodyChild,
+    required this.bodyChild,
     this.footerChild,
     this.title,
     this.buttonHorizontalAlignment = MainAxisAlignment.end,
@@ -63,8 +63,8 @@ class CustomDialog extends StatefulWidget {
     this.width,
     this.constraints,
     this.buttons,
-    TextStyle titleStyle,
-    TextStyle bodyTextStyle,
+    TextStyle? titleStyle,
+    TextStyle? bodyTextStyle,
   })  : this._type = _DialogType.simple,
         this.isCenterTitle = false,
         this.isCenterBodyText = false,
@@ -139,7 +139,7 @@ class _CustomDialogState extends State<CustomDialog> {
                       padding: EdgeInsets.only(bottom: 10),
                       child: Row(children: <Widget>[
                         Expanded(
-                            child: Text(widget.title,
+                            child: Text(widget.title!,
                                 textAlign: this.widget.isCenterTitle
                                     ? TextAlign.center
                                     : TextAlign.start,
@@ -153,7 +153,7 @@ class _CustomDialogState extends State<CustomDialog> {
                       padding: EdgeInsets.only(bottom: 10),
                       child: Row(children: <Widget>[
                         Expanded(
-                            child: Text(widget.bodyText,
+                            child: Text(widget.bodyText!,
                                 textAlign: this.widget.isCenterBodyText
                                     ? TextAlign.center
                                     : TextAlign.start,
@@ -161,17 +161,17 @@ class _CustomDialogState extends State<CustomDialog> {
                       ])),
 
               /// Children
-              (widget.bodyChild == null) ? Container() : widget.bodyChild,
+              (widget.bodyChild == null) ? Container() : widget.bodyChild!,
 
               // List of buttons
               (this.widget.footerChild != null)
-                  ? widget.footerChild
-                  : (widget.buttons == null || widget.buttons.length == 0)
+                  ? widget.footerChild!
+                  : (widget.buttons == null || widget.buttons!.length == 0)
                       ? Container()
                       : Container(
                           padding: EdgeInsets.only(top: 5),
                           child: Row(
-                              children: widget.buttons,
+                              children: widget.buttons!,
                               mainAxisAlignment:
                                   this.widget.buttonHorizontalAlignment)),
             ]));
