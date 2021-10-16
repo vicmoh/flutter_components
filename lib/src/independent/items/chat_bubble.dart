@@ -307,7 +307,7 @@ class ChatBubble<T> extends StatelessWidget {
 
   /// The message in the bubble and padding
   LimitedBox _bubbleContent(BuildContext context) {
-    List<Widget?> innerText = [];
+    List<Widget> innerText = [];
 
     /// The name on top
     if (this.headerText != null && this.displayNameInHeader)
@@ -316,7 +316,7 @@ class ChatBubble<T> extends StatelessWidget {
           child: _headerText(this.headerText!)));
 
     /// Header widget
-    if (this.headerWidget != null) innerText.add(this.headerWidget);
+    if (this.headerWidget != null) innerText.add(this.headerWidget!);
 
     /// The message
     innerText.add(this.bodyWidget ??
@@ -338,7 +338,7 @@ class ChatBubble<T> extends StatelessWidget {
                     ]))));
 
     /// The footer of the bubble
-    if (footerWidget != null) innerText.add(this.footerWidget);
+    if (footerWidget != null) innerText.add(this.footerWidget!);
 
     /// Create bubble
     return LimitedBox(
@@ -362,7 +362,7 @@ class ChatBubble<T> extends StatelessWidget {
                         // Inner text, the message
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: innerText as List<Widget>)))));
+                            children: innerText)))));
   }
 
   /// The text in the bubble, used for display name.

@@ -97,7 +97,7 @@ class _MessageFieldState extends State<MessageField> {
           cursorColor: widget.textColor,
           maxLines: 5,
           minLines: 1,
-          onChanged: widget.onFieldChanged ?? () {} as void Function(String)?,
+          onChanged: widget.onFieldChanged ?? (_) {},
           style: TextStyle(
               color: widget.textColor,
               fontSize: 14 * this.widget.hintTextFontScale),

@@ -402,8 +402,8 @@ class CustomTile extends StatelessWidget {
   Widget _normalTileContent(BuildContext context) {
     return ListTile(
       // on tile click
-      onTap: this.onTap as void Function()?,
-      onLongPress: this.onTap as void Function()?,
+      onTap: () => this.onTap(),
+      onLongPress: () => this.onTap(),
       // Avatar
       leading: this._leading(context),
       // Head title
@@ -515,7 +515,7 @@ class CustomTile extends StatelessWidget {
   /// The main ticket tile content
   Widget _dateDisplayContent(BuildContext context) {
     return GestureDetector(
-      onTap: onTap as void Function()?,
+      onTap: () => this.onTap(),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         // The material widget
@@ -609,7 +609,7 @@ class CustomTile extends StatelessWidget {
     // Return the material
     return Material(
       color: Colors.transparent,
-      child: InkWell(onTap: this.onTap as void Function()?, child: content),
+      child: InkWell(onTap: () => this.onTap, child: content),
     );
   }
 
