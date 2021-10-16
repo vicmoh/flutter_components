@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 /// if it is null it will not show any loading.
 class StackAvatars extends StatelessWidget {
   final String? imagePlaceholderPath;
-  final List<String> imageUrls;
+  final List<String?> imageUrls;
   final EdgeInsetsGeometry? padding;
   final double imageSize;
   final int maxAvatarToShow;
