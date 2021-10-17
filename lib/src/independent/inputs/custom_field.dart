@@ -367,11 +367,11 @@ class _CustomField extends State<CustomField> {
                         suffix: _suffixWidget(),
 
                         /// Outline border by default
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                                this.widget.borderRadiusValue),
-                            borderSide: this.widget.border as BorderSide? ??
-                                BorderSide(
+                        enabledBorder: this.widget.border ??
+                            OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(
+                                    this.widget.borderRadiusValue),
+                                borderSide: BorderSide(
                                     width: this.widget.outlineWeight,
                                     color: this.widget.outlineColor)),
 
