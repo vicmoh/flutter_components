@@ -20,6 +20,7 @@ class StackAvatars extends StatelessWidget {
   final double imageOffsetSpacing;
   final bool reverseOffsetSpacing;
   final File? imageFile;
+  final ImageErrorWidgetBuilder? errorBuilder;
 
   /// A stack up avatars that is on top of one and another.
   /// It is used in the user post card and the event card modal.
@@ -43,6 +44,7 @@ class StackAvatars extends StatelessWidget {
     this.outlineColor = Colors.transparent,
     this.imageOffsetSpacing = 15,
     this.reverseOffsetSpacing = false,
+    this.errorBuilder,
   });
 
   /// Circle avatar for profile image
@@ -61,8 +63,16 @@ class StackAvatars extends StatelessWidget {
 
           /// causes to have continuous state at the start.
           ? (profileImageUrl == null)
+
+              /// Show image place holder if profile image does not exist.
               ? Image.asset(this.imagePlaceholderPath!,
-                  width: imageSize, height: imageSize, fit: BoxFit.cover)
+                  width: imageSize,
+                  height: imageSize,
+                  fit: BoxFit.cover,
+                  errorBuilder:
+                      this.errorBuilder ?? (ctx, err, trace) => Container())
+
+              /// If profile image url exist.
               : FadeInImage.assetNetwork(
                   image: profileImageUrl,
                   fadeInCurve: Curves.easeIn,
@@ -72,9 +82,17 @@ class StackAvatars extends StatelessWidget {
                   placeholder: this.imagePlaceholderPath!,
                   width: imageSize,
                   height: imageSize,
-                  fit: BoxFit.cover)
+                  fit: BoxFit.cover,
+                  imageErrorBuilder:
+                      this.errorBuilder ?? (ctx, err, trace) => Container())
+
+          /// If there is no image placeholder.
           : Image.network(profileImageUrl!,
-              width: imageSize, height: imageSize, fit: BoxFit.cover);
+              width: imageSize,
+              height: imageSize,
+              fit: BoxFit.cover,
+              errorBuilder:
+                  this.errorBuilder ?? (ctx, err, trace) => Container());
     }
 
     return Container(
