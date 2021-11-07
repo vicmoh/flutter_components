@@ -53,6 +53,12 @@ class StackAvatars extends StatelessWidget {
     double offset = 0,
     Color? outlineColor,
   }) {
+    final imageWithPlaceholder = () => Image.asset(this.imagePlaceholderPath!,
+        width: imageSize,
+        height: imageSize,
+        fit: BoxFit.cover,
+        errorBuilder: this.errorBuilder ?? (ctx, err, trace) => Container());
+
     /// Use this image file if the
     Widget asset;
     if (this.imageFile != null) {
@@ -65,12 +71,7 @@ class StackAvatars extends StatelessWidget {
           ? (profileImageUrl == null)
 
               /// Show image place holder if profile image does not exist.
-              ? Image.asset(this.imagePlaceholderPath!,
-                  width: imageSize,
-                  height: imageSize,
-                  fit: BoxFit.cover,
-                  errorBuilder:
-                      this.errorBuilder ?? (ctx, err, trace) => Container())
+              ? imageWithPlaceholder()
 
               /// If profile image url exist.
               : FadeInImage.assetNetwork(
@@ -83,16 +84,16 @@ class StackAvatars extends StatelessWidget {
                   width: imageSize,
                   height: imageSize,
                   fit: BoxFit.cover,
-                  imageErrorBuilder:
-                      this.errorBuilder ?? (ctx, err, trace) => Container())
+                  imageErrorBuilder: this.errorBuilder ??
+                      (ctx, err, trace) => imageWithPlaceholder())
 
           /// If there is no image placeholder.
           : Image.network(profileImageUrl!,
               width: imageSize,
               height: imageSize,
               fit: BoxFit.cover,
-              errorBuilder:
-                  this.errorBuilder ?? (ctx, err, trace) => Container());
+              errorBuilder: this.errorBuilder ??
+                  (ctx, err, trace) => imageWithPlaceholder());
     }
 
     return Container(
