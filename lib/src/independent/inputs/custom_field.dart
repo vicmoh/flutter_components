@@ -71,7 +71,7 @@ class CustomField extends StatefulWidget {
     this.prefixIcon,
     this.prefix,
     this.suffixForObscureText,
-    this.maxLines,
+    this.maxLines = 1,
     this.minLines,
     this.maxLength = 128,
     this.fontWeight = FontWeight.w500,
@@ -120,7 +120,7 @@ class CustomField extends StatefulWidget {
     this.prefix,
     this.suffix,
     this.suffixForObscureText,
-    this.maxLines,
+    this.maxLines = 1,
     this.minLines,
     this.maxLength = 128,
     this.fontWeight = FontWeight.w500,
@@ -201,7 +201,7 @@ class _CustomField extends State<CustomField> {
   ];
 
   /// List for holding the character values.
-  List<TextEditingController> _characterControllers = [];
+  var _characterControllers = <TextEditingController>[];
 
   /// Initialize state
   @override
@@ -216,6 +216,7 @@ class _CustomField extends State<CustomField> {
   dispose() {
     super.dispose();
     _characterControllers.forEach((el) => el.dispose());
+    _focusCharacter.forEach((el) => el.dispose());
   }
 
   /// Build state
@@ -230,35 +231,37 @@ class _CustomField extends State<CustomField> {
     else if (widget.type == _Type.fourFieldsInRow) {
       widgetToBeBuild = _fourFieldsInRow(context);
     }
+
     // Return the widget;
     return widgetToBeBuild;
-  } //end func
+  }
 
   /// Function for determining how the suffix should be shown
   _suffixWidget() {
     // Gesture widget
-    var gestureWidget = GestureDetector(
-        child: (widget.suffixForObscureText != null)
-            ? widget.suffixForObscureText!(_isPasswordShown)
-            : widget.suffix,
-        onTap: () => setState(
-            () => _isPasswordShown = (_isPasswordShown) ? false : true));
+    var gestureWidget = (widget.suffixForObscureText == null)
+        ? null
+        : GestureDetector(
+            child: widget.suffixForObscureText!(_isPasswordShown),
+            onTap: () => setState(
+                () => _isPasswordShown = (_isPasswordShown) ? false : true));
+
     // Return the widget
     return (widget.obscureText == false) ? widget.suffix : gestureWidget;
   }
 
   /// Round text field context
-  _roundField(BuildContext context) {
-    return Material(
-        elevation: this.widget.elevation,
-        color: this.widget.backgroundColor,
-        borderRadius: BorderRadius.circular(this.widget.borderRadiusValue),
-        child: Container(
-            // Width and height
-            width: this.widget.width,
-            height: this.widget.height,
-            // Text field
-            child: Column(
+  _roundField(BuildContext context) => Material(
+      elevation: this.widget.elevation,
+      color: this.widget.backgroundColor,
+      borderRadius: BorderRadius.circular(this.widget.borderRadiusValue),
+      child: Container(
+          // Width and height
+          width: this.widget.width,
+          height: this.widget.height,
+
+          // Text field
+          child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -285,20 +288,24 @@ class _CustomField extends State<CustomField> {
                         color: this.widget.textColor,
                         fontSize: 14 * this.widget.textScaleFactor,
                         fontWeight: this.widget.fontWeight),
+
                     // Text decoration
                     decoration: InputDecoration(
                         counterText: this.widget.counterText,
                         counterStyle: this.widget.counterStyle,
                         contentPadding: this.widget.innerPadding,
                         hintText: this.widget.hintText,
+
                         // Prefix and suffix this.widget
                         prefixIcon: this.widget.prefixIcon,
                         prefix: this.widget.prefix,
                         suffix: _suffixWidget(),
+
                         // Hint style
                         hintStyle: TextStyle(
                             color: this.widget.hintColor,
                             fontWeight: this.widget.fontWeight),
+
                         // Outline input border
                         border: this.widget.border ??
                             OutlineInputBorder(
@@ -306,9 +313,7 @@ class _CustomField extends State<CustomField> {
                                     this.widget.borderRadiusValue),
                                 borderSide: BorderSide(
                                     style: BorderStyle.none, width: 0)))),
-              ],
-            )));
-  }
+              ])));
 
   /// Round text field context
   _outlineField(BuildContext context) {
@@ -398,6 +403,7 @@ class _CustomField extends State<CustomField> {
         // Radius and Color
         width: widget.width,
         height: widget.height,
+
         // Text field
         child: TextField(
             scrollPhysics:
@@ -416,10 +422,12 @@ class _CustomField extends State<CustomField> {
             onChanged: (val) {
               // Limit into a single character
               if (val.length > 1) controller.text = val.substring(1, 2);
+
               // Go to next field
               _focusCharacter[currentFocusIndex].unfocus();
               FocusScope.of(context)
                   .requestFocus(_focusCharacter[nextFocusIndex]);
+
               // Set the combined string from each field
               setState(() {
                 String combined = '';
@@ -429,6 +437,7 @@ class _CustomField extends State<CustomField> {
             },
             style: TextStyle(
                 color: widget.textColor, fontSize: 14 * widget.textScaleFactor),
+
             // Text decoration
             decoration: InputDecoration(
                 labelText: widget.hintText,
@@ -436,6 +445,7 @@ class _CustomField extends State<CustomField> {
                 contentPadding: widget.innerPadding,
                 filled: true,
                 fillColor: widget.backgroundColor,
+
                 // Outline border by default
                 enabledBorder: OutlineInputBorder(
                     borderRadius:
@@ -443,6 +453,7 @@ class _CustomField extends State<CustomField> {
                     borderSide: BorderSide(
                         width: widget.outlineWeight,
                         color: widget.outlineColor)),
+
                 // Outline border on focus
                 focusedBorder: OutlineInputBorder(
                     borderRadius:

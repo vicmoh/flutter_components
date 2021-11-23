@@ -1,3 +1,7 @@
+## [0.0.50] - 11/23/2021
+
+- Fix the obscure text for the custom field.
+
 ## [0.0.49] - 10/11/2021
 
 - Upgrade to null-safety

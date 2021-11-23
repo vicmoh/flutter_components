@@ -9,6 +9,7 @@ import 'package:example/screen/smart_text_example.dart';
 import 'package:example/screen/animate_example.dart';
 import 'package:example/screen/extended_text_span_example.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:example/screen/input_field_example.dart';
 
 import 'screen/phone_field_example.dart';
 import 'package:flutter_components/flutter_components.dart';
@@ -58,6 +59,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       Icon(Icons.search, color: Theme.of(context).primaryColor),
                   backgroundColor: Colors.white,
                   onChanged: (val) {})),
+
+          _btnNav('Input field example', InputFieldExample()),
 
           _btnNav('Stack avatar example', StackAvatarsExample()),
 

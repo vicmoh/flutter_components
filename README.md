@@ -32,7 +32,7 @@ dependencies:
   flutter_components:
     git:
       url: git://github.com/vicmoh/flutter_components.git
-      ref: v0.0.49
+      ref: v0.0.50
 
   # Used for the main architect framework.
   provider_skeleton:
