@@ -107,7 +107,7 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
     );
     this._fadeController!.forward();
 
-    WidgetsBinding.instance!.addPostFrameCallback((_) => _openByDefault());
+    WidgetsBinding.instance.addPostFrameCallback((_) => _openByDefault());
   }
 
   /// When state is completed.
@@ -262,7 +262,6 @@ class _BackdropPanel extends StatefulWidget {
   final Color backgroundColor;
   final Color handleBarColor;
   final BorderRadius borderRadius;
-  final Key? handleBarKey;
   final bool isFrostedGlassBackground;
 
   /// The back drop panel.
@@ -272,7 +271,6 @@ class _BackdropPanel extends StatefulWidget {
     required this.child,
     BorderRadius? borderRadius,
     this.isFrostedGlassBackground = false,
-    this.handleBarKey,
     this.onVerticalDragUpdate,
     this.onVerticalDragEnd,
     this.handleBarContent,
@@ -332,7 +330,6 @@ class _BackdropPanelState extends State<_BackdropPanel> {
               onTap: widget.onTap,
               child: Container(
                   padding: EdgeInsets.only(top: 15),
-                  key: widget.handleBarKey,
                   alignment: AlignmentDirectional.centerStart,
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,

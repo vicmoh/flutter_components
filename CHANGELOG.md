@@ -1,3 +1,8 @@
+## [0.0.51] - 08/20/2022
+
+- Upgrade extended_text_field: ^10.1.1 package.
+- SDK dependency is now '>=2.12.0 <3.0.6'
+
 ## [0.0.50] - 11/23/2021
 
 - Fix the obscure text for the custom field.

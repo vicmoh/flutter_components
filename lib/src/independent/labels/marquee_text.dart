@@ -41,7 +41,7 @@ class MarqueeTextState extends State<MarqueeText>
   void initState() {
     super.initState();
     scrollController = new ScrollController();
-    WidgetsBinding.instance!.addPostFrameCallback((callback) {
+    WidgetsBinding.instance.addPostFrameCallback((callback) {
       startTimer();
     });
   }

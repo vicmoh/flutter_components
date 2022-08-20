@@ -92,7 +92,7 @@ class _FullScreenPopupViewState extends State<FullScreenPopupView> {
 
     // Call the page controller to make after the tree is done loading.
     // So that the page controller is attached to the page view.
-    WidgetsBinding.instance!.addPostFrameCallback((_) =>
+    WidgetsBinding.instance.addPostFrameCallback((_) =>
         _pageController?.animateToPage(1,
             duration: this.widget.animationDuration,
             curve: this.widget.animationCurve));

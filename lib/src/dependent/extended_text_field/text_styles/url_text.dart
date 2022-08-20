@@ -32,8 +32,8 @@ class UrlText extends SpecialText {
 
   @override
   InlineSpan finishText() {
-    TextStyle textStyle =
-        this.textStyle.copyWith(color: Colors.blue, fontSize: 16.0);
+    TextStyle? textStyle =
+        this.textStyle?.copyWith(color: Colors.blue, fontSize: 16.0);
     final String atText = toString();
     return showAtBackground
         ? BackgroundTextSpan(
