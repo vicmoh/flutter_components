@@ -1,6 +1,6 @@
 name: flutter_components
 description: Flutter package containing widgets and components.
-version: 0.0.51
+version: 0.0.52
 homepage: http://github.com/vicmoh/flutter_components.git
 
 environment:

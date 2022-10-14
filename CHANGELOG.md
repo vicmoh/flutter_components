@@ -1,3 +1,7 @@
+## [0.0.52] - 10/14/2022
+
+- Add `atTextStyle` field for `ExpandableText` widget.
+
 ## [0.0.51] - 08/20/2022
 
 - Upgrade extended_text_field: ^10.1.1 package.

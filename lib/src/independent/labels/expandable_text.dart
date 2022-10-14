@@ -13,6 +13,7 @@ class ExpandableText extends StatefulWidget {
   final Widget? seeMoreButton;
   final Function()? seeMorePressed;
   final TextAlign textAlign;
+  final TextStyle atTextStyle;
   final TextStyle hashtagStyle;
   final TextStyle hyperlinkStyle;
   final TextOverflow overflow;
@@ -35,6 +36,7 @@ class ExpandableText extends StatefulWidget {
     this.hashtagStyle = const TextStyle(color: Colors.lightBlue),
     this.hyperlinkStyle = const TextStyle(
         color: Colors.lightBlue, decoration: TextDecoration.underline),
+    this.atTextStyle = const TextStyle(color: Colors.lightBlue),
     this.overflow = TextOverflow.clip,
     this.textAlign = TextAlign.left,
     this.crossAxisAlignment = CrossAxisAlignment.start,
@@ -87,6 +89,7 @@ class _ExpandableTextState extends State<ExpandableText> {
   }
 
   _text() => SmartText(this.widget.text,
+      atTextStyle: this.widget.atTextStyle,
       hashtagStyle: this.widget.hashtagStyle,
       hyperlinkStyle: this.widget.hyperlinkStyle,
       onPressed: this.widget.onClickableText,
