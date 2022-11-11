@@ -220,8 +220,7 @@ class _CustomDialogState extends State<CustomDialog> {
                                 Padding(
                                     padding: const EdgeInsets.only(top: 15),
                                     child: Text('Please wait...',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold))),
+                                        style: widget.bodyTextStyle)),
                               ]),
                         ]))))));
   }
