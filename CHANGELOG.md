@@ -1,3 +1,8 @@
+## [0.0.53] - 11/10/2022
+
+- Add ability to edit the text style
+  of the popup loader.
+
 ## [0.0.52] - 10/14/2022
 
 - Add `atTextStyle` field for `ExpandableText` widget.

@@ -76,6 +76,8 @@ class CustomDialog extends StatefulWidget {
     this.backgroundColor = Colors.white,
     this.isDoubleTapToCancel = true,
     this.constraints,
+    TextStyle? titleStyle,
+    TextStyle? bodyTextStyle,
   })  : this._type = _DialogType.loader,
         this.title = '',
         this.buttonHorizontalAlignment = MainAxisAlignment.center,
@@ -88,8 +90,8 @@ class CustomDialog extends StatefulWidget {
         this.footerChild = null,
         this.isCenterTitle = true,
         this.isCenterBodyText = false,
-        this.titleStyle = _defaultTitleStyle(),
-        this.bodyTextStyle = _defaultBodyTextStyle();
+        this.titleStyle = titleStyle ?? _defaultTitleStyle(),
+        this.bodyTextStyle = bodyTextStyle ?? _defaultBodyTextStyle();
 
   @override
   State<StatefulWidget> createState() => _CustomDialogState();
