@@ -5,7 +5,7 @@ all: analyze export sure clean
 
 # Git add, commit, and push.
 git: all
-	flutter format ./lib/
+	dart format ./lib/
 	git add -A
 	git commit -m '$(m)'
 	git push
