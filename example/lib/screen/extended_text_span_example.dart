@@ -8,7 +8,7 @@ class ExtendedTextSpanExample extends StatefulWidget {
 }
 
 class _ExtendedTextSpanExampleState extends State<ExtendedTextSpanExample> {
-  TextEditingController _emailControl;
+  late TextEditingController _emailControl;
 
   @override
   void initState() {
@@ -18,7 +18,7 @@ class _ExtendedTextSpanExampleState extends State<ExtendedTextSpanExample> {
 
   @override
   void dispose() {
-    _emailControl?.dispose();
+    _emailControl.dispose();
     super.dispose();
   }
 

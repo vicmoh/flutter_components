@@ -3,7 +3,7 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:flutter_components/flutter_components.dart';
 
 class ChatBubbleExample extends StatefulWidget {
-  ChatBubbleExample({Key key}) : super(key: key);
+  ChatBubbleExample({super.key});
 
   @override
   _ChatBubbleExampleState createState() => _ChatBubbleExampleState();
@@ -127,16 +127,15 @@ class _ChatBubbleExampleState extends State<ChatBubbleExample> {
                     .replaceAll(RegExp('\n\t'), ''),
         backgroundColor: Color.fromRGBO(230, 230, 240, 1),
         backgroundGradient: LinearGradient(colors: [
-          Colors.green[200],
-          Colors.yellow[200],
+          Colors.green,
+          Colors.yellow,
         ]),
         replyBackgroundColor: replyColor,
         isReplyHeaderOutside: isReplyHeaderOutside,
         onReplyTap: () => toast('Reply is tapped.'),
         replyMessage: replyMessage,
         replyHeader: replyHeader,
-        headerStyle: TextStyle(fontWeight: FontWeight.bold,
-            color: Colors.pink),
+        headerStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.pink),
         textStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
         borderRadius: isRightSide
             ? BorderRadius.only(

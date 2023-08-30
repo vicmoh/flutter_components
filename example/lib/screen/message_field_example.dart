@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_components/flutter_components.dart';
 
 class MessageFieldExample extends StatefulWidget {
-  MessageFieldExample({Key key}) : super(key: key);
+  MessageFieldExample({super.key});
 
   @override
   _MessageFieldExampleState createState() => _MessageFieldExampleState();

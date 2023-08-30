@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_components/flutter_components.dart';
 
 class PhoneFieldExample extends StatefulWidget {
-  PhoneFieldExample({Key key}) : super(key: key);
+  PhoneFieldExample({super.key});
 
   @override
   _PhoneFieldExampleState createState() => _PhoneFieldExampleState();

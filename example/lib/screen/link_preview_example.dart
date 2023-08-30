@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_components/flutter_components.dart';
 
 class LinkPreviewExample extends StatefulWidget {
-  LinkPreviewExample({Key key}) : super(key: key);
+  LinkPreviewExample({super.key});
 
   @override
   LinkPreviewExampleState createState() => LinkPreviewExampleState();

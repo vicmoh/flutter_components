@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_components/flutter_components.dart';
 
 class StackAvatarsExample extends StatefulWidget {
-  StackAvatarsExample({Key key}) : super(key: key);
+  StackAvatarsExample({super.key});
 
   @override
   _StackAvatarsExampleState createState() => _StackAvatarsExampleState();

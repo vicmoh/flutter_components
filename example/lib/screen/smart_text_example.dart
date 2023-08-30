@@ -3,7 +3,7 @@ import 'package:flutter_components/flutter_components.dart';
 import 'package:dart_util/dart_util.dart';
 
 class SmartTextExample extends StatefulWidget {
-  SmartTextExample({Key key}) : super(key: key);
+  SmartTextExample({super.key});
 
   @override
   _SmartTextExampleState createState() => _SmartTextExampleState();
@@ -19,8 +19,10 @@ class _SmartTextExampleState extends State<SmartTextExample> {
         body: ListView(children: <Widget>[
           Padding(
               padding: const EdgeInsets.all(8.0),
-              child: SmartText(('Hello world this is #tag and url https://google.com'
-                    + '\n\n\nlol my name is...').removeDuplicateWhiteSpaces(),
+              child: SmartText(
+                  ('Hello world this is #tag and url https://google.com' +
+                          '\n\n\nlol my name is...')
+                      .removeDuplicateWhiteSpaces(),
                   onPressed: (val, clickType) =>
                       Log(this, 'val = $val, clickType = $clickType'),
                   hyperlinkStyle: TextStyle(
@@ -115,7 +117,7 @@ class _SmartTextExampleState extends State<SmartTextExample> {
                     setState(() =>
                         _isExpanded ? _isExpanded = false : _isExpanded = true);
                   },
-                  maxLines: _isExpanded ? null : 3,
+                  maxLines: _isExpanded ? 1 : 3,
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 14 * 1.5,

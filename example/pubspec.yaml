@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.17.0"
 
 dependencies:
   flutter:
@@ -22,13 +22,13 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
+  cupertino_icons: ^1.0.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  overlay_support: ^1.2.0-nullsafety.0
+  overlay_support: ^2.1.0
 
   flutter_components:
     path: ../../flutter_components/
@@ -37,13 +37,13 @@ dev_dependencies:
   provider_skeleton:
     git:
       url: https://github.com/vicmoh/provider_skeleton
-      ref: v0.0.17
+      ref: v0.0.26
 
   # Custom dart util
   dart_util:
     git:
       url: https://github.com/vicmoh/dart_util
-      ref: v0.0.12
+      ref: v0.0.14
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

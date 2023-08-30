@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_components/flutter_components.dart';
 
 class ButtonExamples extends StatefulWidget {
-  ButtonExamples({Key key}) : super(key: key);
+  ButtonExamples({super.key});
 
   @override
   _ButtonExamplesState createState() => _ButtonExamplesState();
