@@ -16,8 +16,8 @@ class MarqueeText extends StatefulWidget {
   MarqueeText({
     required this.text,
     this.textStyle,
-    this.scrollAxis: Axis.horizontal,
-    this.ratioOfBlankToScreen: 0.25,
+    this.scrollAxis = Axis.horizontal,
+    this.ratioOfBlankToScreen = 0.25,
   });
 
   @override

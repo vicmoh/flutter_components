@@ -36,13 +36,13 @@ dev_dependencies:
   # Used for the main architect framework.
   provider_skeleton:
     git:
-      url: git://github.com/vicmoh/provider_skeleton.git
+      url: https://github.com/vicmoh/provider_skeleton
       ref: v0.0.17
 
   # Custom dart util
   dart_util:
     git:
-      url: git://github.com/vicmoh/dart_util.git
+      url: https://github.com/vicmoh/dart_util
       ref: v0.0.12
 
 # For information on the generic Dart part of this file, see the
