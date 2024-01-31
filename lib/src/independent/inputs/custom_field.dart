@@ -45,6 +45,8 @@ class CustomField extends StatefulWidget {
   final bool? enabled;
   final Widget Function(bool isPassShown)? suffixForObscureText;
 
+  final TextCapitalization textCapitalization;
+
   /// A round field widget. Usually used on top of a list view on
   /// home screen content. [onChanged] function call back when
   /// user type on the field.
@@ -84,6 +86,7 @@ class CustomField extends StatefulWidget {
     this.counterStyle,
     this.textInputAction = TextInputAction.done,
     this.onSubmitted,
+    this.textCapitalization = TextCapitalization.none,
   })  : this.type = _Type.round,
         // Outline
         this.outlineColor = Colors.transparent,
@@ -132,6 +135,7 @@ class CustomField extends StatefulWidget {
     this.counterStyle,
     this.textInputAction = TextInputAction.done,
     this.onSubmitted,
+    this.textCapitalization = TextCapitalization.none,
   })  : this.type = _Type.outline,
         this.elevation = 0;
 
@@ -164,6 +168,7 @@ class CustomField extends StatefulWidget {
     this.maxLines = 1,
     this.minLines = 1,
     this.fontWeight = FontWeight.w500,
+    this.textCapitalization = TextCapitalization.none,
   })  : this.type = _Type.fourFieldsInRow,
         this.border = null,
         this.enabled = null,
@@ -266,6 +271,7 @@ class _CustomField extends State<CustomField> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 TextField(
+                    textCapitalization: this.widget.textCapitalization,
                     textInputAction: this.widget.textInputAction,
                     onSubmitted: this.widget.onSubmitted ?? (_) {},
                     enabled: this.widget.enabled,
@@ -330,6 +336,7 @@ class _CustomField extends State<CustomField> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 TextField(
+                    textCapitalization: this.widget.textCapitalization,
                     textInputAction: this.widget.textInputAction,
                     onSubmitted: this.widget.onSubmitted ?? (_) {},
                     enabled: this.widget.enabled,
@@ -406,6 +413,7 @@ class _CustomField extends State<CustomField> {
 
         // Text field
         child: TextField(
+            textCapitalization: widget.textCapitalization,
             scrollPhysics:
                 AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
             textInputAction:

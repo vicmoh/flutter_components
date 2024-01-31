@@ -1,3 +1,7 @@
+## [0.0.56] - 01/31/2024
+
+- Add text capitalization on input field.
+
 ## [0.0.53] - 11/10/2022
 
 - Add ability to edit the text style
