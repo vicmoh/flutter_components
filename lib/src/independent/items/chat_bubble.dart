@@ -326,7 +326,8 @@ class ChatBubble<T> extends StatelessWidget {
                 overflow: this.maxMessageLines == null
                     ? TextOverflow.visible
                     : TextOverflow.ellipsis,
-                textScaleFactor: this.messageTextScaleSize,
+                // textScaleFactor: this.messageTextScaleSize,
+                textScaler: TextScaler.linear(this.messageTextScaleSize),
                 maxLines: this.maxMessageLines,
                 text: TextSpan(
                     style: this.headerStyle,
@@ -372,7 +373,8 @@ class ChatBubble<T> extends StatelessWidget {
           overflow: this.maxMessageLines == null
               ? TextOverflow.visible
               : TextOverflow.ellipsis,
-          textScaleFactor: this.headerTextScaleSize,
+          // textScaleFactor: this.headerTextScaleSize,
+          textScaler: TextScaler.linear(this.headerTextScaleSize),
           style: this.headerStyle));
 
   /// Build the widget

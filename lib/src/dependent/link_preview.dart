@@ -164,7 +164,8 @@ class LinkPreview extends StatelessWidget {
       : _horPad(Padding(
           padding: titlePadding,
           child: Text(title!,
-              textScaleFactor: 1,
+              // textScaleFactor: 1,
+              textScaler: TextScaler.linear(1),
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
               style: this.titleStyle ??
@@ -176,7 +177,8 @@ class LinkPreview extends StatelessWidget {
       : _horPad(Padding(
           padding: descriptionPadding,
           child: Text(description!,
-              textScaleFactor: 1,
+              // textScaleFactor: 1,
+              textScaler: TextScaler.linear(1),
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
               style: this.descriptionStyle ??
@@ -187,7 +189,9 @@ class LinkPreview extends StatelessWidget {
       : _horPad(Padding(
           padding: linkPadding,
           child: Text(_stripUrl(domain!),
-              textScaleFactor: 1,
+              // textScaleFactor: 1,
+
+              textScaler: TextScaler.linear(1),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
               style: this.linkStyle ??

@@ -95,11 +95,13 @@ class CommentTile extends StatelessWidget {
         children: <Widget>[
           // The time
           Text(this.bottomRightHead,
-              textScaleFactor: 0.8,
+              // textScaleFactor: 0.8,
+              textScaler: TextScaler.linear(0.8),
               style: TextStyle(color: this.bottomRightTextColor)),
           // The location
           Text(this.bottomRightSub,
-              textScaleFactor: 0.8,
+              // textScaleFactor: 0.8,
+              textScaler: TextScaler.linear(0.8),
               style: TextStyle(color: this.bottomRightTextColor)),
         ]);
   }

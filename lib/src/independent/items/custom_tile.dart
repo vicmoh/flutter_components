@@ -320,7 +320,8 @@ class CustomTile extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.left,
                 maxLines: this.headMaxLines,
-                textScaleFactor: this.headTextScale,
+                // textScaleFactor: this.headTextScale,
+                textScaler: TextScaler.linear(this.headTextScale),
                 style: TextStyle(
                     decoration: (this.isHeadingUnderline)
                         ? TextDecoration.underline
@@ -359,7 +360,8 @@ class CustomTile extends StatelessWidget {
             softWrap: true,
             overflow: TextOverflow.ellipsis,
             maxLines: this.subMaxLines,
-            textScaleFactor: this.subTextScale,
+            // textScaleFactor: this.subTextScale,
+            textScaler: TextScaler.linear(this.subTextScale),
             style: TextStyle(
                 decoration: (this.isSubHeadingUnderline)
                     ? TextDecoration.underline
@@ -428,12 +430,14 @@ class CustomTile extends StatelessWidget {
         children: <Widget>[
           // Month
           Text(this.monthForDisplayDate ?? '',
-              textScaleFactor: 0.8,
+              // textScaleFactor: 0.8,
+              textScaler: TextScaler.linear(0.8),
               style:
                   TextStyle(color: Colors.blue, fontWeight: FontWeight.bold)),
           // Date
           Text(this.dayForDisplayDate ?? '',
-              textScaleFactor: 1.5,
+              // textScaleFactor: 1.5,
+              textScaler: TextScaler.linear(1.5),
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         ],
@@ -455,7 +459,8 @@ class CustomTile extends StatelessWidget {
               child: Text(this.heading,
                   softWrap: true,
                   overflow: TextOverflow.ellipsis,
-                  textScaleFactor: this.headTextScale,
+                  // textScaleFactor: this.headTextScale,
+                  textScaler: TextScaler.linear(this.headTextScale),
                   maxLines: this.headMaxLines,
                   style: TextStyle(
                       decoration: (this.isHeadingUnderline)
@@ -471,7 +476,8 @@ class CustomTile extends StatelessWidget {
           Container(
               width: this.textWidth,
               child: Text(this.subHeading!,
-                  textScaleFactor: this.subTextScale,
+                  // textScaleFactor: this.subTextScale,
+                  textScaler: TextScaler.linear(this.subTextScale),
                   style: TextStyle(
                       decoration: (this.isSubHeadingUnderline)
                           ? TextDecoration.underline
@@ -568,7 +574,9 @@ class CustomTile extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                     softWrap: true,
                                     maxLines: this.headMaxLines,
-                                    textScaleFactor: this.headTextScale,
+                                    // textScaleFactor: this.headTextScale,
+                                    textScaler:
+                                        TextScaler.linear(this.headTextScale),
                                     style: TextStyle(
                                         decoration: (this.isHeadingUnderline)
                                             ? TextDecoration.underline
@@ -589,20 +597,24 @@ class CustomTile extends StatelessWidget {
                                 width: this.textWidth,
                                 child: Material(
                                     color: Colors.transparent,
-                                    child: Text(this.subHeading!,
-                                        softWrap: true,
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: this.subMaxLines,
-                                        style: TextStyle(
-                                            decoration:
-                                                (this.isSubHeadingUnderline)
-                                                    ? TextDecoration.underline
-                                                    : TextDecoration.none,
-                                            color: this.subHeadingColor,
-                                            fontWeight: (this.subIsBold)
-                                                ? FontWeight.bold
-                                                : FontWeight.normal),
-                                        textScaleFactor: this.subTextScale))),
+                                    child: Text(
+                                      this.subHeading!,
+                                      softWrap: true,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: this.subMaxLines,
+                                      style: TextStyle(
+                                          decoration:
+                                              (this.isSubHeadingUnderline)
+                                                  ? TextDecoration.underline
+                                                  : TextDecoration.none,
+                                          color: this.subHeadingColor,
+                                          fontWeight: (this.subIsBold)
+                                              ? FontWeight.bold
+                                              : FontWeight.normal),
+                                      // textScaleFactor: this.subTextScale,
+                                      textScaler:
+                                          TextScaler.linear(this.subTextScale),
+                                    ))),
                       ])),
             ]));
 

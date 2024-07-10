@@ -135,7 +135,8 @@ class ChatBatcher<T extends Model> extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 15),
                   child: Text(
                       items[index].timestamp!.toDynamicTime(isTwelveHour: true),
-                      textScaleFactor: 0.8,
+                      // textScaleFactor: 0.8,
+                      textScaler: TextScaler.linear(0.8),
                       style: TextStyle(color: Colors.grey)))
           : Container(),
 
